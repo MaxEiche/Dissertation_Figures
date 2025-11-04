@@ -1,0 +1,41 @@
+# ===== FIGURE & SAVE =====
+figure.dpi: 150
+savefig.dpi: 300
+savefig.bbox: tight
+savefig.pad_inches: 0.02
+savefig.transparent: False
+
+# ===== FONTS =====
+font.family: DejaVu Sans
+font.size: 9
+axes.titlesize: 10.5
+axes.labelsize: 9.5
+legend.fontsize: 8.5
+xtick.labelsize: 8
+ytick.labelsize: 8
+
+# ===== LINES & MARKERS =====
+lines.linewidth: 1.6
+lines.markersize: 5.5
+errorbar.capsize: 3
+
+# ===== AXES & GRID =====
+axes.grid: True
+grid.linestyle: -
+grid.linewidth: 0.6
+grid.alpha: 0.25
+axes.axisbelow: True
+
+# ===== LEGEND =====
+legend.frameon: False
+legend.handlelength: 2
+legend.handletextpad: 0.6
+legend.borderaxespad: 0.6
+
+# ===== TICKS =====
+xtick.direction: out
+ytick.direction: out
+xtick.major.size: 3.0
+ytick.major.size: 3.0
+xtick.minor.visible: False
+ytick.minor.visible: False

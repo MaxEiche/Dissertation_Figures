@@ -7,7 +7,50 @@ from lifelines.statistics import logrank_test
 import seaborn as sns
 from scipy.stats import mannwhitneyu
 from scipy.stats import pearsonr
-import sys
+from pathlib import Path
+
+from scipy.stats import gaussian_kde
+
+def add_kde_contours(ax, x, y, probs=(0.1, 0.2, 0.3, 0.4), gridsize=300, color='k',
+                     alpha=0.9, linewidths=(2.0, 1.5, 1.0), bw_method=0.7, pad=0.10):
+    import numpy as np
+    x = np.asarray(x); y = np.asarray(y)
+    m = np.isfinite(x) & np.isfinite(y)
+    if m.sum() < 5:
+        return
+
+    xm, xM = np.nanmin(x[m]), np.nanmax(x[m])
+    ym, yM = np.nanmin(y[m]), np.nanmax(y[m])
+    xr = xM - xm if xM > xm else 1.0
+    yr = yM - ym if yM > ym else 1.0
+    xm -= pad * xr; xM += pad * xr
+    ym -= pad * yr; yM += pad * yr
+
+    xx = np.linspace(xm, xM, gridsize)
+    yy = np.linspace(ym, yM, gridsize)
+    X, Y = np.meshgrid(xx, yy)
+
+    kde = gaussian_kde(np.vstack([x[m], y[m]]), bw_method=bw_method)
+    Z = kde(np.vstack([X.ravel(), Y.ravel()])).reshape(X.shape)
+
+    z = Z.ravel()
+    if not np.isfinite(z).any() or np.nanmin(Z) == np.nanmax(Z):
+        return
+
+    z_sorted = np.sort(z)[::-1]
+    cdf = np.cumsum(z_sorted); cdf /= cdf[-1]
+    levels = []
+    for p in sorted(probs):
+        idx = np.searchsorted(cdf, p)
+        thr = z_sorted[idx] if idx < len(z_sorted) else z_sorted[-1]
+        levels.append(float(thr))
+
+    levels = np.sort(np.unique(levels))
+    if levels.size == 0 or not np.isfinite(levels).all():
+        return
+
+    ax.contour(X, Y, Z, levels=levels, colors=color, linewidths=linewidths, alpha=alpha)
+
 
 def extract_and_normalize(data_df):
     # Initialize a dictionary to hold the extracted data
@@ -333,72 +376,80 @@ def plot_treatment_violinplots(df1, df2):
 
     # Create box plots of the number of days for each sample, separated by treatment
     plt.figure(figsize=(12, 8))
-    sns.violinplot(x='Sample', y='normalized_Day_x', hue='treatment', data=sorted_df, order=sorted_df['Sample'].unique())
-    plt.title('Violin Plot of Cumulative Treatment Times for All Treatment Groups')
-    plt.ylabel('Fraction of days with treatment')
-    plt.ylim(0.35, 1.1)
-    plt.show()
 
-def plot_scatterplot(df1, df2):
+    # ---- Absolute font sizes (tweak here) ----
+    TITLE_FS = 30
+    LABEL_FS = 18
+    TICK_FS = 18
 
-    df1 = df1.copy()
-    df2 = df2.copy()
+    # ---- Long→short label mapping for x-ticks ----
+    name_map = {
+        'Intermittent': 'IT',
+        'Adaptive Therapy 100': 'AT 100',
+        'Adaptive Therapy 80': 'AT 80',
+        'Adaptive Therapy 50': 'AT 50',
+        'Maximum-tolerable-dose': 'CT',
+    }
 
-    # Add a prefix to the 'Replicate' column in each dataframe
-    df1['Replicate'] = df1['Replicate'].apply(lambda x: '1' + x)
-    df2['Replicate'] = df2['Replicate'].apply(lambda x: '2' + x)
+    # ---- Colors keyed by the LONG names in your data ----
+    treatment_colors = {
+        'Intermittent': '#800080',  # Purple
+        'Adaptive Therapy 100': '#1f77b4',  # Blue
+        'Adaptive Therapy 80': '#ff7f0e',  # Orange
+        'Adaptive Therapy 50': '#d62728',  # Red
+        'Maximum-tolerable-dose': '#808080',  # Gray
+    }
 
-    # Combine the two dataframes
-    combined_df = pd.concat([df1, df2])
+    # Desired order (LONG names), but include only those present
+    desired_long = [
+        'Intermittent',
+        'Adaptive Therapy 100',
+        'Adaptive Therapy 80',
+        'Adaptive Therapy 50',
+        'Maximum-tolerable-dose',
+    ]
+    present = sorted_df['Sample'].unique().tolist()
+    order = [g for g in desired_long if g in present]
 
-    # Filter out rows that contain a NaN value
-    combined_df = combined_df.dropna()
+    # ---- Violin with inner box ----
+    sns.violinplot(
+        x='Sample',
+        y='normalized_Day_x',
+        data=sorted_df,
+        order=order,
+        palette=treatment_colors,  # dict palette keyed by long names
+        cut=4,
+        inner='box',  # ← puts a boxplot inside the violin
+        linewidth=1.0
+    )
 
-    # Filter out replicates that have a 0, 4 or 5 in their 'treatment' column at any point
-    replicates_to_exclude = combined_df[combined_df['treatment'].isin([4.0, 5.0, 0.0])]['Replicate'].unique()
-    filtered_df = combined_df[~combined_df['Replicate'].isin(replicates_to_exclude)]
+    # ---- Labels, title, limits, ticks ----
+    plt.title('Cumulative Treatment', fontsize=TITLE_FS)
+    plt.xlabel('', fontsize=LABEL_FS)  # no x-axis title
+    plt.ylabel('Fraction of Days with Treatment', fontsize=LABEL_FS)
+    plt.ylim(0, 1.1)
 
-    # Filter out rows where the 'treatment' column is 3 or 0
-    filtered_df = filtered_df[~filtered_df['treatment'].isin([3.0, 0.0])]
+    # Replace long x-tick labels with short ones (IT, AT100, ...)
+    ax = plt.gca()
+    short_labels = [name_map.get(txt.get_text(), txt.get_text()) for txt in ax.get_xticklabels()]
+    ax.set_xticklabels(short_labels, fontsize=TICK_FS)
+    plt.yticks(fontsize=TICK_FS)
 
-    # Group by 'Replicate' and count the number of days where 'treatment' is 1.0
-    treatment_days_df = filtered_df[filtered_df['treatment'] == 1.0].groupby('Replicate')['Day'].count().reset_index()
+    # ---- Thicker axes (spines) ----
+    for spine in ['bottom', 'left', 'top', 'right']:
+        ax.spines[spine].set_linewidth(1.5)
 
-    # Find the maximum day for each replicate
-    max_day_df = filtered_df.groupby('Replicate')['Day'].max().reset_index()
+    # ---- No legend ----
+    leg = ax.get_legend()
+    if leg is not None:
+        leg.remove()
 
-    # Merge the two dataframes
-    merged_df = pd.merge(treatment_days_df, max_day_df, on='Replicate')
+    # --- Save as PDF next to Excel source file ---
+    output_pdf_path = Path(file_path).parent / "CumulativeTreatment.pdf"
+    plt.savefig(output_pdf_path, dpi=300, bbox_inches='tight', transparent=True)
+    print(f"[Saved] {output_pdf_path}")
 
-    # Group the combined_df by 'Replicate' and get the most frequent sample type for each replicate
-    sample_type_df = combined_df.groupby('Replicate')['Sample'].agg(lambda x: x.mode()[0]).reset_index()
-
-    # Merge this dataframe with the merged_df on the 'Replicate' column
-    merged_df = pd.merge(merged_df, sample_type_df, on='Replicate')
-
-    # Create a new column 'normalized_Day_x' in the dataframe
-    merged_df['normalized_Day_x'] = (merged_df['Day_x'] - 1) / merged_df['Day_y']
-
-    # Create a dictionary that maps each unique sample to a unique number
-    sample_to_number = {sample: number for number, sample in enumerate(merged_df['Sample'].unique())}
-
-    # Create a new column 'color' in the dataframe that contains the mapped values
-    merged_df['color'] = merged_df['Sample'].map(sample_to_number)
-
-    # Create a scatter plot with the maximum day on the x-axis and the cumulative number of treatment days on the y-axis
-    plt.figure(figsize=(12, 8))
-    cmap = plt.get_cmap('tab10', len(sample_to_number))
-    # Add jitter to the x and y coordinates
-    jittered_x = merged_df['Day_y'] + np.random.normal(0, 0.2, size=len(merged_df))
-    jittered_y = merged_df['normalized_Day_x'] + np.random.normal(0, 0.02, size=len(merged_df))
-    scatter = plt.scatter(jittered_x, jittered_y, c=merged_df['color'], cmap=cmap, s=15)
-    patches = [mpatches.Patch(color=scatter.cmap(scatter.norm(sample_to_number[sample])), label=sample) for sample in sample_to_number]
-    plt.title('Scatter Plot of Treatment Failure Day vs Fraction of days with treatment for each replicate')
-    plt.xlabel('Treatment Failure Day')
-    plt.ylabel('Fraction of days with treatment')
-    plt.legend(handles=patches, loc='lower left')
-    plt.ylim(0.4, 1.1)
-    plt.xlim([0, None])
+    plt.tight_layout()
     plt.show()
 
 def correlate_red_growth(df1, df2):
@@ -442,6 +493,10 @@ def correlate_red_growth(df1, df2):
     # Map the treatment values to the new labels
     df['treatment'] = df['treatment'].map({1.0: 'Treatment the day before', 2.0: 'No treatment the day before'})
 
+    # Keep only the two categories we plot and compute percent change
+    df = df[df['treatment'].isin(['Treatment the day before', 'No treatment the day before'])].copy()
+    df['relative_change_pct'] = (df['relative_change'] - 1.0) * 100.0
+
     # Calculate the medians
     median_treatment = df[df['treatment'] == 'Treatment the day before']['relative_change'].median()
     median_no_treatment = df[df['treatment'] == 'No treatment the day before']['relative_change'].median()
@@ -454,12 +509,60 @@ def correlate_red_growth(df1, df2):
     print(f"Median of 'relative_change' for 'Treatment the day before': {median_treatment_percent}%")
     print(f"Median of 'relative_change' for 'No treatment the day before': {median_no_treatment_percent}%")
 
-    # Create box plots for each treatment status in one plot
+    # --- BOX PLOT (percent), swapped order, no dots, cosmetics ---
     plt.figure(figsize=(12, 6))
-    sns.boxplot(x='treatment', y='relative_change', data=df[df['treatment'].isin(['Treatment the day before', 'No treatment the day before'])])
-    plt.title('Relative Growth rate of red intensity in a day')
-    plt.ylabel('Relative Change')
-    plt.ylim([0.75, 1.25])  # Set y-axis limits
+
+    # order: LEFT = No treatment (gray), RIGHT = Treatment (orange)
+    order = ['No treatment the day before', 'Treatment the day before']
+    palette = ['#808080', '#ff7f0e']  # gray, orange
+
+    # absolute font sizes (tweak here)
+    TITLE_FS = 18
+    YLABEL_FS = 14
+    TICK_FS = 12
+    SIG_FS = 12
+    SPINE_LW = 2.0
+    BOX_LW = 1.5
+    BRACKET_LW = 1.8
+
+    sns.boxplot(
+        x='treatment',
+        y='relative_change_pct',
+        data=df,
+        order=order,
+        palette=palette,
+        width=0.6,
+        showfliers=False,  # ← remove the little dots above the boxes
+        linewidth=BOX_LW
+    )
+
+    # Labels / title / limits
+    plt.title('Treatment Effect on Resistant Growth', fontsize=TITLE_FS)
+    plt.xlabel('')  # remove x-axis title
+    plt.ylabel('Relative Resistant Growth [%]', fontsize=YLABEL_FS)
+    plt.ylim(-30, 70)  # y from -30% to +60%
+
+    # Ticks fontsize
+    plt.xticks(fontsize=TICK_FS)
+    plt.yticks(fontsize=TICK_FS)
+
+    # Significance annotation (given stats)
+    ax = plt.gca()
+    y = 56  # baseline for bracket near the top of the axis
+    h = 2  # bracket height
+    ax.plot([0, 0, 1, 1], [y, y + h, y + h, y], color='black', linewidth=BRACKET_LW)
+    ax.text(0.5, y + h + 1,
+            'Mann–Whitney U = 4,124,084; p = 2.38×10⁻⁶⁴',
+            ha='center', va='bottom', fontsize=SIG_FS)
+
+    # Thicken axes (spines)
+    for spine in ['bottom', 'left', 'top', 'right']:
+        ax.spines[spine].set_linewidth(SPINE_LW)
+
+    # --- Save as PDF ---
+    output_pdf_path = Path(file_path).parent / "TreatmentEffect_on_ResistantGrowth.pdf"
+    plt.savefig(output_pdf_path, dpi=300, bbox_inches='tight', transparent=True)
+    print(f"[Saved] {output_pdf_path}")
 
     plt.tight_layout()
     plt.show()
@@ -475,52 +578,104 @@ def correlate_red_growth(df1, df2):
     else:
         print('Both growth distributions are significantly different')
 
-    # Create a scatter plot with 'cumulative_treatment' on the x-axis and 'relative_change' on the y-axis
-    plt.figure(figsize=(12, 6))
+    # --- Topography-style plot to match Figure 6 ("Global Population Competition under AT") ---
+    plt.figure(figsize=(8, 6))  # same as Fig. 6
 
-    # Add jittering to the data
-    jittered_cumulative_treatment = df['cumulative_treatment'] + np.random.normal(0, 1, size=len(df))
-    jittered_relative_change = df['relative_change'] + np.random.normal(0, 0.1, size=len(df))
+    # Use just these five strategies (as requested)
+    # --- Build replicate → treatment (short) map for both plates from your sample_groups ---
 
-    scatter = plt.scatter(jittered_cumulative_treatment, jittered_relative_change, c=df['Day'], cmap='viridis', s=5)
-    plt.colorbar(scatter, label='Day')
-    plt.xlabel('Length of consecutive treatment before the day of measurement')
-    plt.ylabel('Relative Growth rate of red intensity in a day')
-    plt.title('Relative Change vs Cumulative Treatment')
-    plt.ylim([0.6, 2])  # Set y-axis limits
+    # Long → short labels
+    long_to_short = {
+        'No treatment': 'NT',
+        'Maximum-tolerable-dose': 'MTD',
+        'Adaptive Therapy 100': 'AT100',
+        'Adaptive Therapy 80': 'AT80',
+        'Adaptive Therapy 50': 'AT50',
+    }
 
-    # Fit a line to the jittered data
-    m, b = np.polyfit(jittered_cumulative_treatment, jittered_relative_change, 1)
-    plt.plot(jittered_cumulative_treatment, m * jittered_cumulative_treatment + b, color='red')
+    # Only keep these groups in this plot
+    selected_longs = set(long_to_short.keys())
+    selected_shorts = set(long_to_short[g] for g in selected_longs)
 
-    # Calculate the Pearson correlation coefficient
-    corr, _ = pearsonr(jittered_cumulative_treatment, jittered_relative_change)
-    print('Pearsons correlation: %.3f' % corr)
+    # Build mapping for both plates: '1A1', '2A1', ...
+    rep_to_short = {}
+    for plate_prefix in ['1', '2']:
+        for long_name, wells in sample_groups.items():
+            # skip groups we don't want here
+            if long_name not in selected_longs:
+                continue
+            short = long_to_short[long_name]
+            for well in wells:
+                rep_to_short[plate_prefix + well] = short
 
-    plt.show()
+    # Assign treatment label per replicate and keep only desired strategies
+    df['Treatment'] = df['Replicate'].map(rep_to_short)
+    df = df[df['Treatment'].isin(selected_shorts)].copy()
 
-    # Create a scatter plot with 'g_normalized' on the x-axis and 'relative_change' on the y-axis
-    plt.figure(figsize=(12, 6))
+    # Colors for these five strategies
+    treatment_colors = {
+        'AT100': '#1f77b4',  # Blue
+        'AT80': '#ff7f0e',  # Orange
+        'AT50': '#d62728',  # Red
+        'NT': '#2ca02c',  # Green
+        'MTD': '#808080',  # Gray
+    }
 
-    # Add jittering to the data
-    jittered_t_normalized = df['g_normalized'] + np.random.normal(0, 0.1, size=len(df))
-    jittered_relative_change = df['relative_change'] + np.random.normal(0, 0.1, size=len(df))
+    ax = plt.gca()
 
-    scatter = plt.scatter(jittered_t_normalized, jittered_relative_change, c=df['Day'], cmap='viridis', s=5)
-    plt.colorbar(scatter, label='Day')
-    plt.xlabel('g_normalized')
-    plt.ylabel('Relative Growth rate of red intensity in a day')
-    plt.title('Relative Change vs g_normalized')
-    plt.ylim([0.6, 2])  # Set y-axis limits
+    # Loop per treatment, scatter cloud + KDE contours + mode marker
+    for t in ['NT', 'MTD', 'AT100', 'AT80', 'AT50']:  # fixed legend order
+        sel = (df['Treatment'] == t)
+        if sel.sum() < 3:
+            continue
 
-    # Fit a line to the jittered data
-    m, b = np.polyfit(jittered_t_normalized, jittered_relative_change, 1)
-    plt.plot(jittered_t_normalized, m * jittered_t_normalized + b, color='red')
+        xg = df.loc[sel, 'g_normalized'].to_numpy()
+        yg = (df.loc[sel, 'relative_change'].to_numpy() - 1.0) * 100.0
+        color = treatment_colors.get(t, 'k')
 
-    # Calculate the Pearson correlation coefficient
-    corr, _ = pearsonr(jittered_t_normalized, jittered_relative_change)
-    print('Pearsons correlation: %.3f' % corr)
+        # point cloud (no colorbar)
+        plt.scatter(xg, yg, s=8, c=color, alpha=0.30, label=f"{t} points")
 
+        # KDE mode as centroid (matches your Fig. 6 approach)
+        kde = gaussian_kde(np.vstack([xg, yg]), bw_method=0.7)
+        gx = np.linspace(np.nanmin(xg), np.nanmax(xg), 200)
+        gy = np.linspace(np.nanmin(yg), np.nanmax(yg), 200)
+        GX, GY = np.meshgrid(gx, gy)
+        Z = kde(np.vstack([GX.ravel(), GY.ravel()])).reshape(GX.shape)
+        iy, ix = np.unravel_index(np.argmax(Z), Z.shape)
+        x0, y0 = GX[iy, ix], GY[iy, ix]
+        plt.scatter(x0, y0, c=color, s=70, marker='X', edgecolor='k', zorder=3, label=f"{t} mode")
+
+        # density contours around the cloud for this treatment
+        add_kde_contours(ax, xg, yg,
+                         probs=(0.1, 0.2, 0.3),
+                         gridsize=300,
+                         color=color,
+                         alpha=0.9,
+                         linewidths=(2.0, 1.5, 1.0),
+                         bw_method=0.7,
+                         pad=0.10)
+
+    # Axes/title to match Figure 6
+    plt.xlabel("Relative Resistant Growth [%]")  # same x label
+    plt.ylabel("Rel. Change of resistant Subpopulation")  # same y label
+    plt.title("Global Population Competition under AT")  # same title
+    plt.xlim(0, 4)
+    plt.ylim(-10, 30)
+
+    # Legend similar style
+    plt.legend(frameon=False, fontsize=8, loc='best')
+
+    # Spine thickness (and you can also rely on figstyle.mplstyle)
+    for side in ['bottom', 'left', 'top', 'right']:
+        ax.spines[side].set_linewidth(1.5)
+
+    # --- Save as PDF ---
+    output_pdf_path = Path(file_path).parent / "GlobalPopulationCompetition_underAT.pdf"
+    plt.savefig(output_pdf_path, dpi=300, bbox_inches='tight', transparent=True)
+    print(f"[Saved] {output_pdf_path}")
+
+    plt.tight_layout()
     plt.show()
 
     return df
@@ -673,26 +828,91 @@ def plot_kaplan_meier(normalized_df_plate1, normalized_df_plate2, treatment_df_p
     # Invert the Event_Type values using .loc to avoid SettingWithCopyWarning
     filtered_df.loc[:, 'Event_Type'] = filtered_df['Event_Type'].apply(lambda x: 1 if x == 0 else 0)
 
+    # New treatment colors (override any external palette for these keys)
+    treatment_colors = {
+        'Adaptive Therapy 100': '#1f77b4',  # Blue
+        'Adaptive Therapy 80': '#ff7f0e',  # Orange
+        'Adaptive Therapy 50': '#d62728',  # Red
+        'Intermittent': '#800080',  # Purple
+        'Maximum-tolerable-dose': '#808080'  #Gray
+    }
+
     # Initialize the plot
     plt.figure(figsize=(15, 10))
 
     # Exclude specified groups
     excluded_groups = ['No treatment', 'Resistant Control No Treatment', 'Resistant Control Maximum-tolerable-dose']
 
+    # Add this above the for-loop
+    name_map = {
+        'Intermittent': 'IT',
+        'Adaptive Therapy 100': 'AT 100',
+        'Adaptive Therapy 80': 'AT 80',
+        'Adaptive Therapy 50': 'AT 50',
+        'Maximum-tolerable-dose': 'CT',
+    }
+
     # Plot Kaplan-Meier curves for each sample group on the same plot
     for group, replicates in sample_groups.items():
-        if group not in excluded_groups:
-            kmf = KaplanMeierFitter()
-            group_df = filtered_df[filtered_df['Replicate'].str[1:].isin(replicates)]
-            kmf.fit(group_df['Event_Day'], event_observed=group_df['Event_Type'], label=group)
-            kmf.plot_survival_function(ci_show=False, color=sample_colors[group])
+        if group in excluded_groups:
+            continue
 
-    # Set plot title and labels
-    plt.title('Kaplan-Meier Plot for Selected Groups')
-    plt.xlabel('Days')
-    plt.ylabel('Survival Probability')
-    plt.legend(loc='best')
-    plt.grid(True)
+        # Pick color: prefer the new treatment palette; fall back to provided sample_colors if needed
+        color = treatment_colors.get(group, sample_colors.get(group, None))
+
+        kmf = KaplanMeierFitter()
+        group_df = filtered_df[filtered_df['Replicate'].str[1:].isin(replicates)]
+        if group_df.empty:
+            continue
+
+        kmf.fit(
+            group_df['Event_Day'],
+            event_observed=group_df['Event_Type'],
+            label=name_map.get(group, group)  # ← short label in legend
+        )
+        kmf.plot_survival_function(ci_show=False, color=color, linewidth=4)  # ← thicker lines
+
+        ax = plt.gca()  # or capture the Axes returned by kmf.plot_survival_function(...)
+        censored_mask = group_df['Event_Type'] == 0  # 0 = censored in your final, inverted coding
+        censored_times = group_df.loc[censored_mask, 'Event_Day']
+
+        # Get survival levels at those times from the fitted model
+        censored_survival = kmf.survival_function_at_times(censored_times).values.flatten()
+
+        # Draw short vertical ticks
+        ax.plot(censored_times, censored_survival, '|',
+                color=color, markersize=20, markeredgewidth=2)
+
+    # Set plot title and labels + requested limits
+    plt.title('Kaplan-Meier Survival Plot', fontsize=30)
+    plt.xlabel('Days', fontsize = 20)
+    plt.ylabel('Survival Probability', fontsize = 20)
+    plt.xlim(0, 49)
+    plt.ylim(0, 1.1)
+
+    ticks = np.arange(0, 50, 5)  # 0,5,10,...,45
+    plt.xticks(ticks, fontsize=16)  # set positions AND size in one go
+    plt.yticks(fontsize=16)
+
+    # Bigger legend
+    plt.legend(loc='best', frameon=False, fontsize=16, title='Treatment', title_fontsize=16)
+
+    plt.grid(True, alpha=0.3)
+    plt.tight_layout()
+
+    ax = plt.gca()  # get current axes
+
+    # Make the axes lines (spines) thicker
+    for spine in ['bottom', 'left', 'top', 'right']:
+        ax.spines[spine].set_linewidth(1.5)  # ← thickness of the axis lines
+
+    from pathlib import Path
+
+    # Save Kaplan-Meier plot as PDF in same folder as the Excel file
+    output_pdf_path = Path(file_path).parent / "KaplanMeier_SurvivalPlot.pdf"
+    plt.savefig(output_pdf_path, dpi=300, bbox_inches='tight', transparent=True)
+    print(f"[Saved] {output_pdf_path}")
+
     plt.show()
 
 
@@ -717,76 +937,6 @@ def add_fallapart_info(combined_df, fallapart_df):
     )
 
     return combined_df
-
-def plot_treatment_failure_vs_fallapart(df1, df2, sample_groups, sample_colors):
-    # Combine the two dataframes
-    df1 = df1.copy()
-    df2 = df2.copy()
-    df1['Replicate'] = df1['Replicate'].apply(lambda x: '1' + x)
-    df2['Replicate'] = df2['Replicate'].apply(lambda x: '2' + x)
-    combined_df = pd.concat([df1, df2])
-
-    # Filter out rows that contain a NaN value
-    combined_df = combined_df.dropna()
-
-    # Filter out replicates that have a 0, 4 or 5 in their 'treatment' column at any point
-    replicates_to_exclude = combined_df[combined_df['treatment'].isin([4.0, 5.0, 0.0])]['Replicate'].unique()
-    filtered_df = combined_df[~combined_df['Replicate'].isin(replicates_to_exclude)]
-
-    # Filter out rows where the 'treatment' column is 3 or 0
-    filtered_df = filtered_df[~filtered_df['treatment'].isin([3.0, 0.0])]
-
-    # Find the maximum day for each replicate
-    max_day_df = filtered_df.groupby('Replicate')['Day'].max().reset_index()
-
-    # Find the first day where fallapart_info is 6 for each replicate
-    fallapart_day_df = filtered_df[filtered_df['fallapart_info'] == 6].groupby('Replicate')['Day'].min().reset_index()
-    fallapart_day_df.rename(columns={'Day': 'Fallapart_Day'}, inplace=True)
-
-    # Merge the two dataframes on 'Replicate'
-    merged_df = pd.merge(max_day_df, fallapart_day_df, on='Replicate', how='inner')
-
-    # Adjust the sample groups to account for the added prefix in the replicate numbers
-    adjusted_sample_groups = {}
-    for sample, replicates in sample_groups.items():
-        adjusted_sample_groups[sample] = ['1' + rep for rep in replicates] + ['2' + rep for rep in replicates]
-
-    # Map replicates to sample groups
-    replicate_to_sample = {replicate: sample for sample, replicates in adjusted_sample_groups.items() for replicate in replicates}
-    merged_df['Sample'] = merged_df['Replicate'].map(replicate_to_sample)
-
-    # Map samples to colors
-    merged_df['Color'] = merged_df['Sample'].map(sample_colors)
-
-    # Plot the data
-    plt.figure(figsize=(12, 8))
-    for sample, color in sample_colors.items():
-        sample_data = merged_df[merged_df['Sample'] == sample]
-        plt.scatter(sample_data['Fallapart_Day'], sample_data['Day'], c=color, label=sample,
-                    s=15)  # Swapped x and y axes
-
-        # Calculate the average and standard deviation for x and y values
-        avg_x = sample_data['Fallapart_Day'].mean()
-        avg_y = sample_data['Day'].mean()
-        std_x = sample_data['Fallapart_Day'].std()
-        std_y = sample_data['Day'].std()
-
-        # Determine the size of the circle based on the standard deviation
-        size = std_x + std_y * 100  # Adjust the factor as needed
-
-        # Draw a semitransparent circle at the average location
-        plt.scatter(avg_x, avg_y, c=color, s=size, alpha=0.5, edgecolors='w')
-
-    # Add a dotted line for y = x
-    plt.plot([0, 60], [0, 60], linestyle='dotted', color='black')
-
-    plt.title('First Day of Destruction vs Treatment Failure Day')
-    plt.xlabel('First Day of Destruction')
-    plt.ylabel('Treatment Failure Day')
-    plt.legend(loc='best')
-    plt.xlim(0, 60)
-    plt.ylim(0, 60)
-    plt.show()
 
 def correlate_red_growth_with_fallapart(df1, df2):
 
@@ -854,70 +1004,88 @@ def correlate_red_growth_with_fallapart(df1, df2):
     # Map samples to colors
     df['Color'] = df['Sample'].map(sample_colors)
 
-    # Create the scatter plot
-    plt.figure(figsize=(12, 8))
-    for sample, color in sample_colors.items():
-        if sample not in excluded_samples:
-            sample_df = df[df['Sample'] == sample]
-            plt.scatter(sample_df['adjusted_day'], sample_df['relative_change'], alpha=0.6, edgecolors='w', s=30, label=sample, color=color)
+    # --- Distribution of Relative Change before/after day 0 (percent) ---
+    plt.figure(figsize=(12, 6))  # same figsize as the other boxplot panel
 
+    # Style knobs (match the other boxplot)
+    TITLE_FS = 18
+    YLABEL_FS = 14
+    TICK_FS = 12
+    SPINE_LW = 2.0
+    BOX_LW = 1.5
+    BRACKET_LW = 1.8
+    SIG_FS = 12
+    VIOLIN_ALPHA = 0.25
 
-    # Add titles and labels
-    plt.title('Relative Change vs Adjusted Day')
-    plt.xlabel('Adjusted Day')
-    plt.ylabel('Relative Change')
-    plt.legend(title='Sample Groups')
+    # 1) Percent-transform from relative change (1.04 -> 4%)
+    df_plot = df.copy()
+    df_plot['relative_change_pct'] = (df_plot['relative_change'] - 1.0) * 100.0
 
-    # Fit and plot the correlation line
-    m, b = np.polyfit(df['adjusted_day'], df['relative_change'], 1)
-    plt.plot(df['adjusted_day'], m * df['adjusted_day'] + b, color='red', alpha=0.5)
+    # 2) Build two groups via adjusted_day (<0 = "Before", >=0 = "After")
+    df_plot['period2'] = np.where(df_plot['adjusted_day'] < 0, 'Before', 'After')
 
-    plt.show()
+    # 3) Order & colors (left gray = Before, right orange = After)
+    order = ['Before', 'After']
+    palette = ['#808080', '#ff7f0e']  # gray, orange
 
-    # Plot individual scatter plots for each sample type in one figure
-    fig, axes = plt.subplots(2, 3, figsize=(18, 12))
-    axes = axes.flatten()
-    plot_idx = 0
+    # 4) Violin background (transparent)
+    sns.violinplot(
+        x='period2',
+        y='relative_change_pct',
+        data=df_plot,
+        order=order,
+        palette=palette,
+        cut=0,
+        inner=None,
+        linewidth=1.0,
+        alpha=VIOLIN_ALPHA
+    )
 
-    for sample, color in sample_colors.items():
-        if sample not in excluded_samples:
-            sample_df = df[df['Sample'] == sample]
-            ax = axes[plot_idx]
-            ax.scatter(sample_df['adjusted_day'], sample_df['relative_change'], alpha=0.6, edgecolors='w', s=30,
-                       label=sample, color=color)
-            ax.set_title(f'Relative Change vs Adjusted Day for {sample}')
-            ax.set_xlabel('Adjusted Day')
-            ax.set_ylabel('Relative Change')
-            ax.set_xlim([-30, 40])
-            ax.set_ylim([0.7, 2.0])
-            ax.legend(title='Sample Groups')
+    # 5) Box overlay (no outlier dots)
+    sns.boxplot(
+        x='period2',
+        y='relative_change_pct',
+        data=df_plot,
+        order=order,
+        palette=palette,
+        width=0.5,
+        showfliers=False,
+        linewidth=BOX_LW
+    )
 
-            # Fit and plot the correlation line for the individual plot
-            m, b = np.polyfit(sample_df['adjusted_day'], sample_df['relative_change'], 1)
-            ax.plot(sample_df['adjusted_day'], m * sample_df['adjusted_day'] + b, color='red', alpha=0.5)
+    # 6) Title / labels (no x title; y in percent)
+    plt.title('Elevated Resistant Growth after Spheroid Disruption', fontsize=TITLE_FS)
+    plt.xlabel('')  # no x-axis title
+    plt.ylabel('Relative Resistant Growth [%]', fontsize=YLABEL_FS)
 
-            plot_idx += 1
+    # 7) Fonts & axes line width
+    plt.xticks(fontsize=TICK_FS)
+    plt.yticks(fontsize=TICK_FS)
+    ax = plt.gca()
+    for sp in ['bottom', 'left', 'top', 'right']:
+        ax.spines[sp].set_linewidth(SPINE_LW)
+
+    # 8) Significance (Mann–Whitney U) and bracket
+    from scipy.stats import mannwhitneyu
+    before_vals = df_plot.loc[df_plot['period2'] == 'Before', 'relative_change_pct']
+    after_vals = df_plot.loc[df_plot['period2'] == 'After', 'relative_change_pct']
+    stat, p = mannwhitneyu(before_vals, after_vals, alternative='two-sided')
+
+    # bracket placement a bit above the data
+    ymin, ymax = np.nanmin(df_plot['relative_change_pct']), np.nanmax(df_plot['relative_change_pct'])
+    y = ymax + 0.05 * (ymax - ymin) + 2.0
+    h = 2.0
+    ax.plot([0, 0, 1, 1], [y, y + h, y + h, y], color='black', linewidth=BRACKET_LW)
+    ax.text(0.5, y + h + 0.5,
+            f"Mann–Whitney U = {stat:,.0f}; p = {p:.2e}",
+            ha='center', va='bottom', fontsize=SIG_FS)
+
+    # --- Save as PDF ---
+    output_pdf_path = Path(file_path).parent / "ElevatedResistantGrowth_afterSpheroidDisruption.pdf"
+    plt.savefig(output_pdf_path, dpi=300, bbox_inches='tight', transparent=True)
+    print(f"[Saved] {output_pdf_path}")
 
     plt.tight_layout()
-    plt.show()
-
-    # Bin relative_change values based on adjusted_day
-    before_day_0 = df[df['adjusted_day'] < 0]['relative_change']
-    after_day_0 = df[df['adjusted_day'] >= 0]['relative_change']
-
-    # Combine the data into a single DataFrame
-    combined_data = pd.DataFrame({
-        'relative_change': pd.concat([before_day_0, after_day_0], axis=0),
-        'Time Period': ['Before Day 0'] * len(before_day_0) + ['After Day 0'] * len(after_day_0)
-    })
-
-    # Create the violin plot
-    plt.figure(figsize=(12, 8))
-    sns.violinplot(x='Time Period', y='relative_change', data=combined_data, bw_method=0.2, density_norm='count')
-    plt.title('Distribution of Relative Change Before, At, and After Day 0')
-    plt.xlabel('Time Period')
-    plt.ylabel('Relative Change')
-    plt.ylim([0.7, 1.7])
     plt.show()
 
 
@@ -984,8 +1152,8 @@ combined_df_plate1_deartifacted = combine_normalized_with_treatment(normalized_d
 combined_df_plate2_deartifacted = combine_normalized_with_treatment(normalized_df_plate2_deartifacted, treatment_df_plate2)
 
 # Plot the data for the provided dataframe with treatment backgrounds
-plot_plate_data_with_treatment(combined_df_plate1_deartifacted, 1)
-plot_plate_data_with_treatment(combined_df_plate2_deartifacted, 2)
+#plot_plate_data_with_treatment(combined_df_plate1_deartifacted, 1)
+#plot_plate_data_with_treatment(combined_df_plate2_deartifacted, 2)
 
 ### Plot without deartification ###
 #plot_plate_data_with_treatment(combined_df_plate1, 1)
@@ -1003,8 +1171,6 @@ plot_kaplan_meier(normalized_df_plate1_deartifacted, normalized_df_plate2_dearti
 # Call the function with the combined dataframes as arguments
 plot_treatment_violinplots(combined_df_plate1_deartifacted, combined_df_plate2_deartifacted)
 
-# Call the function with the combined dataframes as arguments
-plot_scatterplot(combined_df_plate1_deartifacted, combined_df_plate2_deartifacted)
 
 # Research the correlation between growth of the red population and treatment
 # Use the function on your DataFrame
@@ -1020,9 +1186,6 @@ df_fallapart2 = pd.read_excel(xls, 'Plate 2 Treatment_fallapart')
 # Add the fallapart_info column to the combined_df_plate1_deartifacted
 combined_df_plate1_deartifacted_fallapart = add_fallapart_info(combined_df_plate1_deartifacted, df_fallapart1)
 combined_df_plate2_deartifacted_fallapart = add_fallapart_info(combined_df_plate2_deartifacted, df_fallapart2)
-
-# Plot the treatment failure vs Day of destruction
-plot_treatment_failure_vs_fallapart(combined_df_plate1_deartifacted_fallapart, combined_df_plate2_deartifacted_fallapart, sample_groups, sample_colors)
 
 # Plot Red growth rate against Day of destruction
 correlate_red_growth_with_fallapart(combined_df_plate1_deartifacted_fallapart, combined_df_plate2_deartifacted_fallapart)

@@ -47,7 +47,7 @@ except Exception:  # pragma: no cover
 
 
 # ----------------------------- CONFIG ---------------------------------------
-ROOT = Path(r"Y:\Members\MaxE\Thesis\Data for Figures\Figure_5")
+ROOT = Path(r"Y:\Members\MaxE\Thesis\Organized Figures\Figure 4.2")
 GLOB = "*.czi"
 OUT_CSV = ROOT / "intensity_sum2d_per_channel_per_scene.csv"
 # ----------------------------------------------------------------------------

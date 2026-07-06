@@ -12,7 +12,7 @@ from figtools import use_style, new_figure, savefig  # <--- unified tools
 STYLE_PATH = Path("figstyle.mplstyle")
 
 XLSX = Path(
-    r"Y:\Members\MaxE\Thesis\Organized Figures\Figure_3.4\Thawing_time_dependency_delay_quantification.xlsx"
+    r"Y:\Members\MaxE\Thesis\Organized Figures\Chapter_3\Figure_3.3\Thawing_time_dependency_delay_quantification.xlsx"
 )
 
 SHEET = "Sheet1"
@@ -67,9 +67,8 @@ with use_style(style_mpl=STYLE_PATH):
 
     ax.set_ylim(0, 0.6)
 
-    ax.set_title("Thawing-time Dependency")
-    ax.set_xlabel("Number of Splits after Thawing")
-    ax.set_ylabel("Relative Colony Size Decrease")
+    ax.set_xlabel("Passages after Thawing")
+    ax.set_ylabel("Normalized Size Decrease")
 
     # X ticks
     if len(x) > 0:

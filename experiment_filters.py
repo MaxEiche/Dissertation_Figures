@@ -109,45 +109,72 @@ EXCLUDE_SAMPLES: Dict[str, float | None] = {
     "B5_Dens-B5": None,
     "B6_Dens-B6": None,
     "C1_Dens-C1": None,
+    "C6_Dens-C6": None,
     "D1_Dens-D1": None,
     "D2_Dens-D2": None,
     "D6_Dens-D6": None,
 
     # -------- Plate 1: truncated --------
-    "B3_AT100-B3": 18.0,
-    "B4_AT100-B4": 22.0,
-    "B5_AT100-B5": 10.0,
+    "B3_AT100-B3": 40.0,
+    "B4_AT100-B4": 50.0,
+    "B5_AT100-B5": 22.0,
 
     # -------- Plate 2: truncated --------
-    "A3_CT-A3": 21.0,
-    "A6_CT-A6": 18.0,
-    "B1_AT50-B1": 15.0,
-    "B2_AT50-B2": 25.0,
-    "B5_AT50-B5": 23.0,
-    "C2_AT100-C2": 17.0,
-    "C4_AT100-C4": 18.0,
-    "C5_AT100-C5": 21.0,
-    "C6_AT100-C6": 18.0,
+    "A1_CT-A1": 36.0,
+    "A3_CT-A3": 47.0,
+    "A6_CT-A6": 40.0,
+    "B1_AT50-B1": 33.0,
+    "B2_AT50-B2": 57.0,
+    "B5_AT50-B5": 52.0,
+    "C2_AT100-C2": 38.0,
+    "C4_AT100-C4": 40.0,
+    "C5_AT100-C5": 47.0,
+    "C6_AT100-C6": 40.0,
 
     # -------- Plate 3: truncated --------
-    "B2_CT-B2": 20.0,
-    "C3_AT50-C3": 18.0,
-    "D4_AT100-D4": 20.0,
+    "B2_CT-B2": 45.0,
+    "C3_AT50-C3": 40.0,
+    "C5_AT50-C5": 89.0,
+    "D4_AT100-D4": 45.0,
 
     # -------- Plate 4: truncated --------
-    "C1_CT-C1": 22.0,
-    "C2_CT-C2": 24.0,
-    "D1_AT50-D1": 16.0,
-    "D2_AT50-D2": 23.0,
-    "D3_AT50-D3": 20.0,
-    "D4_AT50-D4": 19.0,
-    "D5_AT50-D5": 24.0,
+    "C1_CT-C1": 50.0,
+    "C2_CT-C2": 54.0,
+    "C4_CT-C4": 71.0,
+    "D1_AT50-D1": 36.0,
+    "D2_AT50-D2": 52.0,
+    "D3_AT50-D3": 45.0,
+    "D4_AT50-D4": 43.0,
+    "D5_AT50-D5": 54.0,
 
     # -------- Plate 5: truncated --------
-    "A2_AT100-A2": 19.0,
-    "A5_AT100-A5": 28.0,
-    "D2_CT-D2": 21.0,
-    "D5_CT-D5": 20.0,
+    "A2_AT100-A2": 43.0,
+    "A5_AT100-A5": 64.0,
+    "D2_CT-D2": 47.0,
+    "D5_CT-D5": 45.0,
+
+    # -------- Plate 6: truncated --------
+    "A3_ATAgent1-A3": 40.0,
+    "A5_ATAgent1-A5": 47.0,
+    "B3_ATAgent2-B3": 64.0,
+    "B5_ATAgent2-B5": 47.0,
+
+    # -------- Plate 7: truncated --------
+    "A2_ATAgent2-A2": 54.0,
+    "A5_ATAgent2-A5": 40.0,
+    "B5_ATAgent1-B5": 54.0,
+    "B6_ATAgent1-B6": 61.0,
+    "C4_ATAgent2-C4": 68.0,
+    "C5_ATAgent2-C5": 36.0,
+
+    # -------- Plate 8: truncated --------
+    "B2_Dens-B2": 47.0,
+    "B4_Dens-B4": 59.0,
+    "C2_Dens-C2": 54.0,
+    "C3_Dens-C3": 64.0,
+    "C4_Dens-C4": 52.0,
+    "C5_Dens-C5": 40.0,
+    "D4_Dens-D4": 61.0,
 }
 
 def apply_sample_exclusions(

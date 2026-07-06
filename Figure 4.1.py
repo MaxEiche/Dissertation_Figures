@@ -1,177 +1,218 @@
+# Figure_4_5_combined.py - Spheroid sinking behaviour + resistant growth (side-by-side)
 from pathlib import Path
+
+import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from matplotlib.colors import to_rgb
+from scipy.stats import linregress
 
-from figtools import use_style, set_size, savefig  # unified figure tools
+from figtools import POPULATION_COLORS, use_style, set_size, savefig
+from experiment_filters import EXCLUDE_SAMPLES  # required by global pipeline
 
-# ---------------------------------------------------
-# Global layout parameters (easy to tweak)
-# ---------------------------------------------------
-HEIGHT_RATIO = 0.40      # overall height (smaller = flatter figure)
-LEGEND_FONTSIZE = 5.5      # smaller legend text
-
-# ---------------------------------------------------
-# Paths & data loading
-# ---------------------------------------------------
+# -----------------------
+# Paths
+# -----------------------
 EXCEL_PATH = Path(
-    r"Y:\Members\MaxE\Thesis\Organized Figures\Figure 4.1\Summary.xlsx"
+    r"Y:\Members\MaxE\Thesis\Organized Figures\Chapter_4\Figure 4.1\Spheroid Height DropSeeding.xlsx"
 )
-OUTDIR = Path(
-    r"Y:\Members\MaxE\Thesis\Organized Figures\Figure 4.1"
-)
+ROOT_INT = Path(r"Y:\Members\MaxE\Thesis\Organized Figures\Chapter_4\Figure 4.1")
+CSV_PATH = ROOT_INT / "intensity_sum2d_per_channel_per_scene.csv"
+
+OUTDIR = Path(r"Y:\Members\MaxE\Thesis\Organized Figures\Chapter_4\Figure 4.1")
 OUTDIR.mkdir(parents=True, exist_ok=True)
 
-STYLE_PATH = Path("figstyle.mplstyle")
-
-# Read the sheet 'Tabelle2'
+# -----------------------
+# Load data for panel B (sinking behaviour)
+# -----------------------
 df_raw = pd.read_excel(EXCEL_PATH, sheet_name="Tabelle2", header=0)
+df_sink = df_raw.iloc[:, :3].copy()
+df_sink.columns = ["Cooling_min", "Distance_um", "SD"]
 
-# Take columns A–F and rename
-df = df_raw.iloc[:, :6].copy()
-df.columns = [
-    "Collagen",
-    "Day",
-    "Type",
-    "Average_diameter",
-    "Average_roundness",
-    "Average_Z_roundness",
-]
-
-# Numeric cleanup
-for col in ["Average_diameter", "Average_roundness", "Average_Z_roundness"]:
-    df[col] = (
-        df[col]
+for col in df_sink.columns:
+    df_sink[col] = (
+        df_sink[col]
         .astype(str)
         .str.replace(",", ".", regex=False)
         .astype(float)
     )
 
-df["Day"] = pd.to_numeric(df["Day"], errors="coerce")
+df_sink = (
+    df_sink.dropna(subset=["Cooling_min", "Distance_um"])
+    .sort_values("Cooling_min")
+    .reset_index(drop=True)
+)
 
-# Strip whitespace from categorical fields
-df["Collagen"] = df["Collagen"].astype(str).str.strip()
-df["Type"] = df["Type"].astype(str).str.strip()
+sink_reg = linregress(
+    df_sink["Cooling_min"].to_numpy(),
+    df_sink["Distance_um"].to_numpy(),
+)
+sink_df = len(df_sink) - 2
+sink_t = sink_reg.slope / sink_reg.stderr if sink_reg.stderr else np.nan
 
-print(df)
+# -----------------------
+# Load + prepare data for panel C (normalized timelines)
+# -----------------------
+SCENE = "E4"
+CHANNEL_RESISTANT = "C0"
+CHANNEL_SUSCEPTIBLE = "C1"
 
-# ---------------------------------------------------
-# Plot config
-# ---------------------------------------------------
-collagen_order = ["0 mg / ml Collagen", "0,5 mg / ml Collagen", "1 mg / ml Collagen"]
-type_order = ["Juso", "SK"]
-conditions = [(t, c) for t in type_order for c in collagen_order]
+df_int = pd.read_csv(CSV_PATH)
+sub = df_int[
+    (df_int["scene"] == SCENE)
+    & (df_int["channel"].isin([CHANNEL_RESISTANT, CHANNEL_SUSCEPTIBLE]))
+].copy()
 
-# Base hues: one per cell type
-BASE = {
-    "Juso": "#1B9E77",  # green
-    "SK":   "#D95F02",  # orange/red
-}
+sub["day"] = pd.to_numeric(sub["day"], errors="coerce")
+sub = sub.dropna(subset=["day", "intensity_sum_2d", "n_pixels_2d"])
 
-def shade(hex_color, shade_factor):
-    """
-    Blend base color toward white.
-    shade_factor in [0,1]: 1 = base, lower = lighter.
-    """
-    r, g, b = to_rgb(hex_color)
-    r = r * shade_factor + 1.0 * (1 - shade_factor)
-    g = g * shade_factor + 1.0 * (1 - shade_factor)
-    b = b * shade_factor + 1.0 * (1 - shade_factor)
-    return (r, g, b)
+sub["mean_intensity"] = sub["intensity_sum_2d"] / sub["n_pixels_2d"].replace(0, np.nan)
 
-# Lighter → darker with increasing collagen
-SHADE_LEVEL = {
-    "0 mg / ml Collagen": 0.3,
-    "0,5 mg / ml Collagen": 0.6,
-    "1 mg / ml Collagen": 1.0,
-}
+wide = (
+    sub.groupby(["day", "channel"])["mean_intensity"]
+       .mean()
+       .unstack("channel")
+       .sort_index()
+)
 
-def color_for(type_name, collagen_label):
-    return shade(BASE[type_name], SHADE_LEVEL[collagen_label])
+wide = wide.rename(columns={
+    CHANNEL_RESISTANT: "resistant",
+    CHANNEL_SUSCEPTIBLE: "susceptible",
+})
 
-# (column, title, y-label) in order of left→right panels
-PLOTS = [
-    ("Average_diameter",    "Spheroid Size",    "Diameter [µm]"),
-    ("Average_roundness",   "Spheroid circularity",  "Planar circularity"),
-    ("Average_Z_roundness", "Spheroid circularity","Vertical circularity"),
-]
+wide["total"] = wide["resistant"] + wide["susceptible"]
 
-# ---------------------------------------------------
-# Plotting: one figure with three horizontal subplots
-# ---------------------------------------------------
-with use_style(style_mpl=STYLE_PATH):
-    # 1 row, 3 columns
-    fig, axes = plt.subplots(nrows=1, ncols=3, sharex=True)
-    axes = axes.flatten()
+first_day = float(wide.index.min())
+norm_den = float(wide.loc[first_day, "total"])
+if not np.isfinite(norm_den) or norm_den == 0:
+    raise ValueError(
+        f"Normalization failed: total at first timepoint (day={first_day}) is {norm_den}"
+    )
 
-    # Add panel letters (a, b, c)
-    panel_labels = ["a", "b", "c"]
+wide_norm = wide[["susceptible", "resistant", "total"]] / norm_den
+
+# NOTE:
+# This dataset has no per-replicate/sample ID column, so EXCLUDE_SAMPLES
+# from experiment_filters cannot be applied in a meaningful way here.
+# If a replicate/sample column is added later, filtering should be done
+# before aggregation and plotting.
+
+# -----------------------
+# Combined plot
+# -----------------------
+with use_style("figstyle.mplstyle"):
+    # Ensure Arial font globally (in case not already specified in figstyle)
+    plt.rcParams["font.family"] = "Arial"
+
+    fig, axes = plt.subplots(nrows=1, ncols=2, sharex=False, sharey=False)
+    ax_left, ax_right = axes
+
+    # Subplot labels: panels b and c
+    panel_labels = ["b", "c"]
     for ax, label in zip(axes, panel_labels):
         ax.text(
-            -0.15, 1.05,  # position in axes fraction coordinates
+            -0.15, 1.05,
             label,
             transform=ax.transAxes,
             fontweight="bold",
-            va="bottom", ha="left"
+            va="bottom",
+            ha="left",
         )
 
-    # Make the overall figure thesis-wide and relatively flat
-    set_size(axes[0], width="thesis", ratio=HEIGHT_RATIO)
+    # Make figure thesis-wide and reasonably flat
+    set_size(ax_left, width="thesis", ratio=0.5)
 
-    for ax, (col, title, ylab) in zip(axes, PLOTS):
-        for (t, c) in conditions:
-            sub = df[(df["Type"] == t) & (df["Collagen"] == c)].copy()
-            if sub.empty:
-                continue
-            sub = sub.sort_values("Day")
+    # Axes cosmetics: no top/right spines, ticks outward
+    for ax in axes:
+        ax.spines["top"].set_visible(False)
+        ax.spines["right"].set_visible(False)
+        ax.tick_params(direction="out")
 
-            # shorter legend labels, e.g. "Juso, 0 mg/ml"
-            coll_short = c.replace(" mg / ml Collagen", " mg/ml")
+    # --- Panel b: sinking behaviour ---
+    ax_left.errorbar(
+        df_sink["Cooling_min"].values,
+        df_sink["Distance_um"].values,
+        yerr=df_sink["SD"].values,
+        fmt="o",
+        color="black",
+        ecolor="black",
+        capsize=3,
+        linestyle="--",
+    )
+    x_fit = np.linspace(
+        float(df_sink["Cooling_min"].min()),
+        float(df_sink["Cooling_min"].max()),
+        200,
+    )
+    y_fit = sink_reg.intercept + sink_reg.slope * x_fit
+    ax_left.plot(
+        x_fit,
+        y_fit,
+        linestyle="--",
+        color="black",
+        linewidth=1.0,
+    )
+    ax_left.set_xlabel("Cooling time [min]")
+    ax_left.set_ylabel(r"Distance to medium ($\mu$m)")
 
-            ax.plot(
-                sub["Day"].values,
-                sub[col].values,
-                label=f"{t}, {coll_short}",
-                marker="o",
-                color=color_for(t, c),
-                # linewidth from figstyle.mplstyle (lines.linewidth)
-            )
+    max_x = float(df_sink["Cooling_min"].max())
+    ax_left.set_xticks(range(2, int(max_x) + 2, 2))
 
-        ax.set_title(title)
-        ax.set_xlabel("Day")
-        ax.set_ylabel(ylab)
+    ymax = float((df_sink["Distance_um"] + df_sink["SD"]).max())
+    ax_left.set_ylim(0, ymax * 1.1 if ymax > 0 else 1.0)
+    ax_left.margins(x=0.02, y=0.05)
 
-        # y-limits per metric
-        if col == "Average_diameter":
-            ax.set_ylim(0, 1500)
-        else:
-            ax.set_ylim(0, 1.1)
+    # --- Panel c: resistant growth after CT ---
+    ax_right.plot(
+        wide_norm.index,
+        wide_norm["susceptible"],
+        marker="o",
+        color=POPULATION_COLORS["sensitive"],
+        label="Sensitive",
+    )
+    ax_right.plot(
+        wide_norm.index,
+        wide_norm["resistant"],
+        marker="o",
+        color=POPULATION_COLORS["resistant"],
+        label="Resistant",
+    )
+    ax_right.plot(
+        wide_norm.index,
+        wide_norm["total"],
+        marker="o",
+        color=POPULATION_COLORS["total"],
+        label="Total",
+    )
 
-        ax.margins(x=0.02, y=0.05)
+    ax_right.set_xlabel("Time after treatment start [days]")
+    ax_right.set_ylabel("Normalized channel intensity")
+    ax_right.set_ylim(0, 1.3)
 
-        # Per-axes legend: bottom-left, smaller, no title
-        handles, labels = ax.get_legend_handles_labels()
-        if handles:
-            ax.legend(
-                handles,
-                labels,
-                loc="lower left",
-                frameon=False,
-                fontsize=LEGEND_FONTSIZE,
-                ncol=2,
-                handlelength=1.2,
-                columnspacing=0.4,
-                handletextpad=0.4,
-            )
+    max_day = int(np.nanmax(wide_norm.index))
+    ax_right.set_xticks(np.arange(2, max_day + 2, 2))
 
-    fig.tight_layout()
+    # Legend: frameless
+    ax_right.legend(fontsize=7, frameon=False)
+    ax_right.margins(x=0.02, y=0.05)
 
-    pdf_path = OUTDIR / "Figure 4.1 Circularity.pdf"
-    savefig(fig, pdf_path, dpi=300, transparent=True)
+    # Global spacing (no tight_layout)
+    fig.subplots_adjust(left=0.12, right=0.98, wspace=0.30)
 
+    out_pdf = OUTDIR / "Figure 4.1.pdf"
+    savefig(fig, out_pdf, dpi=300, transparent=True)
     plt.show()
-
     plt.close(fig)
 
-print(f"Saved combined figure to: {pdf_path.resolve()}")
-# === END ===
+print("Saved combined figure:", out_pdf)
+print(
+    "Panel b linear regression: "
+    f"n = {len(df_sink)}, "
+    f"slope = {sink_reg.slope:.4f} um/min, "
+    f"intercept = {sink_reg.intercept:.4f} um, "
+    f"equation = y = {sink_reg.intercept:.4f} + {sink_reg.slope:.4f}x, "
+    f"r = {sink_reg.rvalue:.4f}, "
+    f"R^2 = {sink_reg.rvalue ** 2:.4f}, "
+    f"t({sink_df}) = {sink_t:.4f}, "
+    f"p = {sink_reg.pvalue:.4e}, "
+    f"SE(slope) = {sink_reg.stderr:.4f}"
+)

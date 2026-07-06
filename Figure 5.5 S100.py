@@ -13,17 +13,17 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from scipy.stats import pearsonr
 
-from figtools import use_style, set_size, savefig
+from figtools import POPULATION_COLORS, use_style, set_size, savefig
 
 # ============================================================
 # Paths & data
 # ============================================================
 
 DATA_PATH = Path(
-    r"Y:\Members\MaxE\Thesis\Organized Figures\Figure 5.5 S100_Analysis\S100_Analysis.xlsx"
+    r"Y:\Members\MaxE\Thesis\Organized Figures\Chapter_5\Figure 5.5 S100_Analysis\S100_Analysis.xlsx"
 )
 OUT_PDF = Path(
-    r"Y:\Members\MaxE\Thesis\Organized Figures\Figure 5.5 S100_Analysis\Figure_5.5_S100.pdf"
+    r"Y:\Members\MaxE\Thesis\Organized Figures\Chapter_5\Figure 5.5 S100_Analysis\Figure_5.5_S100.pdf"
 )
 
 # A=Day, B=sus, C=res, D=total, E=S100 (µg/L)
@@ -58,9 +58,9 @@ with use_style("figstyle.mplstyle"):
     # --------------------------------------------------------
     # PANEL a — Timecourse (left)
     # --------------------------------------------------------
-    ax1.plot(df["Day"], df["sus"], color="#4169E1", label="Susceptible")
-    ax1.plot(df["Day"], df["res"], color="#DAA520", label="Resistant")
-    ax1.plot(df["Day"], df["total"], color="black", label="Total")
+    ax1.plot(df["Day"], df["sus"], color=POPULATION_COLORS["sensitive"], label="Sensitive")
+    ax1.plot(df["Day"], df["res"], color=POPULATION_COLORS["resistant"], label="Resistant")
+    ax1.plot(df["Day"], df["total"], color=POPULATION_COLORS["total"], label="Total")
 
     ax1.set_xlabel("Time [days]")
     ax1.set_ylabel("Cell count")
@@ -136,7 +136,7 @@ with use_style("figstyle.mplstyle"):
         fraction=0.046,  # nice compact bar
         pad=0.04
     )
-    cbar.set_label("Day")
+    cbar.set_label("Day (days)")
 
     # Panel letter
     ax2.text(-0.18, 1.04, "b", transform=ax2.transAxes, fontweight="bold")

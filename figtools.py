@@ -110,22 +110,37 @@ PALETTE: Dict[str, str] = {
     "cat4": "#E7298A",
 }
 
+# Fixed colours for population-level traces used across figures.
+POPULATION_COLORS: Dict[str, str] = {
+    "sensitive": "#4169E1",
+    "resistant": "#DAA520",
+    "total": "#000000",
+}
+
+# Neutral colours for state comparisons that are not treatment arms.
+NEUTRAL_STATE_COLORS: Dict[str, str] = {
+    "inactive": "#9E9E9E",
+    "active": "#333333",
+}
+
 # Fixed colours for therapy strategies, used across all figures.
 # You can tweak these later but keep the mapping stable everywhere.
 THERAPY_COLORS = {
-    "NT":        "#4D4D4D",  # dark grey, no treatment
-    "CT":        "#D62728",  # red, continuous / max dose
+    "NT":        "#332288",  # no treatment
+    "CT":        "#117733",  # continuous / max dose
     "IT":        "#9467BD",  # muted purple, immune treatment
-    "Pulse":     "#BBA0D9",  # lighter purple
+    "Pulse":     "#AA4499",  # pulse schedule
 
     # Adaptive therapy variants (optimized for contrast)
-    "AT50":      "#1F77B4",  # strong blue
-    "AT100":     "#FF7F0E",  # orange
+    "AT50":      "#88CCEE",  # light blue
+    "AT100":     "#CC6677",  # rose
     "AT80":      "#2CA02C",  # green (rarely shown)
-    "AT100+":    "#17BECF",  # cyan (rarely shown)
+    "AT100+":    "#44AA99",  # teal (rarely shown)
+    "AT":        "#278c27",  # overall AT green
+    "eAT100":    "#37c837",  # eAT100 green
 
     # Agent-based strategies
-    "LV-Agent":  "#E377C2",  # magenta
+    "LV-Agent":  "#882255",  # wine
     "KPP-Agent": "#8C564B",  # brown
 }
 
@@ -155,6 +170,30 @@ def therapy_color(name: str) -> str:
         raise KeyError(
             f"Unknown therapy strategy '{name}'. "
             f"Known: {list(THERAPY_COLORS.keys())}"
+        ) from exc
+
+
+def population_color(name: str) -> str:
+    """Return the canonical colour for a population-level trace."""
+    key = str(name).strip().lower()
+    try:
+        return POPULATION_COLORS[key]
+    except KeyError as exc:
+        raise KeyError(
+            f"Unknown population colour '{name}'. "
+            f"Known: {list(POPULATION_COLORS.keys())}"
+        ) from exc
+
+
+def neutral_state_color(name: str) -> str:
+    """Return the canonical neutral colour for non-therapy state comparisons."""
+    key = str(name).strip().lower()
+    try:
+        return NEUTRAL_STATE_COLORS[key]
+    except KeyError as exc:
+        raise KeyError(
+            f"Unknown neutral state colour '{name}'. "
+            f"Known: {list(NEUTRAL_STATE_COLORS.keys())}"
         ) from exc
 
 

@@ -200,6 +200,17 @@ def neutral_state_color(name: str) -> str:
 MARKERS: Sequence[str] = ["o", "s", "D", "^", "v", "<", ">", "P", "X"]
 LINESTYLES: Sequence[str] = ["-", "--", "-.", ":"]
 
+# Thesis-wide visual constants not covered by Matplotlib rcParams.  Keep
+# explicit, local overrides to these values rare so figures remain coherent.
+PANEL_LABEL_FONTSIZE = 10.0
+PANEL_LABEL_WEIGHT = "bold"
+ANNOTATION_FONTSIZE = 7.5
+ERRORBAR_LINEWIDTH = 1.0
+ERRORBAR_CAPSIZE = 3.0
+SECONDARY_LINEWIDTH = 0.9
+GRID_LINEWIDTH = 0.5
+GRID_ALPHA = 0.35
+
 
 # ============================================================
 # Layout helpers
@@ -255,17 +266,17 @@ def format_axes(
         if spine in ax.spines:
             ax.spines[spine].set_visible(False)
 
-    # Ensure remaining spines use consistent colour / linewidth
+    # Ensure remaining spines use the active style's colour / linewidth.
     for loc, spine in ax.spines.items():
         if spine.get_visible():
-            spine.set_linewidth(0.8)
-            spine.set_color("0.1")
+            spine.set_linewidth(mpl.rcParams["axes.linewidth"])
+            spine.set_color(mpl.rcParams["axes.edgecolor"])
 
     # Default tick settings (can be overridden)
     default_tick_params = dict(
         direction="out",
-        length=3,
-        width=0.8,
+        length=mpl.rcParams["xtick.major.size"],
+        width=mpl.rcParams["xtick.major.width"],
         pad=2,
         top=False,
         right=False,
@@ -274,6 +285,25 @@ def format_axes(
         default_tick_params.update(tick_params)
 
     ax.tick_params(axis="both", **default_tick_params)
+
+
+def add_panel_label(
+    ax: plt.Axes,
+    label: str,
+    x: float = -0.10,
+    y: float = 1.05,
+) -> None:
+    """Add a standard bold panel label, e.g. ``a`` or ``b``."""
+    ax.text(
+        x,
+        y,
+        label,
+        transform=ax.transAxes,
+        fontsize=PANEL_LABEL_FONTSIZE,
+        fontweight=PANEL_LABEL_WEIGHT,
+        va="top",
+        ha="right",
+    )
 
 
 def apply_small_margins(ax: plt.Axes, x: float = 0.02, y: float = 0.05) -> None:
@@ -448,7 +478,8 @@ def savefig(
     transparent : bool, optional
         If None, use rcParams['savefig.transparent'].
     savefig_kwargs :
-        Additional keyword arguments forwarded to fig.savefig().
+        Additional keyword arguments forwarded to fig.savefig(). Pass
+        ``bbox_inches=None`` to retain the exact physical canvas dimensions.
     """
     out_path = Path(path)
     out_path.parent.mkdir(parents=True, exist_ok=True)
@@ -459,10 +490,20 @@ def savefig(
     if transparent is None:
         transparent = mpl.rcParams.get("savefig.transparent", True)
 
+    # Matplotlib resolves ``bbox_inches=None`` back to the global rcParam.
+    # Treat an explicitly supplied None as a request for the uncropped,
+    # physical figure canvas instead.
+    _missing = object()
+    bbox_inches = savefig_kwargs.pop("bbox_inches", _missing)
+    if bbox_inches is _missing:
+        bbox_inches = mpl.rcParams.get("savefig.bbox", "tight")
+    elif bbox_inches is None:
+        bbox_inches = fig.bbox_inches
+
     fig.savefig(
         out_path,
         dpi=dpi,
-        bbox_inches="tight",
+        bbox_inches=bbox_inches,
         pad_inches=mpl.rcParams.get("savefig.pad_inches", 0.02),
         transparent=transparent,
         **savefig_kwargs,

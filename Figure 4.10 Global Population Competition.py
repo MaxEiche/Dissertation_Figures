@@ -24,7 +24,7 @@ Produces TWO figures, styled like Figure 4.3:
 
 Formatting:
 - with use_style("figstyle.mplstyle", font_family="Arial")
-- set_size(ax, width="thesis", ratio=0.70)  # 16 cm width
+- set_size(ax, width="onehalf", ratio=0.70)
 - no tight_layout() / constrained_layout()
 - colours only via figtools.therapy_color(...)
 - no replicate filtering via EXCLUDE_SAMPLES
@@ -44,7 +44,14 @@ from scipy.stats import gaussian_kde
 import statsmodels.api as sm
 import statsmodels.formula.api as smf
 
-from figtools import use_style, set_size, savefig, therapy_color
+from figtools import (
+    SECONDARY_LINEWIDTH,
+    add_panel_label,
+    new_figure,
+    savefig,
+    therapy_color,
+    use_style,
+)
 
 
 # ---------------------------------------------------------------------
@@ -160,7 +167,7 @@ def add_kde_contours(
     gridsize: int = 300,
     color="k",
     alpha: float = 0.9,
-    linewidths: Tuple[float, float, float] = (2.0, 1.5, 1.0),
+    linewidths: Tuple[float, float, float] = (1.3, 1.1, SECONDARY_LINEWIDTH),
     bw_method=0.7,
     pad: float = 0.10,
 ) -> None:
@@ -322,7 +329,7 @@ def filled_contours_on_ax(
         Z,
         levels=line_levels,
         colors=[base_color],
-        linewidths=0.8,
+        linewidths=SECONDARY_LINEWIDTH,
         zorder=2,
     )
 
@@ -604,25 +611,12 @@ def plot_global_competition_scatter(df: pd.DataFrame) -> None:
     xlim = (0.0, 4.0)
     ylim = (-10.0, 30.0)
 
-    with use_style("figstyle.mplstyle", font_family="Arial"):
-        fig, ax = plt.subplots()
-        set_size(ax, width="thesis", ratio=0.70)
+    with use_style("figstyle.mplstyle"):
+        # Retain the former ~80 mm height while extending to thesis width.
+        fig, ax = new_figure(width="thesis", ratio=0.50)
 
         # Panel letter
-        ax.text(
-            -0.15,
-            1.05,
-            "a",
-            transform=ax.transAxes,
-            fontweight="bold",
-            va="bottom",
-            ha="left",
-        )
-
-        # Axes cosmetics: no top/right spines, ticks outward
-        for spine in ("top", "right"):
-            ax.spines[spine].set_visible(False)
-        ax.tick_params(direction="out")
+        add_panel_label(ax, "a")
 
         # Order in legend: NT, CT, then adaptive strategies
         plot_order = ["NT", "CT", "AT100", "AT80", "AT50"]
@@ -648,15 +642,13 @@ def plot_global_competition_scatter(df: pd.DataFrame) -> None:
                 gridsize=300,
                 color=color,
                 alpha=0.9,
-                linewidths=(2.0, 1.5, 1.0),
+                linewidths=(1.3, 1.1, SECONDARY_LINEWIDTH),
                 bw_method=0.7,
                 pad=0.10,
             )
 
         ax.set_xlabel("Normalized sensitive population")
         ax.set_ylabel("Relative resistant growth [%]")
-        ax.set_title("Sensitive and Resistant Population Dynamics in Non-Embedded Spheroids")
-
         ax.set_xlim(*xlim)
         ax.set_ylim(*ylim)
 
@@ -670,7 +662,7 @@ def plot_global_competition_scatter(df: pd.DataFrame) -> None:
                 loc="best",
             )
 
-        savefig(fig, OUT_PDF_SCATTER, dpi=300, transparent=True)
+        savefig(fig, OUT_PDF_SCATTER, dpi=300, transparent=True, bbox_inches=None)
         plt.show()
         plt.close(fig)
         print(f"Saved scatter+contours global competition figure to: {OUT_PDF_SCATTER}")
@@ -699,14 +691,10 @@ def plot_global_competition_filled(df: pd.DataFrame) -> None:
     xlim = (0.0, 4.0)
     ylim = (-10.0, 30.0)
 
-    with use_style("figstyle.mplstyle", font_family="Arial"):
-        fig, ax = plt.subplots()
-        set_size(ax, width="thesis", ratio=0.70)
+    with use_style("figstyle.mplstyle"):
+        # Retain the former ~80 mm height while extending to thesis width.
+        fig, ax = new_figure(width="thesis", ratio=0.50)
 
-        # Axes cosmetics
-        for spine in ("top", "right"):
-            ax.spines[spine].set_visible(False)
-        ax.tick_params(direction="out")
         ax.set_facecolor("white")
 
         ax.set_xlim(*xlim)
@@ -814,3 +802,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+

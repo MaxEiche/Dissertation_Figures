@@ -12,7 +12,15 @@ from scipy import stats
 import matplotlib.pyplot as plt
 
 # Thesis formatting
-from figtools import use_style, set_size, savefig, therapy_color
+from figtools import (
+    ANNOTATION_FONTSIZE,
+    SECONDARY_LINEWIDTH,
+    format_axes,
+    new_figure,
+    savefig,
+    therapy_color,
+    use_style,
+)
 
 # ======== USER OPTIONS ========
 Y_AXIS_LABEL = "Distribution Score"
@@ -74,7 +82,7 @@ def add_bracket_with_annotations(
     x2: float,
     y: float,
     stars: str,
-    fontsize: int = 10,
+    fontsize: float = ANNOTATION_FONTSIZE,
 ):
     """
     Draw comparison bracket between x1 and x2 at height y and place
@@ -85,7 +93,12 @@ def add_bracket_with_annotations(
 
     # Vertical and horizontal coordinates for the bracket
     bar_y = y + 0.05 * yrange
-    ax.plot([x1, x1, x2, x2], [y, bar_y, bar_y, y], lw=1.2, c="black")
+    ax.plot(
+        [x1, x1, x2, x2],
+        [y, bar_y, bar_y, y],
+        lw=SECONDARY_LINEWIDTH,
+        c="black",
+    )
 
     # Text positions
     text_y_top = bar_y + 0.00 * yrange
@@ -109,18 +122,9 @@ def add_bracket_with_annotations(
 # Final plot – thesis format (single width)
 # ---------------------------------------------------------------------
 
-with use_style("figstyle.mplstyle", font_family="Arial"):
+with use_style("figstyle.mplstyle"):
 
-    fig, ax = plt.subplots(1, 1)
-    set_size(ax, width=70, ratio=0.7)
-
-    # Disable automatic layout engine so subplots_adjust works
-    try:
-        fig.set_layout_engine(None)
-    except AttributeError:
-        fig.set_constrained_layout(False)
-
-    fig.subplots_adjust(left=0.24, right=0.95, bottom=0.20, top=0.90)
+    fig, ax = new_figure(width="single", ratio=0.7)
 
     data = [CT_vals, AT_vals]
     labels = ["CT", "AT"]        # short labels as requested
@@ -134,10 +138,10 @@ with use_style("figstyle.mplstyle", font_family="Arial"):
         patch_artist=True,
         showfliers=True,
         medianprops=dict(color="black", linewidth=1.3),
-        boxprops=dict(alpha=0.30, linewidth=1.2),
-        whiskerprops=dict(linewidth=1.2),
+        boxprops=dict(alpha=0.30, linewidth=SECONDARY_LINEWIDTH),
+        whiskerprops=dict(linewidth=SECONDARY_LINEWIDTH),
         whis=(0, 100),
-        capprops=dict(linewidth=1.2),
+        capprops=dict(linewidth=SECONDARY_LINEWIDTH),
     )
 
     # Color boxes
@@ -156,9 +160,7 @@ with use_style("figstyle.mplstyle", font_family="Arial"):
             "o", alpha=0.8, color=AT_COLOR)
 
     # Formatting
-    ax.spines["top"].set_visible(False)
-    ax.spines["right"].set_visible(False)
-    ax.tick_params(direction="out")
+    format_axes(ax)
 
     ax.set_xticks(positions, labels)
     ax.set_ylabel(Y_AXIS_LABEL)
@@ -172,7 +174,7 @@ with use_style("figstyle.mplstyle", font_family="Arial"):
 
     # Save next to this script
     OUT_PDF = r"Y:\Members\MaxE\Thesis\Organized Figures\Chapter_4\Figure 4.16 Isabel 2\Figure_4.16_DistributionBoxplot.pdf"
-    savefig(fig, OUT_PDF, dpi=300, transparent=True)
+    savefig(fig, OUT_PDF, dpi=300, transparent=True, bbox_inches=None)
     plt.show()
 
     plt.close(fig)

@@ -9,15 +9,20 @@ import matplotlib.pyplot as plt
 from matplotlib.colors import LinearSegmentedColormap
 
 # Import unified figure tools
-from figtools import use_style, set_size, savefig
+from figtools import (
+    ERRORBAR_CAPSIZE,
+    ERRORBAR_LINEWIDTH,
+    add_panel_label,
+    new_subplots,
+    savefig,
+    use_style,
+)
 
 # --------------------------
 # GLOBAL PARAMETERS (tweak!)
 # --------------------------
 HEIGHT_RATIO = 0.45      # <---- ONE PLACE to adjust height of entire figure
-LEGEND_FONTSIZE = 7
 LEGEND_COLS = 2          # <---- Can use 1, 2 or 3 depending on space
-LEGEND_TITLE_SIZE = 7
 
 # -------------------
 # Paths & parameters
@@ -89,22 +94,19 @@ def load_tables(sheet_name: str):
 # Plotting
 # --------------------------
 with use_style(style_mpl=STYLE_PATH):
-    fig, axes = plt.subplots(1, 2, sharex=True, sharey=True)
+    fig, axes = new_subplots(
+        1,
+        2,
+        width="thesis",
+        ratio=HEIGHT_RATIO,
+        sharex=True,
+        sharey=True,
+    )
 
     # Panel labels (a), (b)
     panel_labels = ["a", "b"]
     for ax, label in zip(axes, panel_labels):
-        ax.text(
-            -0.1, 1.05, label,
-            transform=ax.transAxes,
-            fontsize=10,  # match axes.titlesize in figstyle
-            fontweight="bold",
-            va="top",
-            ha="right",
-        )
-
-    # Set figure size (Word-page-wide but lower height)
-    set_size(axes[0], width="thesis", ratio=HEIGHT_RATIO)
+        add_panel_label(ax, label)
 
     for ax in axes:
         ax.set_facecolor("white")
@@ -135,10 +137,8 @@ with use_style(style_mpl=STYLE_PATH):
                 y,
                 yerr=yerr,
                 marker="o",
-                markersize=3.5,       # smaller markers
-                linewidth=1.4,
-                elinewidth=1.0,
-                capsize=2,
+                elinewidth=ERRORBAR_LINEWIDTH,
+                capsize=ERRORBAR_CAPSIZE,
                 color=color,
                 label=str(cond),
             )
@@ -148,9 +148,7 @@ with use_style(style_mpl=STYLE_PATH):
         leg = ax.legend(
             frameon=False,
             ncols=LEGEND_COLS,
-            fontsize=LEGEND_FONTSIZE,
             title="G418 concentration [mg/ml]",
-            title_fontsize=LEGEND_TITLE_SIZE,
             handlelength=1.4,
             columnspacing=0.8,
             handletextpad=0.4,

@@ -28,7 +28,15 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-from figtools import use_style, new_subplots, savefig, therapy_color  # type: ignore
+from figtools import (  # type: ignore
+    GRID_ALPHA,
+    GRID_LINEWIDTH,
+    add_panel_label,
+    new_subplots,
+    savefig,
+    therapy_color,
+    use_style,
+)
 from scipy.stats import chi2  # NEW
 from scipy.stats import kruskal, mannwhitneyu  # NEW
 
@@ -673,7 +681,7 @@ def plot_km_and_fraction(
 
 
     # ============== Plot ==========================
-    with use_style("figstyle.mplstyle", font_family="Arial"):
+    with use_style("figstyle.mplstyle"):
         fig, axes = new_subplots(
             nrows=1,
             ncols=2,
@@ -687,15 +695,7 @@ def plot_km_and_fraction(
 
         # Panel letters
         for ax, lab in zip(axes, ["a", "b"]):
-            ax.text(
-                -0.15,
-                1.05,
-                lab,
-                transform=ax.transAxes,
-                fontweight="bold",
-                va="bottom",
-                ha="left",
-            )
+            add_panel_label(ax, lab)
 
         # ---------- Panel (a): KM ----------
         for long_name in present_long:
@@ -723,7 +723,6 @@ def plot_km_and_fraction(
                 t_vals,
                 S_vals,
                 label=f"{display} (n={len(times)})",
-                linewidth=1.8,
                 drawstyle="steps-post",
                 color=color,
             )
@@ -761,12 +760,14 @@ def plot_km_and_fraction(
         ax_km.set_ylabel("Survival")
         ax_km.set_ylim(0, 1.05)
         ax_km.set_xlim(left=0)
-        ax_km.grid(True, alpha=0.2, linestyle="--")
-
-        ax_km.legend(
-            frameon=False,
-            title="Treatment strategy",
+        ax_km.grid(
+            True,
+            alpha=GRID_ALPHA,
+            linestyle="--",
+            linewidth=GRID_LINEWIDTH,
         )
+
+        ax_km.legend(frameon=False)
 
         # ---------- Panel (b): fraction of days on treatment ----------
         if order_frac:
@@ -823,10 +824,9 @@ def plot_km_and_fraction(
             ax_frac.set_ylabel("Days under treatment [%]")
             ax_frac.set_ylim(-5, 105)
 
-        # Layout according to thesis rules
-        fig.subplots_adjust(left=0.12, right=0.98, wspace=0.30)
-
-        savefig(fig, OUT_PDF, dpi=300, transparent=True)
+        # Preserve the intended 160 mm physical canvas; tight cropping would
+        # otherwise slightly reduce the exported PDF width.
+        savefig(fig, OUT_PDF, dpi=300, transparent=True, bbox_inches=None)
         plt.show()
         plt.close(fig)
         print(f"Saved Figure 4.8 KM + fraction panel to: {OUT_PDF}")

@@ -4,7 +4,14 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-from figtools import use_style, new_figure, savefig  # <--- unified tools
+from figtools import (
+    ERRORBAR_LINEWIDTH,
+    GRID_ALPHA,
+    GRID_LINEWIDTH,
+    new_figure,
+    savefig,
+    use_style,
+)
 
 # -------------------
 # Paths & parameters
@@ -47,10 +54,9 @@ y = df["relative_drop_mean"].to_numpy()
 yerr = df["relative_drop_sd"].to_numpy()
 
 # -------------------
-# Plot (half width)
+# Plot (single column: 85 mm wide)
 # -------------------
 with use_style(style_mpl=STYLE_PATH):
-    # Create half-page-wide figure: 'single' = 85 mm width
     fig, ax = new_figure(width="single", ratio=0.7)
 
     ax.errorbar(
@@ -62,7 +68,7 @@ with use_style(style_mpl=STYLE_PATH):
         color="black",
         markerfacecolor="black",
         markeredgecolor="black",
-        elinewidth=1.0,
+        elinewidth=ERRORBAR_LINEWIDTH,
     )
 
     ax.set_ylim(0, 0.6)
@@ -75,7 +81,7 @@ with use_style(style_mpl=STYLE_PATH):
         xmin, xmax = int(np.floor(x.min())), int(np.ceil(x.max()))
         ax.set_xticks(np.arange(xmin, xmax + 1, 1))
 
-    ax.grid(True, linestyle="--", linewidth=0.6, alpha=0.4)
+    ax.grid(True, linestyle="--", linewidth=GRID_LINEWIDTH, alpha=GRID_ALPHA)
 
     out_pdf = XLSX.parent / "Thawing_time_dependency.pdf"
     savefig(fig, out_pdf, dpi=300, transparent=True)

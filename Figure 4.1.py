@@ -6,7 +6,16 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from scipy.stats import linregress
 
-from figtools import POPULATION_COLORS, use_style, set_size, savefig
+from figtools import (
+    ERRORBAR_CAPSIZE,
+    ERRORBAR_LINEWIDTH,
+    SECONDARY_LINEWIDTH,
+    POPULATION_COLORS,
+    add_panel_label,
+    new_subplots,
+    savefig,
+    use_style,
+)
 from experiment_filters import EXCLUDE_SAMPLES  # required by global pipeline
 
 # -----------------------
@@ -100,32 +109,20 @@ wide_norm = wide[["susceptible", "resistant", "total"]] / norm_den
 # Combined plot
 # -----------------------
 with use_style("figstyle.mplstyle"):
-    # Ensure Arial font globally (in case not already specified in figstyle)
-    plt.rcParams["font.family"] = "Arial"
-
-    fig, axes = plt.subplots(nrows=1, ncols=2, sharex=False, sharey=False)
+    fig, axes = new_subplots(
+        nrows=1,
+        ncols=2,
+        width="thesis",
+        ratio=0.5,
+        sharex=False,
+        sharey=False,
+    )
     ax_left, ax_right = axes
 
     # Subplot labels: panels b and c
     panel_labels = ["b", "c"]
     for ax, label in zip(axes, panel_labels):
-        ax.text(
-            -0.15, 1.05,
-            label,
-            transform=ax.transAxes,
-            fontweight="bold",
-            va="bottom",
-            ha="left",
-        )
-
-    # Make figure thesis-wide and reasonably flat
-    set_size(ax_left, width="thesis", ratio=0.5)
-
-    # Axes cosmetics: no top/right spines, ticks outward
-    for ax in axes:
-        ax.spines["top"].set_visible(False)
-        ax.spines["right"].set_visible(False)
-        ax.tick_params(direction="out")
+        add_panel_label(ax, label)
 
     # --- Panel b: sinking behaviour ---
     ax_left.errorbar(
@@ -135,7 +132,8 @@ with use_style("figstyle.mplstyle"):
         fmt="o",
         color="black",
         ecolor="black",
-        capsize=3,
+        elinewidth=ERRORBAR_LINEWIDTH,
+        capsize=ERRORBAR_CAPSIZE,
         linestyle="--",
     )
     x_fit = np.linspace(
@@ -149,10 +147,10 @@ with use_style("figstyle.mplstyle"):
         y_fit,
         linestyle="--",
         color="black",
-        linewidth=1.0,
+        linewidth=SECONDARY_LINEWIDTH,
     )
     ax_left.set_xlabel("Cooling time [min]")
-    ax_left.set_ylabel(r"Distance to medium ($\mu$m)")
+    ax_left.set_ylabel(r"Distance to medium [$\mu$m]")
 
     max_x = float(df_sink["Cooling_min"].max())
     ax_left.set_xticks(range(2, int(max_x) + 2, 2))
@@ -192,11 +190,8 @@ with use_style("figstyle.mplstyle"):
     ax_right.set_xticks(np.arange(2, max_day + 2, 2))
 
     # Legend: frameless
-    ax_right.legend(fontsize=7, frameon=False)
+    ax_right.legend(frameon=False)
     ax_right.margins(x=0.02, y=0.05)
-
-    # Global spacing (no tight_layout)
-    fig.subplots_adjust(left=0.12, right=0.98, wspace=0.30)
 
     out_pdf = OUTDIR / "Figure 4.1.pdf"
     savefig(fig, out_pdf, dpi=300, transparent=True)

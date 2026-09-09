@@ -32,7 +32,15 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from scipy.stats import linregress
 
-from figtools import use_style, set_size, savefig, therapy_color
+from figtools import (
+    ERRORBAR_CAPSIZE,
+    ERRORBAR_LINEWIDTH,
+    SECONDARY_LINEWIDTH,
+    new_figure,
+    savefig,
+    therapy_color,
+    use_style,
+)
 
 
 # ---------------------------------------------------------------------
@@ -563,13 +571,6 @@ def print_gee_analysis(df: pd.DataFrame) -> None:
         )
 
 
-def format_axes(ax: plt.Axes) -> None:
-    """Standard thesis formatting: no top/right spines, ticks outward."""
-    for spine in ("top", "right"):
-        ax.spines[spine].set_visible(False)
-    ax.tick_params(direction="out")
-
-
 def plot_growth_mean_sd_and_regression(ax: plt.Axes, df: pd.DataFrame) -> None:
     """
     Plot:
@@ -581,8 +582,6 @@ def plot_growth_mean_sd_and_regression(ax: plt.Axes, df: pd.DataFrame) -> None:
     """
     if df.empty:
         raise RuntimeError("No data points to plot.")
-
-    format_axes(ax)
 
     # -------- Regression on ALL individual points from selected strategies --------
     reg_strategies = {"NT", "CD", "AT50", "AT80", "AT100"}
@@ -616,7 +615,7 @@ def plot_growth_mean_sd_and_regression(ax: plt.Axes, df: pd.DataFrame) -> None:
             y_line,
             linestyle=":",
             color="black",
-            linewidth=1.5,
+            linewidth=SECONDARY_LINEWIDTH,
             zorder=1,
         )
     else:
@@ -653,9 +652,8 @@ def plot_growth_mean_sd_and_regression(ax: plt.Axes, df: pd.DataFrame) -> None:
             xerr=xerr,
             yerr=yerr,
             fmt="o",
-            markersize=5,
-            elinewidth=1.2,
-            capsize=3,
+            elinewidth=ERRORBAR_LINEWIDTH,
+            capsize=ERRORBAR_CAPSIZE,
             color=color,
             ecolor=color,
             alpha=0.95,
@@ -703,18 +701,10 @@ def main() -> None:
         print_gee_analysis(df)
 
     with use_style("figstyle.mplstyle", font_family="Arial"):
-        fig, ax = plt.subplots()
-        set_size(ax, width="single", ratio=0.70)
-
-        # Disable automatic layout engines; we control spacing manually
-        try:
-            fig.set_layout_engine(None)
-        except AttributeError:
-            fig.set_constrained_layout(False)
+        fig, ax = new_figure(width="single", ratio=0.70)
 
         plot_growth_mean_sd_and_regression(ax, df)
 
-        fig.subplots_adjust(left=0.12, right=0.98, bottom=0.12, top=0.92)
         savefig(fig, OUT_PDF, dpi=300, transparent=True)
         plt.show()
         plt.close(fig)

@@ -13,7 +13,16 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from scipy.stats import pearsonr
 
-from figtools import POPULATION_COLORS, use_style, set_size, savefig
+from figtools import (
+    PALETTE,
+    POPULATION_COLORS,
+    SECONDARY_LINEWIDTH,
+    add_panel_label,
+    format_axes,
+    new_subplots,
+    savefig,
+    use_style,
+)
 
 # ============================================================
 # Paths & data
@@ -43,17 +52,7 @@ df["S100_mgL"] = df["S100_ugL"] / 1000.0
 # ============================================================
 
 with use_style("figstyle.mplstyle"):
-    fig, (ax1, ax2) = plt.subplots(1, 2)
-    set_size(fig, width="thesis", ratio=0.38)
-
-    # Manual spacing
-    fig.subplots_adjust(
-        left=0.10,
-        right=0.98,
-        bottom=0.18,
-        top=0.92,
-        wspace=0.35
-    )
+    fig, (ax1, ax2) = new_subplots(1, 2, width="thesis", ratio=0.38)
 
     # --------------------------------------------------------
     # PANEL a — Timecourse (left)
@@ -62,7 +61,7 @@ with use_style("figstyle.mplstyle"):
     ax1.plot(df["Day"], df["res"], color=POPULATION_COLORS["resistant"], label="Resistant")
     ax1.plot(df["Day"], df["total"], color=POPULATION_COLORS["total"], label="Total")
 
-    ax1.set_xlabel("Time [days]")
+    ax1.set_xlabel("Time [Days]")
     ax1.set_ylabel("Cell count")
     ax1.set_xlim(0, 60)
     ax1.set_ylim(0, 110_000)
@@ -73,20 +72,21 @@ with use_style("figstyle.mplstyle"):
         df["S100_shifted_day"],
         df["S100_mgL"],
         linestyle=":",
-        linewidth=1.2,
-        color="red",
+        linewidth=SECONDARY_LINEWIDTH,
+        color=PALETTE["cat4"],
         label="S100 (shifted)"
     )
     ax1_s100.set_ylabel("S100 [mg/L]")
     ax1_s100.set_ylim(0, 31)
+    format_axes(ax1_s100, spines=("top", "left"), tick_params={"right": True})
 
     # Combined legend
     lines = ax1.get_lines() + ax1_s100.get_lines()
     labels = [l.get_label() for l in lines]
-    ax1.legend(lines, labels, frameon=False, fontsize=7, loc="upper left")
+    ax1.legend(lines, labels, frameon=False, loc="upper left")
 
     # Panel letter
-    ax1.text(-0.18, 1.04, "a", transform=ax1.transAxes, fontweight="bold")
+    add_panel_label(ax1, "a")
 
     # --------------------------------------------------------
     # PANEL b — Correlation (right)
@@ -101,7 +101,7 @@ with use_style("figstyle.mplstyle"):
     # Scatter (colored by day)
     sc = ax2.scatter(
         x, y,
-        s=18,
+        s=16,
         c=df["Day"],
         cmap="viridis",
         zorder=3
@@ -113,9 +113,9 @@ with use_style("figstyle.mplstyle"):
     y_fit = slope * x_fit + intercept
     ax2.plot(
         x_fit, y_fit,
-        color="red",
+        color=PALETTE["cat4"],
         linestyle="--",
-        linewidth=1.0,
+        linewidth=SECONDARY_LINEWIDTH,
         zorder=2
     )
 
@@ -127,22 +127,19 @@ with use_style("figstyle.mplstyle"):
     # --------------------------------------------------------
     # Add colorbar for 'Day'
     # --------------------------------------------------------
-    # Make a little bit of extra room on the right
-    fig.subplots_adjust(right=0.93)
-
     cbar = fig.colorbar(
         sc,
         ax=ax2,
         fraction=0.046,  # nice compact bar
         pad=0.04
     )
-    cbar.set_label("Day (days)")
+    cbar.set_label("Time [Days]")
 
     # Panel letter
-    ax2.text(-0.18, 1.04, "b", transform=ax2.transAxes, fontweight="bold")
+    add_panel_label(ax2, "b")
 
     # Save
-    savefig(fig, OUT_PDF, dpi=300, transparent=True)
+    savefig(fig, OUT_PDF, dpi=300, transparent=True, bbox_inches=None)
     print(f"[Saved] {OUT_PDF}")
     plt.show()
 

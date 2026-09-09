@@ -8,7 +8,13 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from scipy.stats import gaussian_kde
 
-from figtools import use_style, set_size, savefig, therapy_color
+from figtools import (
+    SECONDARY_LINEWIDTH,
+    new_figure,
+    savefig,
+    therapy_color,
+    use_style,
+)
 from matplotlib import colors as mcolors
 
 
@@ -28,7 +34,7 @@ def add_kde_contours(
     gridsize=300,
     color="k",
     alpha=0.9,
-    linewidths=(2.0, 1.5, 1.0),
+    linewidths=(1.3, 1.1, SECONDARY_LINEWIDTH),
     bw_method=0.7,
     pad=0.10,
 ):
@@ -458,16 +464,8 @@ def correlate_red_growth(df1):
     jitter = False  # no jitter by default for the final figure
 
     with use_style(STYLE_PATH):
-        # Ensure Arial font (if not already in figstyle)
-        plt.rcParams["font.family"] = "Arial"
-
-        fig, ax = plt.subplots()
-        set_size(ax, width="thesis", ratio=0.70)
-
-        # Axes cosmetics: no top/right spines, ticks outward
-        for spine in ("top", "right"):
-            ax.spines[spine].set_visible(False)
-        ax.tick_params(direction="out")
+        # Keep the former ~80 mm height while extending the x-axis to thesis width.
+        fig, ax = new_figure(width="thesis", ratio=0.50)
 
         for t in unique_treatments:
             sel = labels_rel == t
@@ -521,15 +519,7 @@ def correlate_red_growth(df1):
         # Second figure: filled density blobs per treatment (no points)
         # -------------------------------------------------------------
         with use_style(STYLE_PATH):
-            plt.rcParams["font.family"] = "Arial"
-
-            fig2, ax2 = plt.subplots()
-            set_size(ax2, width="thesis", ratio=0.70)
-
-            # Axes cosmetics
-            for spine in ("top", "right"):
-                ax2.spines[spine].set_visible(False)
-            ax2.tick_params(direction="out")
+            fig2, ax2 = new_figure(width="thesis", ratio=0.50)
             ax2.set_facecolor("white")
 
             ax2.set_xlim(*xlim)
@@ -689,7 +679,7 @@ def filled_contours_on_ax(
         Xg, Yg, Z,
         levels=line_levels,
         colors=[base_color],
-        linewidths=0.8
+        linewidths=SECONDARY_LINEWIDTH,
     )
 
 

@@ -36,7 +36,16 @@ import matplotlib.pyplot as plt
 from lifelines import KaplanMeierFitter
 from lifelines.statistics import logrank_test
 
-from figtools import POPULATION_COLORS, use_style, set_size, savefig, therapy_color
+from figtools import (
+    POPULATION_COLORS,
+    SECONDARY_LINEWIDTH,
+    add_panel_label,
+    format_axes,
+    new_subplots,
+    savefig,
+    therapy_color,
+    use_style,
+)
 
 
 # ---------------------------------------------------------------------
@@ -189,13 +198,6 @@ def agg_med_iqr(df: pd.DataFrame) -> pd.DataFrame:
     )
 
 
-def format_axes(ax: plt.Axes) -> None:
-    """Apply standard thesis formatting: no top/right spines, ticks out."""
-    for spine in ("top", "right"):
-        ax.spines[spine].set_visible(False)
-    ax.tick_params(direction="out")
-
-
 def collapse_group(label: str) -> str:
     """Collapse AT variants to 'AT' and keep CT as 'CT'."""
     lab = str(label).upper().strip()
@@ -249,7 +251,6 @@ def plot_combined_timecourse(
             agg["DAY"],
             agg["MED"],
             color=color,
-            linewidth=1.8,
             label=label,
         )
         ax.fill_between(
@@ -265,7 +266,7 @@ def plot_combined_timecourse(
         100.0,
         color="0.7",
         linestyle="--",
-        linewidth=1.0,
+        linewidth=SECONDARY_LINEWIDTH,
         zorder=0,
     )
 
@@ -280,9 +281,10 @@ def plot_combined_timecourse(
 
     # y-limits fairly generous
     ax.set_ylim(0, 400)
+    ax.set_yticks([0, 100, 200, 300])
 
     format_axes(ax)
-    ax.legend(frameon=False, fontsize=8, loc="upper left")
+    ax.legend(frameon=False, loc="upper left")
 
 
 def plot_resistant_timecourse(
@@ -310,7 +312,6 @@ def plot_resistant_timecourse(
             agg["DAY"],
             agg["MED"],
             color=color,
-            linewidth=1.8,
             linestyle=linestyle,
             label=label,
         )
@@ -326,7 +327,7 @@ def plot_resistant_timecourse(
         100.0,
         color="0.7",
         linestyle="--",
-        linewidth=1.0,
+        linewidth=SECONDARY_LINEWIDTH,
         zorder=0,
     )
 
@@ -339,9 +340,10 @@ def plot_resistant_timecourse(
     ax.set_xticks(ticks)
 
     ax.set_ylim(0, 400)
+    ax.set_yticks([0, 100, 200, 300])
 
     format_axes(ax)
-    ax.legend(frameon=False, fontsize=8, loc="upper left")
+    ax.legend(frameon=False, loc="upper left")
 
 
 def compute_km_data(
@@ -415,7 +417,7 @@ def plot_km_panel(
         label = PRETTY_LABEL.get(g, g)
         color = GROUP_COLOR.get(g, None)
         kmf.fit(sub["duration"], event_observed=sub["event"], label=label)
-        kmf.plot(ax=ax, ci_show=True, color=color, linewidth=1.8)
+        kmf.plot(ax=ax, ci_show=True, color=color)
 
     ax.set_xlabel("Time [Days]")
     ax.set_ylabel("Survival Probability")
@@ -427,7 +429,7 @@ def plot_km_panel(
     ax.set_xticks(ticks)
 
     format_axes(ax)
-    ax.legend(frameon=False, fontsize=8, loc="lower left")
+    ax.legend(frameon=False, loc="lower left")
 
     # Log-rank test (printed to console)
     if len(km_groups) == 2:
@@ -488,25 +490,20 @@ def main() -> None:
     dfl_mscar = sheets["mscar_norm_total"]
     km_df = compute_km_data(dfl_mscar, restricted_groups)
 
-    with use_style("figstyle.mplstyle", font_family="Arial"):
-        fig, axes = plt.subplots(
-            2,
-            2,
+    with use_style("figstyle.mplstyle"):
+        fig, axes = new_subplots(
+            nrows=2,
+            ncols=2,
+            width="thesis",
+            ratio=0.8,
             sharex=False,
             sharey=False,
-            gridspec_kw=dict(
-                wspace=0.05,  # horizontal spacing between columns
-                hspace=0.05,  # vertical spacing between rows
-            ),
         )
         ax_a, ax_b = axes[0]
         ax_c, ax_d = axes[1]
 
-        # Size (no extra subplots_adjust here)
-        set_size(ax_a, width="thesis", ratio=0.8)
-
         # Panel a – CT time courses
-        ax_a.text(-0.15, 1.05, "a", transform=ax_a.transAxes, fontweight="bold")
+        add_panel_label(ax_a, "a")
         plot_combined_timecourse(
             ax=ax_a,
             sheets=sheets,
@@ -515,7 +512,7 @@ def main() -> None:
         )
 
         # Panel b – AT time courses
-        ax_b.text(-0.15, 1.05, "b", transform=ax_b.transAxes, fontweight="bold")
+        add_panel_label(ax_b, "b")
         plot_combined_timecourse(
             ax=ax_b,
             sheets=sheets,
@@ -524,7 +521,7 @@ def main() -> None:
         )
 
         # Panel c – Resistant growth
-        ax_c.text(-0.15, 1.05, "c", transform=ax_c.transAxes, fontweight="bold")
+        add_panel_label(ax_c, "c")
         plot_resistant_timecourse(
             ax=ax_c,
             sheets=sheets,
@@ -533,7 +530,7 @@ def main() -> None:
         )
 
         # Panel d – KM (spheroid survival)
-        ax_d.text(-0.15, 1.05, "d", transform=ax_d.transAxes, fontweight="bold")
+        add_panel_label(ax_d, "d")
         plot_km_panel(
             ax=ax_d,
             km_df=km_df,

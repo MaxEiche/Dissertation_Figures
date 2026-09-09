@@ -21,7 +21,14 @@ from scipy.stats import mannwhitneyu, wilcoxon
 import statsmodels.api as sm
 import statsmodels.formula.api as smf
 
-from figtools import NEUTRAL_STATE_COLORS, new_figure, savefig, use_style
+from figtools import (
+    ANNOTATION_FONTSIZE,
+    NEUTRAL_STATE_COLORS,
+    SECONDARY_LINEWIDTH,
+    new_figure,
+    savefig,
+    use_style,
+)
 
 
 DATA_XLS = Path(
@@ -351,8 +358,8 @@ def plot_res_growth_after_spheroid_disruption(
     ].to_numpy()
     positions = [0, 1]
 
-    with use_style("figstyle.mplstyle", font_family="Arial"):
-        fig, ax = new_figure(width=60, ratio=1.2)
+    with use_style("figstyle.mplstyle"):
+        fig, ax = new_figure(width="single", ratio=1.2)
 
         bp = ax.boxplot(
             [data_before, data_after],
@@ -364,8 +371,8 @@ def plot_res_growth_after_spheroid_disruption(
 
         # Keep a light-vs-dark ordering while avoiding a true black fill that
         # blends into the box outlines and median line.
-        color_before = "#C7C7C7"
-        color_after = "#4A4A4A"
+        color_before = NEUTRAL_STATE_COLORS["inactive"]
+        color_after = NEUTRAL_STATE_COLORS["active"]
         for patch, col in zip(bp["boxes"], [color_before, color_after]):
             patch.set(facecolor=col, alpha=0.8, edgecolor="black", linewidth=1.0)
 
@@ -386,7 +393,7 @@ def plot_res_growth_after_spheroid_disruption(
             [positions[0], positions[0], positions[1], positions[1]],
             [y, y + h, y + h, y],
             color="black",
-            linewidth=1.0,
+            linewidth=SECONDARY_LINEWIDTH,
         )
         ax.text(
             0.5 * (positions[0] + positions[1]),
@@ -394,11 +401,8 @@ def plot_res_growth_after_spheroid_disruption(
             stars,
             ha="center",
             va="bottom",
+            fontsize=ANNOTATION_FONTSIZE,
         )
-
-        for spine in ["top", "right"]:
-            ax.spines[spine].set_visible(False)
-        ax.tick_params(direction="out")
 
         savefig(fig, OUT_PDF, dpi=300, transparent=True)
         plt.show()

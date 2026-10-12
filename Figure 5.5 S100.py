@@ -1,6 +1,7 @@
 # Figure 5.5 — S100 timecourse + correlation (thesis formatting)
 # ---------------------------------------------------------------
-# Uses: S100 shifted by 3 days, converted to mg/L
+# Uses: S100 shifted by 3 days (a reading on day t+3 is paired with cells on day t).
+# S100 source values are in µg/mL, numerically equivalent to mg/L.
 # Panels:
 #   a) Timecourse (sus, res, total + S100 on right axis)
 #   b) Correlation (total vs S100_mgL)
@@ -11,7 +12,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-from scipy.stats import pearsonr
+from matplotlib.lines import Line2D
 
 from figtools import (
     PALETTE,
@@ -35,17 +36,68 @@ OUT_PDF = Path(
     r"Y:\Members\MaxE\Thesis\Organized Figures\Chapter_5\Figure 5.5 S100_Analysis\Figure_5.5_S100.pdf"
 )
 
-# A=Day, B=sus, C=res, D=total, E=S100 (µg/L)
+# A=Day, B=sus, C=res, D=total, E=S100 (µg/mL)
 df = pd.read_excel(
     DATA_PATH,
     sheet_name="Tabelle2",
     usecols="A:E",
-    names=["Day", "sus", "res", "total", "S100_ugL"],
+    names=["Day", "sus", "res", "total", "S100_ug_mL"],
 )
 
-# Shift S100 by –3 days & convert to mg/L
-df["S100_shifted_day"] = df["Day"] - 3
-df["S100_mgL"] = df["S100_ugL"] / 1000.0
+# 1 µg/mL = 1 mg/L, so the numeric values do not change.
+S100_LIMIT_MG_L = 30.0
+LAG_DAYS = 3
+df["S100_mgL"] = df["S100_ug_mL"]
+df["S100_censored"] = df["S100_ug_mL"] >= S100_LIMIT_MG_L
+
+# A reading taken on day t+3 is plotted/paired at cell-count day t.
+df["S100_shifted_day"] = df["Day"] - LAG_DAYS
+
+# Pair cell counts at t with S100 measured at t+3 using exact sampling days.
+pairs = df[["Day", "total"]].merge(
+    df[["S100_shifted_day", "S100_mgL", "S100_censored"]],
+    left_on="Day",
+    right_on="S100_shifted_day",
+    how="inner",
+    validate="one_to_one",
+).dropna(subset=["total", "S100_mgL"])
+
+
+def censored_kendall_tau(x, y, censored):
+    """Kendall tau-b using only S100 orderings known despite upper censoring."""
+    concordant = discordant = tied_x = tied_y = excluded = 0
+    for i in range(len(x) - 1):
+        for j in range(i + 1, len(x)):
+            if censored[i] and censored[j]:
+                # Both readings are only known to be at/above the limit.
+                excluded += 1
+                continue
+
+            dx = np.sign(x[j] - x[i])
+            if censored[i]:
+                dy = -1  # y[i] is above the uncensored y[j]
+            elif censored[j]:
+                dy = 1   # uncensored y[i] is below y[j]
+            else:
+                dy = np.sign(y[j] - y[i])
+
+            if dx == 0 and dy == 0:
+                continue
+            if dx == 0:
+                tied_x += 1
+            elif dy == 0:
+                tied_y += 1
+            elif dx == dy:
+                concordant += 1
+            else:
+                discordant += 1
+
+    denominator = np.sqrt(
+        (concordant + discordant + tied_x)
+        * (concordant + discordant + tied_y)
+    )
+    tau = (concordant - discordant) / denominator if denominator else np.nan
+    return tau, concordant, discordant, tied_x, tied_y, excluded
 
 # ============================================================
 # Build the combined figure
@@ -70,19 +122,35 @@ with use_style("figstyle.mplstyle"):
     ax1_s100 = ax1.twinx()
     ax1_s100.plot(
         df["S100_shifted_day"],
-        df["S100_mgL"],
+        df["S100_mgL"].where(~df["S100_censored"]),
         linestyle=":",
         linewidth=SECONDARY_LINEWIDTH,
         color=PALETTE["cat4"],
         label="S100 (shifted)"
     )
+    capped_timecourse = df["S100_censored"] & df["S100_shifted_day"].between(0, 60)
+    ax1_s100.scatter(
+        df.loc[capped_timecourse, "S100_shifted_day"],
+        df.loc[capped_timecourse, "S100_mgL"],
+        marker="^",
+        s=24,
+        color=PALETTE["cat4"],
+        zorder=4,
+        label="S100 at assay limit (≥30)",
+    )
     ax1_s100.set_ylabel("S100 [mg/L]")
     ax1_s100.set_ylim(0, 31)
+    ax1_s100.axhline(S100_LIMIT_MG_L, color=PALETTE["cat4"], linewidth=0.6, alpha=0.45)
     format_axes(ax1_s100, spines=("top", "left"), tick_params={"right": True})
 
     # Combined legend
     lines = ax1.get_lines() + ax1_s100.get_lines()
     labels = [l.get_label() for l in lines]
+    lines.append(
+        Line2D([], [], marker="^", linestyle="none", color=PALETTE["cat4"],
+               label="S100 at assay limit (≥30)")
+    )
+    labels.append("S100 at assay limit (≥30)")
     ax1.legend(lines, labels, frameon=False, loc="upper left")
 
     # Panel letter
@@ -91,38 +159,59 @@ with use_style("figstyle.mplstyle"):
     # --------------------------------------------------------
     # PANEL b — Correlation (right)
     # --------------------------------------------------------
-    x = df["total"].to_numpy()
-    y = df["S100_mgL"].to_numpy()
+    x = pairs["total"].to_numpy(dtype=float)
+    y = pairs["S100_mgL"].to_numpy(dtype=float)
+    censored = pairs["S100_censored"].to_numpy(dtype=bool)
 
-    # Pearson printed only
-    r, p = pearsonr(x, y)
-    print(f"[S100] Pearson r = {r:.2f}, p = {p:.2e}")
+    # Descriptive censored Kendall tau-b; do not report a p-value for this
+    # single-replicate time series, whose observations are not independent.
+    tau, concordant, discordant, tied_x, tied_y, excluded = censored_kendall_tau(
+        x, y, censored
+    )
+    tau_label = (
+        f"Censored Kendall τb = {tau:.2f}"
+        if np.isfinite(tau)
+        else "Association not estimable\n(all paired S100 values capped)"
+    )
+    print(
+        f"[S100] {tau_label.replace(chr(10), ' ')}; "
+        f"n={len(pairs)}, capped={censored.sum()}, "
+        f"excluded both-capped pairs={excluded}. "
+        "Descriptive only; no p-value (single time series)."
+    )
 
     # Scatter (colored by day)
     sc = ax2.scatter(
         x, y,
         s=16,
-        c=df["Day"],
+        c=pairs["Day"],
         cmap="viridis",
         zorder=3
     )
-
-    # Regression line
-    slope, intercept = np.polyfit(x, y, 1)
-    x_fit = np.linspace(x.min(), x.max(), 200)
-    y_fit = slope * x_fit + intercept
-    ax2.plot(
-        x_fit, y_fit,
-        color=PALETTE["cat4"],
-        linestyle="--",
-        linewidth=SECONDARY_LINEWIDTH,
-        zorder=2
+    ax2.scatter(
+        x[censored], y[censored],
+        marker="^",
+        s=34,
+        facecolors="none",
+        edgecolors="black",
+        linewidths=0.8,
+        zorder=4,
+    )
+    ax2.axhline(S100_LIMIT_MG_L, color="black", linewidth=0.6, linestyle=":")
+    ax2.text(
+        0.98, S100_LIMIT_MG_L, "  assay limit (≥30)",
+        transform=ax2.get_yaxis_transform(),
+        ha="right", va="bottom", fontsize="small",
     )
 
     ax2.set_xlabel("Total cell number")
     ax2.set_ylabel("S100 [mg/L]")
     ax2.set_xlim(0, 110_000)
     ax2.set_ylim(0, 31)
+    ax2.text(
+        0.02, 0.98, tau_label,
+        transform=ax2.transAxes, ha="left", va="top",
+    )
 
     # --------------------------------------------------------
     # Add colorbar for 'Day'
@@ -133,7 +222,14 @@ with use_style("figstyle.mplstyle"):
         fraction=0.046,  # nice compact bar
         pad=0.04
     )
-    cbar.set_label("Time [Days]")
+    cbar.set_label("Cell-count day, t [Days]")
+
+    ax2.legend(
+        handles=[Line2D([], [], marker="^", linestyle="none", markerfacecolor="none",
+                        markeredgecolor="black", label="S100 at assay limit (≥30)")],
+        frameon=False,
+        loc="lower right",
+    )
 
     # Panel letter
     add_panel_label(ax2, "b")

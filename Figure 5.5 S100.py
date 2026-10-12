@@ -1,7 +1,7 @@
 # Figure 5.5 — S100 timecourse + correlation (thesis formatting)
 # ---------------------------------------------------------------
 # Uses: S100 shifted by 3 days (a reading on day t+3 is paired with cells on day t).
-# S100 source values are in µg/mL, numerically equivalent to mg/L.
+# S100 source values are in µg/L; convert to mg/L for plotting.
 # Panels:
 #   a) Timecourse (sus, res, total + S100 on right axis)
 #   b) Correlation (total vs S100_mgL)
@@ -36,19 +36,20 @@ OUT_PDF = Path(
     r"Y:\Members\MaxE\Thesis\Organized Figures\Chapter_5\Figure 5.5 S100_Analysis\Figure_5.5_S100.pdf"
 )
 
-# A=Day, B=sus, C=res, D=total, E=S100 (µg/mL)
+# A=Day, B=sus, C=res, D=total, E=S100 (µg/L)
 df = pd.read_excel(
     DATA_PATH,
     sheet_name="Tabelle2",
     usecols="A:E",
-    names=["Day", "sus", "res", "total", "S100_ug_mL"],
+    names=["Day", "sus", "res", "total", "S100_ugL"],
 )
 
-# 1 µg/mL = 1 mg/L, so the numeric values do not change.
+# 1 mg/L = 1000 µg/L. The raw values plateau at 30,000 µg/L,
+# corresponding to the assay's 30 mg/L (30 µg/mL) upper limit.
 S100_LIMIT_MG_L = 30.0
 LAG_DAYS = 3
-df["S100_mgL"] = df["S100_ug_mL"]
-df["S100_censored"] = df["S100_ug_mL"] >= S100_LIMIT_MG_L
+df["S100_mgL"] = df["S100_ugL"] / 1000.0
+df["S100_censored"] = df["S100_mgL"] >= S100_LIMIT_MG_L
 
 # A reading taken on day t+3 is plotted/paired at cell-count day t.
 df["S100_shifted_day"] = df["Day"] - LAG_DAYS
@@ -140,7 +141,6 @@ with use_style("figstyle.mplstyle"):
     )
     ax1_s100.set_ylabel("S100 [mg/L]")
     ax1_s100.set_ylim(0, 31)
-    ax1_s100.axhline(S100_LIMIT_MG_L, color=PALETTE["cat4"], linewidth=0.6, alpha=0.45)
     format_axes(ax1_s100, spines=("top", "left"), tick_params={"right": True})
 
     # Combined legend
@@ -169,7 +169,7 @@ with use_style("figstyle.mplstyle"):
         x, y, censored
     )
     tau_label = (
-        f"Censored Kendall τb = {tau:.2f}"
+        f"Censored Kendall tau-b = {tau:.2f}"
         if np.isfinite(tau)
         else "Association not estimable\n(all paired S100 values capped)"
     )
@@ -197,19 +197,12 @@ with use_style("figstyle.mplstyle"):
         linewidths=0.8,
         zorder=4,
     )
-    ax2.axhline(S100_LIMIT_MG_L, color="black", linewidth=0.6, linestyle=":")
-    ax2.text(
-        0.98, S100_LIMIT_MG_L, "  assay limit (≥30)",
-        transform=ax2.get_yaxis_transform(),
-        ha="right", va="bottom", fontsize="small",
-    )
-
     ax2.set_xlabel("Total cell number")
     ax2.set_ylabel("S100 [mg/L]")
     ax2.set_xlim(0, 110_000)
     ax2.set_ylim(0, 31)
     ax2.text(
-        0.02, 0.98, tau_label,
+        0.02, 0.96, f"τb = {tau:.2f}" if np.isfinite(tau) else "τb not estimable",
         transform=ax2.transAxes, ha="left", va="top",
     )
 
@@ -222,7 +215,7 @@ with use_style("figstyle.mplstyle"):
         fraction=0.046,  # nice compact bar
         pad=0.04
     )
-    cbar.set_label("Cell-count day, t [Days]")
+    cbar.set_label("Time [Days]")
 
     ax2.legend(
         handles=[Line2D([], [], marker="^", linestyle="none", markerfacecolor="none",

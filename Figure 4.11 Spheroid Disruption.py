@@ -169,6 +169,12 @@ def add_fallapart_info(combined_df: pd.DataFrame, fallapart_df: pd.DataFrame) ->
         lambda r: 6 if fallapart_dict.get((r["Day"], r["Replicate"]), 0) == 6 else 0,
         axis=1,
     )
+    # Fix collapse from all original annotations, including omitted imaging days.
+    collapse_days = {}
+    for (day, replicate), code in fallapart_dict.items():
+        if code == 6:
+            collapse_days[replicate] = min(day, collapse_days.get(replicate, day))
+    combined_df["collapse_day"] = combined_df["Replicate"].map(collapse_days)
     return combined_df
 
 
@@ -187,7 +193,9 @@ def build_base_df(df1: pd.DataFrame, df2: pd.DataFrame) -> pd.DataFrame:
     df1["Replicate"] = df1["Replicate"].apply(lambda x: f"1{x}")
     df2["Replicate"] = df2["Replicate"].apply(lambda x: f"2{x}")
     df = pd.concat([df1, df2], ignore_index=True)
+    df = df.sort_values(["Replicate", "Day"])
     df["strategy"] = df["Replicate"].map(build_group_map())
+    df["interval_days"] = df["Day"] - df.groupby("Replicate")["Day"].shift(1)
     df["relative_change"] = (
         df.groupby("Replicate")["r_normalized"].pct_change(fill_method=None) + 1.0
     )
@@ -202,12 +210,28 @@ def build_base_df(df1: pd.DataFrame, df2: pd.DataFrame) -> pd.DataFrame:
             "relative_change",
             "fallapart_info",
             "strategy",
+            "collapse_day",
+            "interval_days",
         ]
     ]
     df = df[~df["treatment"].isin([0.0, 3.0, 4.0, 5.0])]
     df = df.dropna(subset=["relative_change"])
     df = df[df["relative_change"].between(0.75, 2.0)].copy()
-    df["relative_change_pct"] = (df["relative_change"] - 1.0) * 100.0
+    df = df[df["interval_days"] > 0].copy()
+    df["relative_change_pct"] = 100.0 * (df["relative_change"] - 1.0) / df["interval_days"]
+    # Audit against the former alignment inferred from surviving analysis rows.
+    old_collapse = df.loc[df["fallapart_info"] == 6].groupby("Replicate")["Day"].min()
+    old_days = df["Replicate"].map(old_collapse)
+    df["collapse_alignment_changed"] = df["collapse_day"].notna() & (
+        old_days.isna() | df["collapse_day"].ne(old_days)
+    )
+    df.attrs["collapse_alignment_changed"] = {
+        "all_spheroids": int(df.loc[df["collapse_alignment_changed"], "Replicate"].nunique()),
+        "selected_strategies": int(df.loc[
+            df["collapse_alignment_changed"] & df["strategy"].isin(MIXED_STRATEGIES),
+            "Replicate",
+        ].nunique()),
+    }
     return df
 
 
@@ -233,45 +257,29 @@ def p_to_stars(pval: float) -> str:
 
 def build_descriptive_plot_df(base_df: pd.DataFrame) -> pd.DataFrame:
     df = base_df[base_df["strategy"].isin(MIXED_STRATEGIES)].copy()
-    collapse_reps = df.groupby("Replicate")["fallapart_info"].max()
-    collapse_reps = collapse_reps[collapse_reps.eq(6)].index
-    df = df[df["Replicate"].isin(collapse_reps)].copy()
-    first_fall = df.loc[df["fallapart_info"] == 6].groupby("Replicate")["Day"].min()
-    df["collapse_day"] = df["Replicate"].map(first_fall)
+    df = df[df["collapse_day"].notna()].copy()
     df["adjusted_day"] = df["Day"] - df["collapse_day"]
     df["post_collapse"] = (df["adjusted_day"] >= 0).astype(int)
     both = df.groupby(["Replicate", "post_collapse"]).size().unstack()
     both = both.dropna().index
     df = df[df["Replicate"].isin(both)].copy()
-    df["period"] = np.where(df["post_collapse"] == 1, "After disruption", "Before disruption")
+    df["period"] = np.where(df["post_collapse"] == 1, "On/after observed collapse", "Before disruption")
     return df
 
 
 def summarize_statistics(base_df: pd.DataFrame) -> dict:
-    # Exact descriptive reproduction of the old pooled script, but with corrected control exclusion.
-    descriptive = base_df.copy()
-    descriptive["adjusted_day"] = np.nan
-    for rep in descriptive["Replicate"].unique():
-        rep_df = descriptive[descriptive["Replicate"] == rep]
-        fall_day = rep_df.loc[rep_df["fallapart_info"] == 6, "Day"].min()
-        if pd.notna(fall_day):
-            descriptive.loc[descriptive["Replicate"] == rep, "adjusted_day"] = (
-                descriptive.loc[descriptive["Replicate"] == rep, "Day"] - fall_day
-            )
-        else:
-            last_day = rep_df["Day"].max()
-            descriptive.loc[descriptive["Replicate"] == rep, "adjusted_day"] = (
-                descriptive.loc[descriptive["Replicate"] == rep, "Day"] - last_day
-            )
+    # Use the same fixed observed collapse day for descriptive statistics.
+    descriptive = base_df[base_df["collapse_day"].notna()].copy()
+    descriptive["adjusted_day"] = descriptive["Day"] - descriptive["collapse_day"]
     excluded_true = [
         "1" + r for r in SAMPLE_GROUPS["Resistant Control No Treatment"] + SAMPLE_GROUPS["Resistant Control Maximum-tolerable-dose"]
     ] + [
         "2" + r for r in SAMPLE_GROUPS["Resistant Control No Treatment"] + SAMPLE_GROUPS["Resistant Control Maximum-tolerable-dose"]
     ]
     descriptive = descriptive[~descriptive["Replicate"].isin(excluded_true)].copy()
-    descriptive["period"] = np.where(descriptive["adjusted_day"] < 0, "Before disruption", "After disruption")
-    before_vals = descriptive.loc[descriptive["period"] == "Before disruption", "relative_change"]
-    after_vals = descriptive.loc[descriptive["period"] == "After disruption", "relative_change"]
+    descriptive["period"] = np.where(descriptive["adjusted_day"] < 0, "Before disruption", "On/after observed collapse")
+    before_vals = descriptive.loc[descriptive["period"] == "Before disruption", "relative_change_pct"]
+    after_vals = descriptive.loc[descriptive["period"] == "On/after observed collapse", "relative_change_pct"]
     pooled_u, pooled_p = mannwhitneyu(before_vals, after_vals, alternative="two-sided")
 
     infer_df = build_descriptive_plot_df(base_df)
@@ -302,9 +310,13 @@ def summarize_statistics(base_df: pd.DataFrame) -> dict:
                 "Usable observations on both sides of first collapse",
                 "No resistant controls",
                 "No non-collapse alignment to last observation",
+                "Fixed earliest original collapse annotation before growth/outcome filtering",
+                "Endpoint before versus on/after collapse; transition intervals retained",
+                "Outcome: 100 * (R_end / R_start - 1) / elapsed days",
             ],
             "verified_excluded_plate2_controls": [f"2H{i}" for i in range(1, 13)],
         },
+        "collapse_alignment_changed": base_df.attrs["collapse_alignment_changed"],
         "primary_inference": {
             "label": "Primary spheroid-aware inference",
             "method": "GEE Gaussian, exchangeable working correlation, robust sandwich SE",
@@ -312,21 +324,29 @@ def summarize_statistics(base_df: pd.DataFrame) -> dict:
             "cluster": "Replicate",
             "n_spheroids": int(gee_df["Replicate"].nunique()),
             "n_obs": int(len(gee_df)),
+            "interval_length_counts": {
+                str(int(days)): int(count)
+                for days, count in gee_df["interval_days"].value_counts().sort_index().items()
+            },
+            "n_collapse_alignment_changed": int(gee_df.loc[
+                gee_df["collapse_alignment_changed"], "Replicate"
+            ].nunique()),
+            "coefficient_units": "percentage points per day",
             "n_pre_obs": int((gee_df["post_collapse"] == 0).sum()),
             "n_post_obs": int((gee_df["post_collapse"] == 1).sum()),
             "coefficient_pct_points": float(gee_res.params["post_collapse"]),
             "ci_low": float(gee_ci[0]),
             "ci_high": float(gee_ci[1]),
             "p": float(gee_res.pvalues["post_collapse"]),
-            "interpretation": "Spheroid disruption was associated with increased resistant growth in non-embedded spheroids.",
+            "interpretation": "Adjusted on/after-minus-before observed collapse difference in resistant-fluorescence percentage change per day.",
         },
         "descriptive_pooled_summary": {
             "label": "Descriptive pooled summary only",
             "method": "Corrected pooled Mann-Whitney U (not primary inference)",
             "n_before": int(before_vals.size),
             "n_after": int(after_vals.size),
-            "median_before_pct": float(np.median((before_vals - 1.0) * 100.0)),
-            "median_after_pct": float(np.median((after_vals - 1.0) * 100.0)),
+            "median_before_pct": float(np.median(before_vals)),
+            "median_after_pct": float(np.median(after_vals)),
             "u": float(pooled_u),
             "p": float(pooled_p),
         },
@@ -354,7 +374,7 @@ def plot_res_growth_after_spheroid_disruption(
         df_plot["period"] == "Before disruption", "relative_change_pct"
     ].to_numpy()
     data_after = df_plot.loc[
-        df_plot["period"] == "After disruption", "relative_change_pct"
+        df_plot["period"] == "On/after observed collapse", "relative_change_pct"
     ].to_numpy()
     positions = [0, 1]
 
@@ -381,9 +401,9 @@ def plot_res_growth_after_spheroid_disruption(
                 item.set(color="black", linewidth=1.0)
 
         ax.set_xticks(positions)
-        ax.set_xticklabels(["Before Disruption", "After Disruption"])
+        ax.set_xticklabels(["Before Disruption", "On/after observed collapse"])
         ax.set_xlabel("")
-        ax.set_ylabel("Relative Res. Growth [%]")
+        ax.set_ylabel("Relative resistant-fluorescence change [% per day]")
         ax.set_ylim(-30, 70)
 
         stars = p_to_stars(primary_p)
@@ -433,23 +453,30 @@ def main() -> None:
     primary = stats_summary["primary_inference"]
     print("[Primary spheroid-aware inference]")
     print(
-        f"GEE, clustered by spheroid: post_collapse = {primary['coefficient_pct_points']:.3f} pp "
-        f"[{primary['ci_low']:.3f}, {primary['ci_high']:.3f}], "
-        f"p = {primary['p']:.3e}, n_spheroids = {primary['n_spheroids']}"
+        f"GEE, clustered by spheroid: post_collapse = {primary['coefficient_pct_points']:.3f} pp/day, "
+        f"95% CI [{primary['ci_low']:.3f}, {primary['ci_high']:.3f}], "
+        f"p = {primary['p']:.3e}, n_obs = {primary['n_obs']}, "
+        f"n_spheroids = {primary['n_spheroids']}"
     )
+    print(f"Primary-model interval lengths (days: count): {primary['interval_length_counts']}")
+    changed = stats_summary["collapse_alignment_changed"]
+    print(f"Spheroids with changed collapse alignment: all = {changed['all_spheroids']}, "
+          f"selected strategies = {changed['selected_strategies']}, "
+          f"included in primary model = {primary['n_collapse_alignment_changed']}")
 
     pooled = stats_summary["descriptive_pooled_summary"]
     print("[Descriptive pooled summary only]")
     print(
         f"Corrected pooled comparison retained only as display: n_before = {pooled['n_before']}, "
         f"n_after = {pooled['n_after']}, medians = {pooled['median_before_pct']:.3f}% vs "
-        f"{pooled['median_after_pct']:.3f}%"
+        f"{pooled['median_after_pct']:.3f}% per day, "
+        f"Mann-Whitney U = {pooled['u']:.3f}, p = {pooled['p']:.3e}"
     )
 
     sens = stats_summary["sensitivity_analysis"]
     print("[Sensitivity analysis]")
     print(
-        f"Within-spheroid post-minus-pre difference = {sens['mean_diff_pct_points']:.3f} pp "
+        f"Within-spheroid on/after-minus-before difference = {sens['mean_diff_pct_points']:.3f} pp/day "
         f"(median {sens['median_diff_pct_points']:.3f}), "
         f"95% CI [{sens['ci_low']:.3f}, {sens['ci_high']:.3f}], "
         f"Wilcoxon p = {sens['p']:.3e}, n = {sens['n_spheroids']}"

@@ -7,6 +7,7 @@ Half-width (single column) thesis-formatted boxplot.
 """
 
 from pathlib import Path
+from itertools import combinations
 import numpy as np
 from scipy import stats
 import matplotlib.pyplot as plt
@@ -40,10 +41,22 @@ all_vals = np.concatenate([CT_vals, AT_vals]).astype(float)
 n_CT = len(CT)
 n_AT = len(AT)
 
-# -------------------- Mann–Whitney --------------------
-mw = stats.mannwhitneyu(AT, CT, alternative="two-sided", method="exact")
-U, p = mw.statistic, mw.pvalue
-print(f"[Mann–Whitney] U = {U:.3g}, p = {p:.3g}, n_CT = {n_CT}, n_AT = {n_AT}")
+# -------------------- Exhaustive label-permutation test --------------------
+pooled_ranks = stats.rankdata(all_vals, method="average")  # Retain ties as midranks.
+observed_rank_sum = pooled_ranks[n_CT:].sum()
+U = observed_rank_sum - n_AT * (n_AT + 1) / 2
+null_centre = n_AT * (len(all_vals) + 1) / 2
+observed_distance = abs(observed_rank_sum - null_centre)
+permutation_count = extreme_count = 0
+for allocation in combinations(range(len(all_vals)), n_AT):
+    rank_sum = pooled_ranks[list(allocation)].sum()
+    permutation_count += 1
+    if abs(rank_sum - null_centre) >= observed_distance:
+        extreme_count += 1
+p = extreme_count / permutation_count
+print(f"[Two-sided midrank label-permutation] U_AT = {U:.3g}, "
+      f"extreme allocations = {extreme_count} / {permutation_count}, p = {p:.8g}, "
+      f"n_CT = {n_CT}, n_AT = {n_AT}")
 
 
 # ---------------------------------------------------------------------

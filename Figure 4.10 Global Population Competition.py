@@ -458,6 +458,8 @@ def combine_normalized_with_treatment(
 def build_global_competition_df(
     combined_df_plate1: pd.DataFrame,
     combined_df_plate2: pd.DataFrame,
+    treatment_df_plate1: pd.DataFrame,
+    treatment_df_plate2: pd.DataFrame,
 ) -> pd.DataFrame:
     """
     Prepare the dataframe used for the global population competition plot.
@@ -477,11 +479,37 @@ def build_global_competition_df(
     df1["Replicate"] = df1["Replicate"].apply(lambda x: f"1{x}")
     df2["Replicate"] = df2["Replicate"].apply(lambda x: f"2{x}")
     df = pd.concat([df1, df2], ignore_index=True)
+    df = df.sort_values(["Replicate", "Day"])
+    df["day_start"] = df.groupby("Replicate")["Day"].shift(1)
+    df["interval_days"] = df["Day"] - df["day_start"]
 
-    # Per-day relative change of resistant population
+    # Form ratios and exposure intervals before any analysis filtering.
     df["relative_change"] = (
         df.groupby("Replicate")["r_normalized"].pct_change(fill_method=None) + 1.0
     )
+
+    treatment_lookup = {}
+    for prefix, sheet in (("1", treatment_df_plate1), ("2", treatment_df_plate2)):
+        for _, row in sheet.iterrows():
+            if pd.isna(row.iloc[0]):
+                continue
+            day = int(str(row.iloc[0])[1:])
+            for well in sheet.columns[2:]:
+                treatment_lookup[(prefix + str(well), day)] = row[well]
+
+    def interval_exposure(row):
+        if pd.isna(row["day_start"]) or row["interval_days"] <= 0:
+            return "unknown"
+        # Imaging precedes treatment changes: exposure covers [start, end).
+        codes = [
+            treatment_lookup.get((row["Replicate"], day))
+            for day in range(int(row["day_start"]), int(row["Day"]))
+        ]
+        if any(code not in (1, 2) for code in codes):
+            return "unknown"
+        return codes[0] if len(set(codes)) == 1 else "mixed"
+
+    df["interval_exposure"] = df.apply(interval_exposure, axis=1)
 
     # Keep relevant columns
     df = df[
@@ -493,6 +521,8 @@ def build_global_competition_df(
             "g_normalized",
             "treatment",
             "relative_change",
+            "interval_days",
+            "interval_exposure",
         ]
     ]
 
@@ -528,15 +558,28 @@ def build_global_competition_df(
 
     # Keep only the five strategies we want to show
     df = df[df["Treatment"].isin(long_to_short.values())].copy()
+    df["relative_change_pct"] = 100.0 * (df["relative_change"] - 1.0) / df["interval_days"]
 
     return df
 
 
 def summarize_within_between_gee(df: pd.DataFrame) -> dict:
-    df = df.copy()
-    df["relative_change_pct"] = (df["relative_change"] - 1.0) * 100.0
+    descriptive_counts = {
+        "n_obs": int(len(df)),
+        "n_spheroids": int(df["Replicate"].nunique()),
+        "interval_length_counts": {
+            str(int(days)): int(count)
+            for days, count in df["interval_days"].value_counts().sort_index().items()
+        },
+    }
+    exposure_exclusions = {
+        "mixed": int((df["interval_exposure"] == "mixed").sum()),
+        "unknown": int((df["interval_exposure"] == "unknown").sum()),
+    }
+    # Exposure exclusions affect the GEE only; descriptive plot rows stay intact.
+    df = df[df["interval_exposure"].isin([1, 2])].copy()
     df["day_c"] = df["Day"] - df["Day"].mean()
-    df["treated_prev"] = (df["treatment"] == 1.0).astype(int)
+    df["treated_prev"] = (df["interval_exposure"] == 1).astype(int)
     df["g_mean"] = df.groupby("Replicate")["g_normalized"].transform("mean")
     df["g_within"] = df["g_normalized"] - df["g_mean"]
     df["g_between"] = df["g_mean"]
@@ -561,15 +604,26 @@ def summarize_within_between_gee(df: pd.DataFrame) -> dict:
                 "Normalized to day-0 total fluorescence",
                 "Excluded treatment codes 0, 3, 4, 5",
                 "Restricted relative_change to [0.75, 2.0]",
+                "Outcome: 100 * (R_end / R_start - 1) / elapsed days",
+                "Sensitive fluorescence remains interval-END g_normalized",
+                "GEE exposure from original annotations in [day_start, Day), including omitted imaging days",
+                "Mixed/unknown exposure excluded from GEE only",
             ],
         },
+        "descriptive_counts": descriptive_counts,
+        "gee_exposure_exclusions_from_descriptive_rows": exposure_exclusions,
         "primary_inference": {
-            "label": "Exploratory within-between longitudinal analysis; no robust within-spheroid negative association.",
+            "label": "Exploratory within-between longitudinal analysis.",
             "method": "GEE Gaussian, exchangeable working correlation, robust sandwich SE",
             "formula": "relative_change_pct ~ g_within + g_between + day_c + treated_prev + C(Treatment)",
             "cluster": "Replicate",
             "n_spheroids": int(df["Replicate"].nunique()),
             "n_obs": int(len(df)),
+            "interval_length_counts": {
+                str(int(days)): int(count)
+                for days, count in df["interval_days"].value_counts().sort_index().items()
+            },
+            "coefficient_units": "percentage points per day per unit normalized sensitive fluorescence",
             "g_within": {
                 "coef_pct_points": float(res.params["g_within"]),
                 "ci_low": float(ci_within[0]),
@@ -582,7 +636,7 @@ def summarize_within_between_gee(df: pd.DataFrame) -> dict:
                 "ci_high": float(ci_between[1]),
                 "p": float(res.pvalues["g_between"]),
             },
-            "interpretation": "Exploratory within-between longitudinal analysis; no robust within-spheroid negative association.",
+            "interpretation": "Exploratory within- and between-spheroid associations with daily resistant-fluorescence change, adjusted for interval exposure, time and strategy.",
         },
     }
 
@@ -627,7 +681,7 @@ def plot_global_competition_scatter(df: pd.DataFrame) -> None:
                 continue
 
             xg = df.loc[sel, "g_normalized"].to_numpy()
-            yg = (df.loc[sel, "relative_change"].to_numpy() - 1.0) * 100.0
+            yg = df.loc[sel, "relative_change_pct"].to_numpy()
             color = treatment_colors.get(t, "k")
 
             # Scatter cloud
@@ -648,7 +702,7 @@ def plot_global_competition_scatter(df: pd.DataFrame) -> None:
             )
 
         ax.set_xlabel("Normalized sensitive population")
-        ax.set_ylabel("Relative resistant growth [%]")
+        ax.set_ylabel("Relative resistant-fluorescence change [% per day]")
         ax.set_xlim(*xlim)
         ax.set_ylim(*ylim)
 
@@ -708,7 +762,7 @@ def plot_global_competition_filled(df: pd.DataFrame) -> None:
                 continue
 
             xg = df.loc[sel, "g_normalized"].to_numpy()
-            yg = (df.loc[sel, "relative_change"].to_numpy() - 1.0) * 100.0
+            yg = df.loc[sel, "relative_change_pct"].to_numpy()
             color = treatment_colors.get(t, "k")
 
             # Filled blobs, no dots
@@ -726,7 +780,7 @@ def plot_global_competition_filled(df: pd.DataFrame) -> None:
             )
 
             ax.set_xlabel("Normalized Sensitive Population")
-        ax.set_ylabel("Relative Resistant Growth [%]")
+        ax.set_ylabel("Relative resistant-fluorescence change (% per day)")
 
         # Legend: coloured squares, frameless
         handles = [
@@ -776,22 +830,35 @@ def main() -> None:
     comb2 = combine_normalized_with_treatment(norm2, treatment_df_plate2)
 
     # Build global competition dataframe
-    df_global = build_global_competition_df(comb1, comb2)
+    df_global = build_global_competition_df(
+        comb1, comb2, treatment_df_plate1, treatment_df_plate2
+    )
 
     stats_summary = summarize_within_between_gee(df_global)
     primary = stats_summary["primary_inference"]
     print("[Primary spheroid-aware inference]")
     print(primary["label"])
     print(
-        f"Within-spheroid effect: {primary['g_within']['coef_pct_points']:.3f} pp "
-        f"[{primary['g_within']['ci_low']:.3f}, {primary['g_within']['ci_high']:.3f}], "
+        f"Within-spheroid effect: {primary['g_within']['coef_pct_points']:.3f} pp/day "
+        f"per unit normalized sensitive fluorescence, "
+        f"95% CI [{primary['g_within']['ci_low']:.3f}, {primary['g_within']['ci_high']:.3f}], "
         f"p = {primary['g_within']['p']:.3e}"
     )
     print(
-        f"Between-spheroid effect: {primary['g_between']['coef_pct_points']:.3f} pp "
-        f"[{primary['g_between']['ci_low']:.3f}, {primary['g_between']['ci_high']:.3f}], "
+        f"Between-spheroid effect: {primary['g_between']['coef_pct_points']:.3f} pp/day "
+        f"per unit normalized sensitive fluorescence, "
+        f"95% CI [{primary['g_between']['ci_low']:.3f}, {primary['g_between']['ci_high']:.3f}], "
         f"p = {primary['g_between']['p']:.3e}"
     )
+    print(f"GEE: n_obs = {primary['n_obs']}, n_spheroids = {primary['n_spheroids']}, "
+          f"interval lengths (days: count) = {primary['interval_length_counts']}")
+    descriptive = stats_summary["descriptive_counts"]
+    excluded = stats_summary["gee_exposure_exclusions_from_descriptive_rows"]
+    print(f"Descriptive plots: n_obs = {descriptive['n_obs']}, "
+          f"n_spheroids = {descriptive['n_spheroids']}, "
+          f"interval lengths (days: count) = {descriptive['interval_length_counts']}")
+    print(f"GEE-only exposure exclusions from descriptive rows: mixed = {excluded['mixed']}, "
+          f"unknown = {excluded['unknown']}")
     print("[Descriptive pooled output retained only as raw visualization; no pooled Pearson inference printed.]")
     OUT_STATS.write_text(json.dumps(stats_summary, indent=2), encoding="utf-8")
 

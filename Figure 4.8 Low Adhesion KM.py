@@ -456,7 +456,7 @@ def build_km_input(
     treatment_df_plate2: pd.DataFrame,
 ) -> pd.DataFrame:
     """
-    Reproduce the event coding from plot_fig7_km_and_cumulative in Figure_7.
+    Code threshold failure as an event and dropout / last observation as censoring.
     Returns a DataFrame with columns:
         Replicate, Event_Day, Event_Type
     """
@@ -472,19 +472,25 @@ def build_km_input(
         combined["First_Relevant_Day"].astype(str).str.extract(r"(\d+)").astype(float)
     )
 
-    # Event day: min(failure day, dropout day)
-    combined["Event_Day"] = combined[["First_Day", "First_Relevant_Day"]].min(axis=1)
-
-    # Event_Type logic copied from original script, including inversion
-    combined["Event_Type"] = combined.apply(
-        lambda row: 1
-        if pd.isna(row["First_Day"])
-        or row["First_Day"] <= row["First_Relevant_Day"]
-        else 0,
-        axis=1,
+    # If neither time is available, censor at the last valid observation.
+    observations = combine_replicate_data(normalized_df_plate1, normalized_df_plate2)
+    last_days = (
+        observations.dropna(subset=["Day", "t_normalized", "r_normalized"])
+        .groupby("Replicate")["Day"].max()
     )
-    combined = combined.dropna(subset=["Event_Day", "Event_Type"]).copy()
-    combined["Event_Type"] = combined["Event_Type"].apply(lambda x: 1 if x == 0 else 0)
+
+    # Event day: earliest available failure / dropout, otherwise last observation.
+    combined["Event_Day"] = combined[["First_Day", "First_Relevant_Day"]].min(axis=1)
+    combined["Event_Day"] = combined["Event_Day"].fillna(combined["Replicate"].map(last_days))
+
+    # Failure at or before dropout (or without dropout) is an event; all else censored.
+    combined["Event_Type"] = (
+        combined["First_Day"].notna()
+        & (
+            combined["First_Relevant_Day"].isna()
+            | (combined["First_Day"] <= combined["First_Relevant_Day"])
+        )
+    ).astype(int)
 
     return combined[["Replicate", "Event_Day", "Event_Type"]]
 
@@ -643,6 +649,27 @@ def plot_km_and_fraction(
                     n1 = len(per_strat_times[g1])
                     n2 = len(per_strat_times[g2])
                     print(f"  {d1} (n={n1}) vs {d2} (n={n2}): chi2={chi2_stat:.3f}, p={p:.3e}")
+
+    # Additional KM comparison: CT against all three pooled AT strategies.
+    pooled_at_wells = [
+        well
+        for group in ("Adaptive Therapy 50", "Adaptive Therapy 80", "Adaptive Therapy 100")
+        for well in sample_groups[group]
+    ]
+    ct_km = km_df[
+        km_df["Replicate"].str[1:].isin(sample_groups["Maximum-tolerable-dose"])
+    ].dropna(subset=["Event_Day"])
+    pooled_at_km = km_df[
+        km_df["Replicate"].str[1:].isin(pooled_at_wells)
+    ].dropna(subset=["Event_Day"])
+    if not ct_km.empty and not pooled_at_km.empty:
+        chi2_stat, p = logrank_test(
+            ct_km["Event_Day"], ct_km["Event_Type"],
+            pooled_at_km["Event_Day"], pooled_at_km["Event_Type"],
+        )
+        print("\n[KM] CT vs pooled AT (AT50, AT80, AT100):")
+        print(f"  CT (n={len(ct_km)}) vs pooled AT (n={len(pooled_at_km)}): "
+              f"chi2={chi2_stat:.3f}, p={p:.3e}")
 
     # For panel (b): use only treatments with fraction data
     frac_present_long = sorted(frac_df["Sample"].dropna().unique().tolist())

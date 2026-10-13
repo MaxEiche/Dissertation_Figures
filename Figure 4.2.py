@@ -256,10 +256,13 @@ def correlate_red_growth(df1):
         "cumulative_treatment"
     ].shift(fill_value=0)
 
-    # Relative change of red channel per day + absolute change
+    # Form intervals before analysis filtering; keep the ratio's actual endpoints.
+    df["interval_days"] = df["Day"] - df.groupby("Replicate")["Day"].shift(1)
+    # Relative interval ratio + daily percentage change + absolute change
     df["relative_change"] = (
         df.groupby("Replicate")[r"r'_normalized"].pct_change(fill_method=None) + 1.0
     )
+    df["relative_change_pct"] = 100.0 * (df["relative_change"] - 1.0) / df["interval_days"]
     df["absolute_change"] = df.groupby("Replicate")[r"r'_normalized"].diff(periods=1)
 
     # Keep relevant columns
@@ -274,6 +277,8 @@ def correlate_red_growth(df1):
             "cumulative_treatment",
             "relative_change",
             "absolute_change",
+            "interval_days",
+            "relative_change_pct",
         ]
     ]
 
@@ -409,7 +414,7 @@ def correlate_red_growth(df1):
 
     # Use the same y-units as in the plot (% per day)
     x = df_corr["g_normalized"].to_numpy()
-    y = ((df_corr["relative_change"] - 1.0) * 100.0).to_numpy()
+    y = df_corr["relative_change_pct"].to_numpy()
 
     # Keep finite pairs only (defensive)
     m = np.isfinite(x) & np.isfinite(y)
@@ -418,6 +423,10 @@ def correlate_red_growth(df1):
     n = int(m.sum())
 
     n_spheroids = int(df_corr.loc[m, "Replicate"].nunique())
+    interval_counts = {
+        str(int(days)): int(count)
+        for days, count in df_corr.loc[m, "interval_days"].value_counts().sort_index().items()
+    }
     print("[Descriptive pooled visualization only]")
     print(
         "The originally reported pooled correlation could not be reproduced "
@@ -426,6 +435,7 @@ def correlate_red_growth(df1):
     )
     print(f"Descriptive pooled observations retained in the plot: n = {n}")
     print(f"Embedded spheroids represented in the plot: n = {n_spheroids}")
+    print(f"Interval lengths (days: count): {interval_counts}")
 
     # -------------------------------------------------------------
     # Precompute plot vectors for relative change topographies
@@ -441,13 +451,13 @@ def correlate_red_growth(df1):
             + np.random.normal(0, 0.1, size=valid_idx.sum())
         ).reset_index(drop=True)
         y_rel = (
-            (df.loc[valid_idx, "relative_change"] - 1.0) * 100.0
+            df.loc[valid_idx, "relative_change_pct"]
             + np.random.normal(0, 10.0, size=valid_idx.sum())
         ).reset_index(drop=True)
     else:
         x_rel = df.loc[valid_idx, "g_normalized"].reset_index(drop=True)
         y_rel = (
-            (df.loc[valid_idx, "relative_change"] - 1.0) * 100.0
+            df.loc[valid_idx, "relative_change_pct"]
         ).reset_index(drop=True)
 
     labels_rel = df.loc[valid_idx, "Treatment"].reset_index(drop=True).values
@@ -494,7 +504,7 @@ def correlate_red_growth(df1):
             )
 
         ax.set_xlabel("Normalized Sensitive Population")
-        ax.set_ylabel("Relative Resistant Growth [%]")
+        ax.set_ylabel("Relative resistant-fluorescence change (% per day)")
         ax.set_xlim(0, 6)
         ax.set_ylim(-10, 60)
 
@@ -538,7 +548,7 @@ def correlate_red_growth(df1):
                 filled_contours_on_ax(ax2, xg, yg, xlim, ylim, base_color=color)
 
             ax2.set_xlabel("Normalized Sensitive Population")
-            ax2.set_ylabel("Relative Resistant Growth [%]")
+            ax2.set_ylabel("Relative resistant-fluorescence change [% per day]")
 
             # Legend: coloured squares, frameless, default fontsize
             handles = [
@@ -567,6 +577,9 @@ def correlate_red_growth(df1):
         "analysis_status": "descriptive_only",
         "descriptive_plot_observations": n,
         "descriptive_plot_spheroids": n_spheroids,
+        "interval_length_counts": interval_counts,
+        "outcome": "100 * (R_end / R_start - 1) / elapsed days",
+        "outcome_units": "percent per day",
         "reported_original_pooled_correlation_reproduced": False,
         "interpretation": (
             "The originally reported pooled correlation could not be reproduced "

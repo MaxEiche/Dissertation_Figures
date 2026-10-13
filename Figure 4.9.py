@@ -160,34 +160,62 @@ def build_group_map() -> dict[str, str]:
     return rep_to_group
 
 
-def build_analysis_df(df1: pd.DataFrame, df2: pd.DataFrame) -> pd.DataFrame:
+def build_analysis_df(
+    df1: pd.DataFrame, df2: pd.DataFrame,
+    treatment_df1: pd.DataFrame, treatment_df2: pd.DataFrame,
+) -> pd.DataFrame:
+    # Use every treatment-sheet day, including days omitted from imaging.
+    treatment_lookup = {}
+    for prefix, sheet in (("1", treatment_df1), ("2", treatment_df2)):
+        for _, row in sheet.iterrows():
+            if pd.isna(row.iloc[0]):
+                continue
+            day = int(str(row.iloc[0])[1:])
+            for well in sheet.columns[2:]:
+                treatment_lookup[(prefix + str(well), day)] = row[well]
+
     df1 = df1.copy()
     df2 = df2.copy()
     df1["Replicate"] = df1["Replicate"].apply(lambda x: f"1{x}")
     df2["Replicate"] = df2["Replicate"].apply(lambda x: f"2{x}")
     df = pd.concat([df1, df2], ignore_index=True)
+    df = df.sort_values(["Replicate", "Day"])
     df["strategy"] = df["Replicate"].map(build_group_map())
+    df["day_start"] = df.groupby("Replicate")["Day"].shift(1)
+    df["interval_days"] = df["Day"] - df["day_start"]
     df["relative_change"] = (
         df.groupby("Replicate")["r_normalized"].pct_change(fill_method=None) + 1.0
     )
-    df = df[
-        [
-            "Replicate",
-            "Day",
-            "r_normalized",
-            "t_normalized",
-            "g_normalized",
-            "treatment",
-            "relative_change",
-            "strategy",
+    df = df[df["interval_days"] > 0].copy()
+
+    def interval_state(row):
+        # Imaging precedes treatment changes: exposure covers [start, end).
+        codes = [
+            treatment_lookup.get((row["Replicate"], day))
+            for day in range(int(row["day_start"]), int(row["Day"]))
         ]
-    ]
-    df = df[~df["treatment"].isin([0.0, 3.0, 4.0, 5.0])]
+        if any(code not in (1, 2) for code in codes):
+            return "unknown"
+        return codes[0] if len(set(codes)) == 1 else "mixed"
+
+    df["treatment"] = df.apply(interval_state, axis=1)
+    exclusions = {}
+    for scope, intervals in (
+        ("all_strategies", df),
+        ("primary_strategies", df[df["strategy"].isin(MIXED_STRATEGIES)]),
+    ):
+        exclusions[scope] = {
+            "formed_intervals": int(len(intervals)),
+            "mixed": int((intervals["treatment"] == "mixed").sum()),
+            "unknown": int((intervals["treatment"] == "unknown").sum()),
+        }
+    df = df[df["treatment"].isin([1, 2])].copy()
     df = df.dropna(subset=["relative_change"])
     df = df[df["relative_change"].between(0.75, 2.0)].copy()
-    df["relative_change_pct"] = (df["relative_change"] - 1.0) * 100.0
+    df["relative_change_pct"] = 100.0 * (df["relative_change"] - 1.0) / df["interval_days"]
     df["treated_prev"] = (df["treatment"] == 1.0).astype(int)
     df["day_c"] = df["Day"] - df["Day"].mean()
+    df.attrs["interval_exclusions"] = exclusions
     return df
 
 
@@ -212,8 +240,8 @@ def p_to_stars(pval: float) -> str:
 
 
 def summarize_statistics(df: pd.DataFrame) -> dict:
-    pooled_treat = df[df["treatment"] == 1.0]["relative_change"]
-    pooled_no = df[df["treatment"] == 2.0]["relative_change"]
+    pooled_treat = df[df["treatment"] == 1.0]["relative_change_pct"]
+    pooled_no = df[df["treatment"] == 2.0]["relative_change_pct"]
     pooled_u, pooled_p = mannwhitneyu(pooled_treat, pooled_no, alternative="two-sided")
 
     mix = df[df["strategy"].isin(MIXED_STRATEGIES)].copy()
@@ -240,10 +268,13 @@ def summarize_statistics(df: pd.DataFrame) -> dict:
             "filters": [
                 "Removed artifact days 15, 27, 29",
                 "Normalized to day-0 total fluorescence",
-                "Excluded treatment codes 0, 3, 4, 5",
+                "Aligned exposure to original treatment-sheet days in [day_start, Day)",
+                "Excluded mixed intervals and unknown exposure (missing or codes 0, 3, 4, 5)",
                 "Restricted relative_change to [0.75, 2.0]",
+                "Outcome: 100 * (R_end / R_start - 1) / elapsed days",
             ],
         },
+        "interval_exclusions_before_ratio_filter": df.attrs["interval_exclusions"],
         "primary_inference": {
             "label": "Primary spheroid-aware inference",
             "method": "GEE Gaussian, exchangeable working correlation, robust sandwich SE",
@@ -251,19 +282,24 @@ def summarize_statistics(df: pd.DataFrame) -> dict:
             "cluster": "Replicate",
             "n_spheroids": int(mix["Replicate"].nunique()),
             "n_obs": int(len(mix)),
+            "interval_length_counts": {
+                str(int(days)): int(count)
+                for days, count in mix["interval_days"].value_counts().sort_index().items()
+            },
+            "coefficient_units": "percentage points per day",
             "coefficient_pct_points": float(gee_res.params["treated_prev"]),
             "ci_low": float(gee_ci[0]),
             "ci_high": float(gee_ci[1]),
             "p": float(gee_res.pvalues["treated_prev"]),
-            "interpretation": "Recent treatment exposure was associated with higher resistant growth in non-embedded spheroids.",
+            "interpretation": "Adjusted treated-minus-untreated difference in resistant-fluorescence percentage change per day.",
         },
         "descriptive_pooled_summary": {
             "label": "Descriptive pooled summary only",
             "method": "Mann-Whitney U (not primary inference)",
             "n_treat": int(pooled_treat.size),
             "n_no": int(pooled_no.size),
-            "median_treat_pct": float(np.median((pooled_treat - 1.0) * 100.0)),
-            "median_no_pct": float(np.median((pooled_no - 1.0) * 100.0)),
+            "median_treat_pct": float(np.median(pooled_treat)),
+            "median_no_pct": float(np.median(pooled_no)),
             "u": float(pooled_u),
             "p": float(pooled_p),
         },
@@ -281,30 +317,28 @@ def summarize_statistics(df: pd.DataFrame) -> dict:
 
 
 def plot_treatment_effect_on_resistant_growth(
-    df1: pd.DataFrame,
-    df2: pd.DataFrame,
+    df: pd.DataFrame,
     primary_p: float,
 ) -> None:
-    df = build_analysis_df(df1, df2)
     df = df[df["strategy"].isin(MIXED_STRATEGIES)].copy()
 
     df["treatment"] = df["treatment"].map(
         {
-            1.0: "Treatment the day before",
-            2.0: "No treatment the day before",
+            1.0: "Treatment throughout interval",
+            2.0: "No treatment throughout interval",
         }
     )
     df = df[
         df["treatment"].isin(
-            ["Treatment the day before", "No treatment the day before"]
+            ["Treatment throughout interval", "No treatment throughout interval"]
         )
     ].copy()
 
     data_no = df.loc[
-        df["treatment"] == "No treatment the day before", "relative_change_pct"
+        df["treatment"] == "No treatment throughout interval", "relative_change_pct"
     ].to_numpy()
     data_yes = df.loc[
-        df["treatment"] == "Treatment the day before", "relative_change_pct"
+        df["treatment"] == "Treatment throughout interval", "relative_change_pct"
     ].to_numpy()
 
     positions = [0, 1]
@@ -334,7 +368,7 @@ def plot_treatment_effect_on_resistant_growth(
         ax.set_xticks(positions)
         ax.set_xticklabels(["No Treatment", "Treatment"])
         ax.set_xlabel("")
-        ax.set_ylabel("Relative Res. Growth [%]")
+        ax.set_ylabel("Relative resistant-fluorescence change [% per day]")
         ax.set_ylim(-30, 70)
 
         stars = p_to_stars(primary_p)
@@ -371,31 +405,35 @@ def main() -> None:
     norm1 = extract_and_normalize_remove_artifacts(data_df_plate1)
     norm2 = extract_and_normalize_remove_artifacts(data_df_plate2)
 
-    comb1 = combine_normalized_with_treatment(norm1, treatment_df_plate1)
-    comb2 = combine_normalized_with_treatment(norm2, treatment_df_plate2)
-
-    stats_summary = summarize_statistics(build_analysis_df(comb1, comb2))
+    analysis_df = build_analysis_df(norm1, norm2, treatment_df_plate1, treatment_df_plate2)
+    stats_summary = summarize_statistics(analysis_df)
 
     primary = stats_summary["primary_inference"]
     print("[Primary spheroid-aware inference]")
     print(
-        f"GEE, clustered by spheroid: treated_prev = {primary['coefficient_pct_points']:.3f} pp "
-        f"[{primary['ci_low']:.3f}, {primary['ci_high']:.3f}], "
-        f"p = {primary['p']:.3e}, n_spheroids = {primary['n_spheroids']}"
+        f"GEE, clustered by spheroid: treated_prev = {primary['coefficient_pct_points']:.3f} pp/day, "
+        f"95% CI [{primary['ci_low']:.3f}, {primary['ci_high']:.3f}], "
+        f"p = {primary['p']:.3e}, n_obs = {primary['n_obs']}, "
+        f"n_spheroids = {primary['n_spheroids']}"
     )
+    print(f"Primary-model interval lengths (days: count): {primary['interval_length_counts']}")
+    for scope, counts in stats_summary["interval_exclusions_before_ratio_filter"].items():
+        print(f"[{scope}] Before ratio filtering: {counts['formed_intervals']} intervals; "
+              f"excluded mixed = {counts['mixed']}, unknown = {counts['unknown']}")
 
     pooled = stats_summary["descriptive_pooled_summary"]
     print("[Descriptive pooled summary only]")
     print(
         f"Raw pooled comparison retained only as display: n_treat = {pooled['n_treat']}, "
         f"n_no = {pooled['n_no']}, medians = {pooled['median_treat_pct']:.3f}% vs "
-        f"{pooled['median_no_pct']:.3f}%"
+        f"{pooled['median_no_pct']:.3f}% per day, "
+        f"Mann-Whitney U = {pooled['u']:.3f}, p = {pooled['p']:.3e}"
     )
 
     sens = stats_summary["sensitivity_analysis"]
     print("[Sensitivity analysis]")
     print(
-        f"Within-spheroid paired difference = {sens['mean_diff_pct_points']:.3f} pp "
+        f"Within-spheroid paired difference = {sens['mean_diff_pct_points']:.3f} pp/day "
         f"(median {sens['median_diff_pct_points']:.3f}), "
         f"95% CI [{sens['ci_low']:.3f}, {sens['ci_high']:.3f}], "
         f"Wilcoxon p = {sens['p']:.3e}, n = {sens['n_spheroids']}"
@@ -403,8 +441,7 @@ def main() -> None:
 
     OUT_STATS.write_text(json.dumps(stats_summary, indent=2), encoding="utf-8")
     plot_treatment_effect_on_resistant_growth(
-        comb1,
-        comb2,
+        analysis_df,
         primary_p=primary["p"],
     )
 

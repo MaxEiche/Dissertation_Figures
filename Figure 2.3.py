@@ -1,5 +1,5 @@
 # ===============================================================
-# === Figure 2.3: Relative Growth for G418 alpha-2 / alpha-4  ===
+# === Figure 2.3: Relative Fluorescence for G418 alpha-2 / alpha-4 ===
 # ===============================================================
 
 from pathlib import Path
@@ -36,8 +36,8 @@ XLSX = Path(
 SHEETS = ("G418 alpha-2", "G418 alpha-4")
 
 SHEET_TITLES = {
-    "G418 alpha-2": "Sensitive Cells",
-    "G418 alpha-4": "Resistant Cells",
+    "G418 alpha-2": "Sensitive Cells (α2)",
+    "G418 alpha-4": "Resistant Cells (α4)",
 }
 
 ROW_SLICE_MEANS = slice(281, 294)
@@ -116,7 +116,7 @@ with use_style(style_mpl=STYLE_PATH):
         ax.set_xticks([0, 2, 5, 7])
         ax.set_xlabel("Day after Treatment Start")
 
-    axes[0].set_ylabel("Relative Growth")
+    axes[0].set_ylabel("Relative Fluorescence")
 
     for ax, sheet in zip(axes, SHEETS):
         means, sds = load_tables(sheet)

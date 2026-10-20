@@ -706,6 +706,7 @@ def main() -> None:
         plot_growth_mean_sd_and_regression(ax, df)
 
         savefig(fig, OUT_PDF, dpi=300, transparent=True)
+        savefig(fig, OUT_PDF.with_suffix(".png"), dpi=600, transparent=False, facecolor="white")
         plt.show()
         plt.close(fig)
 

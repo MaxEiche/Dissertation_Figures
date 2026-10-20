@@ -229,6 +229,7 @@ with use_style("figstyle.mplstyle"):
 
     # Save
     savefig(fig, OUT_PDF, dpi=300, transparent=True, bbox_inches=None)
+    savefig(fig, OUT_PDF.with_suffix(".png"), dpi=600, transparent=False, facecolor="white", bbox_inches=None)
     print(f"[Saved] {OUT_PDF}")
     plt.show()
 

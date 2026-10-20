@@ -85,6 +85,7 @@ with use_style(style_mpl=STYLE_PATH):
 
     out_pdf = XLSX.parent / "Thawing_time_dependency.pdf"
     savefig(fig, out_pdf, dpi=300, transparent=True)
+    savefig(fig, out_pdf.with_suffix(".png"), dpi=600, transparent=False, facecolor="white")
 
     plt.show()
 

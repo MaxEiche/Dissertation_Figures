@@ -390,6 +390,7 @@ def plot_treatment_effect_on_resistant_growth(
         )
 
         savefig(fig, OUT_PDF, dpi=300, transparent=True)
+        savefig(fig, OUT_PDF.with_suffix(".png"), dpi=600, transparent=False, facecolor="white")
         plt.show()
         plt.close(fig)
         print(f"Saved treatment-effect figure to: {OUT_PDF}")

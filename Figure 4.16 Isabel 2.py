@@ -188,6 +188,7 @@ with use_style("figstyle.mplstyle"):
     # Save next to this script
     OUT_PDF = r"Y:\Members\MaxE\Thesis\Organized Figures\Chapter_4\Figure 4.16 Isabel 2\Figure_4.16_DistributionBoxplot.pdf"
     savefig(fig, OUT_PDF, dpi=300, transparent=True, bbox_inches=None)
+    savefig(fig, Path(OUT_PDF).with_suffix(".png"), dpi=600, transparent=False, facecolor="white", bbox_inches=None)
     plt.show()
 
     plt.close(fig)

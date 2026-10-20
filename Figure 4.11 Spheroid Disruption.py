@@ -425,6 +425,7 @@ def plot_res_growth_after_spheroid_disruption(
         )
 
         savefig(fig, OUT_PDF, dpi=300, transparent=True)
+        savefig(fig, OUT_PDF.with_suffix(".png"), dpi=600, transparent=False, facecolor="white")
         plt.show()
         plt.close(fig)
         print(f"Saved fallapart figure to: {OUT_PDF}")

@@ -195,6 +195,7 @@ with use_style("figstyle.mplstyle"):
 
     out_pdf = OUTDIR / "Figure 4.1.pdf"
     savefig(fig, out_pdf, dpi=300, transparent=True)
+    savefig(fig, out_pdf.with_suffix(".png"), dpi=600, transparent=False, facecolor="white")
     plt.show()
     plt.close(fig)
 

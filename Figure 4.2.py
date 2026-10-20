@@ -520,6 +520,7 @@ def correlate_red_growth(df1):
 
         out_pdf = Path(file_path).parent / "Figure_4_2_topography_relative.pdf"
         savefig(fig, out_pdf, dpi=300, transparent=True)
+        savefig(fig, out_pdf.with_suffix(".png"), dpi=600, transparent=False, facecolor="white")
         plt.show()
         plt.close(fig)
 
@@ -567,6 +568,7 @@ def correlate_red_growth(df1):
 
             out_pdf_filled = Path(file_path).parent / "Figure_4_2_topography_relative_filled.pdf"
             savefig(fig2, out_pdf_filled, dpi=300, transparent=True)
+            savefig(fig2, out_pdf_filled.with_suffix(".png"), dpi=600, transparent=False, facecolor="white")
             plt.show()
             plt.close(fig2)
             print(f"[Saved] {out_pdf_filled.resolve()}")

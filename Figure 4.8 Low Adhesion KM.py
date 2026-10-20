@@ -854,6 +854,7 @@ def plot_km_and_fraction(
         # Preserve the intended 160 mm physical canvas; tight cropping would
         # otherwise slightly reduce the exported PDF width.
         savefig(fig, OUT_PDF, dpi=300, transparent=True, bbox_inches=None)
+        savefig(fig, OUT_PDF.with_suffix(".png"), dpi=600, transparent=False, facecolor="white", bbox_inches=None)
         plt.show()
         plt.close(fig)
         print(f"Saved Figure 4.8 KM + fraction panel to: {OUT_PDF}")

@@ -717,6 +717,7 @@ def plot_global_competition_scatter(df: pd.DataFrame) -> None:
             )
 
         savefig(fig, OUT_PDF_SCATTER, dpi=300, transparent=True, bbox_inches=None)
+        savefig(fig, OUT_PDF_SCATTER.with_suffix(".png"), dpi=600, transparent=False, facecolor="white", bbox_inches=None)
         plt.show()
         plt.close(fig)
         print(f"Saved scatter+contours global competition figure to: {OUT_PDF_SCATTER}")
@@ -800,6 +801,7 @@ def plot_global_competition_filled(df: pd.DataFrame) -> None:
             ax.legend(handles=handles, frameon=False, loc="best")
 
         savefig(fig, OUT_PDF_FILLED, dpi=300, transparent=True)
+        savefig(fig, OUT_PDF_FILLED.with_suffix(".png"), dpi=600, transparent=False, facecolor="white")
         plt.show()
         plt.close(fig)
         print(f"Saved filled-blobs global competition figure to: {OUT_PDF_FILLED}")

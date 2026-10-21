@@ -1,10 +1,10 @@
 # Figure 5.5 — S100 timecourse + correlation (thesis formatting)
 # ---------------------------------------------------------------
 # Uses: S100 shifted by 3 days (a reading on day t+3 is paired with cells on day t).
-# S100 source values are in µg/L; convert to mg/L for plotting.
+# S100 source values are in ng/L; convert to µg/L for plotting.
 # Panels:
 #   a) Timecourse (sus, res, total + S100 on right axis)
-#   b) Correlation (total vs S100_mgL)
+#   b) Correlation (total vs S100_ugL)
 #
 # Formatting follows global dissertation rules.
 
@@ -36,32 +36,32 @@ OUT_PDF = Path(
     r"Y:\Members\MaxE\Thesis\Organized Figures\Chapter_5\Figure 5.5 S100_Analysis\Figure_5.5_S100.pdf"
 )
 
-# A=Day, B=sus, C=res, D=total, E=S100 (µg/L)
+# A=Day, B=sus, C=res, D=total, E=S100 (ng/L)
 df = pd.read_excel(
     DATA_PATH,
     sheet_name="Tabelle2",
     usecols="A:E",
-    names=["Day", "sus", "res", "total", "S100_ugL"],
+    names=["Day", "sus", "res", "total", "S100_ngL"],
 )
 
-# 1 mg/L = 1000 µg/L. The raw values plateau at 30,000 µg/L,
-# corresponding to the assay's 30 mg/L (30 µg/mL) upper limit.
-S100_LIMIT_MG_L = 30.0
+# 1 µg/L = 1000 ng/L. The raw values plateau at 30,000 ng/L,
+# corresponding to the assay's 30 µg/L upper limit.
+S100_LIMIT_UG_L = 30.0
 LAG_DAYS = 3
-df["S100_mgL"] = df["S100_ugL"] / 1000.0
-df["S100_censored"] = df["S100_mgL"] >= S100_LIMIT_MG_L
+df["S100_ugL"] = df["S100_ngL"] / 1000.0
+df["S100_censored"] = df["S100_ugL"] >= S100_LIMIT_UG_L
 
 # A reading taken on day t+3 is plotted/paired at cell-count day t.
 df["S100_shifted_day"] = df["Day"] - LAG_DAYS
 
 # Pair cell counts at t with S100 measured at t+3 using exact sampling days.
 pairs = df[["Day", "total"]].merge(
-    df[["S100_shifted_day", "S100_mgL", "S100_censored"]],
+    df[["S100_shifted_day", "S100_ugL", "S100_censored"]],
     left_on="Day",
     right_on="S100_shifted_day",
     how="inner",
     validate="one_to_one",
-).dropna(subset=["total", "S100_mgL"])
+).dropna(subset=["total", "S100_ugL"])
 
 
 def censored_kendall_tau(x, y, censored):
@@ -123,7 +123,7 @@ with use_style("figstyle.mplstyle"):
     ax1_s100 = ax1.twinx()
     ax1_s100.plot(
         df["S100_shifted_day"],
-        df["S100_mgL"].where(~df["S100_censored"]),
+        df["S100_ugL"].where(~df["S100_censored"]),
         linestyle=":",
         linewidth=SECONDARY_LINEWIDTH,
         color=PALETTE["cat4"],
@@ -132,14 +132,14 @@ with use_style("figstyle.mplstyle"):
     capped_timecourse = df["S100_censored"] & df["S100_shifted_day"].between(0, 60)
     ax1_s100.scatter(
         df.loc[capped_timecourse, "S100_shifted_day"],
-        df.loc[capped_timecourse, "S100_mgL"],
+        df.loc[capped_timecourse, "S100_ugL"],
         marker="^",
         s=24,
         color=PALETTE["cat4"],
         zorder=4,
         label="S100 at assay limit (≥30)",
     )
-    ax1_s100.set_ylabel("S100 [mg/L]")
+    ax1_s100.set_ylabel("S100 [µg/L]")
     ax1_s100.set_ylim(0, 31)
     format_axes(ax1_s100, spines=("top", "left"), tick_params={"right": True})
 
@@ -160,7 +160,7 @@ with use_style("figstyle.mplstyle"):
     # PANEL b — Correlation (right)
     # --------------------------------------------------------
     x = pairs["total"].to_numpy(dtype=float)
-    y = pairs["S100_mgL"].to_numpy(dtype=float)
+    y = pairs["S100_ugL"].to_numpy(dtype=float)
     censored = pairs["S100_censored"].to_numpy(dtype=bool)
 
     # Descriptive censored Kendall tau-b; do not report a p-value for this
@@ -198,7 +198,7 @@ with use_style("figstyle.mplstyle"):
         zorder=4,
     )
     ax2.set_xlabel("Total cell number")
-    ax2.set_ylabel("S100 [mg/L]")
+    ax2.set_ylabel("S100 [µg/L]")
     ax2.set_xlim(0, 110_000)
     ax2.set_ylim(0, 31)
     ax2.text(
@@ -216,13 +216,6 @@ with use_style("figstyle.mplstyle"):
         pad=0.04
     )
     cbar.set_label("Time [Days]")
-
-    ax2.legend(
-        handles=[Line2D([], [], marker="^", linestyle="none", markerfacecolor="none",
-                        markeredgecolor="black", label="S100 at assay limit (≥30)")],
-        frameon=False,
-        loc="lower right",
-    )
 
     # Panel letter
     add_panel_label(ax2, "b")

@@ -848,7 +848,7 @@ def plot_km_and_fraction(
                 ha="right",
             )
 
-            ax_frac.set_ylabel("Days under treatment [%]")
+            ax_frac.set_ylabel("Treatment-on observations [%]")
             ax_frac.set_ylim(-5, 105)
 
         # Preserve the intended 160 mm physical canvas; tight cropping would

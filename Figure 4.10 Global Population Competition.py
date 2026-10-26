@@ -781,7 +781,7 @@ def plot_global_competition_filled(df: pd.DataFrame) -> None:
             )
 
             ax.set_xlabel("Normalized Sensitive Population")
-        ax.set_ylabel("Relative resistant-fluorescence change (% per day)")
+        ax.set_ylabel("Relative resistant-fluorescence change [% per day]")
 
         # Legend: coloured squares, frameless
         handles = [

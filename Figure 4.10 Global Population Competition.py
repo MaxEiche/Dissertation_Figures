@@ -34,6 +34,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from data_paths import DATA_ROOT, output_dir
 from typing import Dict, List, Tuple
 
 import numpy as np
@@ -58,14 +59,12 @@ from figtools import (
 # Paths
 # ---------------------------------------------------------------------
 
-DATA_XLS = Path(
-    r"Y:\Members\MaxE\Thesis\Organized Figures\Chapter_4\Figure 4.10 Global Competition\ME_A2-3 Data.xlsx"
-)
-OUT_PDF_SCATTER = DATA_XLS.parent / "Figure 4.10 GlobalPopulationCompetition_underAT.pdf"
+DATA_XLS = DATA_ROOT / "low_adhesion" / "ME_A2-3 Data.xlsx"
+OUT_PDF_SCATTER = output_dir("figures", "figure_4_10") / "Figure 4.10 GlobalPopulationCompetition_underAT.pdf"
 OUT_PDF_FILLED = (
-    DATA_XLS.parent / "Figure 4.10 GlobalPopulationCompetition_underAT_filled.pdf"
+    output_dir("figures", "figure_4_10") / "Figure 4.10 GlobalPopulationCompetition_underAT_filled.pdf"
 )
-OUT_STATS = DATA_XLS.parent / "Figure 4.10 GlobalPopulationCompetition_underAT_stats.json"
+OUT_STATS = output_dir("figures", "figure_4_10") / "Figure 4.10 GlobalPopulationCompetition_underAT_stats.json"
 # Thesis figure asset: the filled-contour export is the version used in the thesis.
 THESIS_OUT_PDF = OUT_PDF_FILLED
 

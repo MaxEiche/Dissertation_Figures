@@ -3,6 +3,7 @@
 # ===============================================================
 
 from pathlib import Path
+from data_paths import DATA_ROOT, output_dir
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -29,9 +30,7 @@ LEGEND_COLS = 2          # <---- Can use 1, 2 or 3 depending on space
 # -------------------
 STYLE_PATH = Path("figstyle.mplstyle")
 
-XLSX = Path(
-    r"Y:\Members\MaxE\Thesis\Organized Figures\Chapter_2\Figure_2.3\Plate_Reader_Experiments\2025_01_Plate_Reader_Results.xlsx"
-)
+XLSX = DATA_ROOT / "plate_reader" / "2025_01_Plate_Reader_Results.xlsx"
 
 SHEETS = ("G418 alpha-2", "G418 alpha-4")
 
@@ -154,7 +153,7 @@ with use_style(style_mpl=STYLE_PATH):
             handletextpad=0.4,
         )
 
-    out_pdf = XLSX.parent / "Figure 2.3 RelativeGrowth_alpha2_alpha4_side_by_side.pdf"
+    out_pdf = output_dir("figures", "figure_2_3") / "Figure 2.3 RelativeGrowth_alpha2_alpha4_side_by_side.pdf"
     savefig(fig, out_pdf, dpi=300, transparent=True)
     savefig(fig, out_pdf.with_suffix(".png"), dpi=600, transparent=False, facecolor="white")
 

@@ -1,14 +1,15 @@
 # experiment_info.py
 import os
+from data_paths import DATA_ROOT
 
 # ─── Define all your experiments here ───
 experiments = {
 
     "August_experiment_1x": {
-        "experiment_path": r"C:\Users\ischnei\Desktop\Experiments\20250728_IsaS_twolayer_experiment_august\1x",
+        "experiment_path": str(DATA_ROOT / "isabel" / "August_experiment_1x"),
         "day_labels": [0, 2, 4, 7, 9, 11,14,16,18,21,23,25,28,30,32,35,37,39,42,44,46,49,51,53,56,58,60,63,65,67,70,72],
         "calibration_factor": 0.46100721548394352732781071743631,
-        "treatment_excel": r"C:\Users\ischnei\Desktop\Experiments\20250728_IsaS_twolayer_experiment_august\1x\timestacks\total_fluorescence_intensity.xlsx",
+        "treatment_excel": str(DATA_ROOT / "isabel" / "August_experiment_1x" / "timestacks" / "total_fluorescence_intensity.xlsx"),
         "treatment_excel_sheet_name": "Total_normalized",
         "excel_mode": " timepoints_horizontal_replicates",
         "THRESHOLD_LOW": 99.5,

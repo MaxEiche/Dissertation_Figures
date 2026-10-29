@@ -2,6 +2,7 @@
 import sys
 import json
 from pathlib import Path
+from data_paths import DATA_ROOT, output_dir
 
 import numpy as np
 import pandas as pd
@@ -103,8 +104,8 @@ pd.set_option("display.max_rows", None)
 pd.set_option("display.max_columns", None)
 
 # Path to the ME_A2-4 plate data
-file_path = r"Y:\Members\MaxE\Thesis\Organized Figures\Chapter_4\Figure 4.2\ME_A2-4 Data.xlsx"
-stats_path = Path(file_path).parent / "Figure_4_2_topography_relative_stats.json"
+file_path = DATA_ROOT / "embedded_spheroids" / "ME_A2-4 Data.xlsx"
+stats_path = output_dir("figures", "figure_4_2") / "Figure_4_2_topography_relative_stats.json"
 xls = pd.ExcelFile(file_path)
 
 # Load plate data and treatment sheet
@@ -518,7 +519,7 @@ def correlate_red_growth(df1):
                 loc="best",
             )
 
-        out_pdf = Path(file_path).parent / "Figure_4_2_topography_relative.pdf"
+        out_pdf = output_dir("figures", "figure_4_2") / "Figure_4_2_topography_relative.pdf"
         savefig(fig, out_pdf, dpi=300, transparent=True)
         savefig(fig, out_pdf.with_suffix(".png"), dpi=600, transparent=False, facecolor="white")
         plt.show()
@@ -566,7 +567,7 @@ def correlate_red_growth(df1):
             if handles:
                 ax2.legend(handles=handles, frameon=False, loc="best")
 
-            out_pdf_filled = Path(file_path).parent / "Figure_4_2_topography_relative_filled.pdf"
+            out_pdf_filled = output_dir("figures", "figure_4_2") / "Figure_4_2_topography_relative_filled.pdf"
             savefig(fig2, out_pdf_filled, dpi=300, transparent=True)
             savefig(fig2, out_pdf_filled.with_suffix(".png"), dpi=600, transparent=False, facecolor="white")
             plt.show()

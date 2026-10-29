@@ -9,6 +9,7 @@
 # Formatting follows global dissertation rules.
 
 from pathlib import Path
+from data_paths import DATA_ROOT, output_dir
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -29,12 +30,8 @@ from figtools import (
 # Paths & data
 # ============================================================
 
-DATA_PATH = Path(
-    r"Y:\Members\MaxE\Thesis\Organized Figures\Chapter_5\Figure 5.5 S100_Analysis\S100_Analysis.xlsx"
-)
-OUT_PDF = Path(
-    r"Y:\Members\MaxE\Thesis\Organized Figures\Chapter_5\Figure 5.5 S100_Analysis\Figure_5.5_S100.pdf"
-)
+DATA_PATH = DATA_ROOT / "s100" / "S100_Analysis.xlsx"
+OUT_PDF = output_dir("figures", "figure_5_5") / "Figure_5.5_S100.pdf"
 
 # A=Day, B=sus, C=res, D=total, E=S100 (ng/L)
 df = pd.read_excel(

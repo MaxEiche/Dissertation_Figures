@@ -36,6 +36,7 @@ Typical usage
 from __future__ import annotations
 
 from pathlib import Path
+from data_paths import DATA_ROOT
 from contextlib import contextmanager
 from typing import Dict, Iterable, Optional, Union, Sequence, Tuple
 
@@ -356,6 +357,8 @@ def use_style(
     with mpl.rc_context():
         # Apply style file first
         if style_mpl is not None:
+            if str(style_mpl) == "figstyle.mplstyle":
+                style_mpl = DATA_ROOT / "config" / "figstyle.mplstyle"
             mpl.style.use(str(style_mpl))
 
         # Then apply overrides on top

@@ -11,7 +11,7 @@ Panels:
   d) Spheroid Survival: KM of time to 200% mScarlet/Total
 
 Data source:
-  Y:\\Members\\MaxE\\Thesis\\Organized Figures\\Figure 4.13 Isabel 1\\Data_main_all_wells.xlsx
+  Data/isabel/Data_main_all_wells.xlsx
 
 Sheets used:
   - "BTotal_normalized"
@@ -28,6 +28,7 @@ are used for plotting.
 from __future__ import annotations
 
 from pathlib import Path
+from data_paths import DATA_ROOT, output_dir
 from typing import Dict, List
 
 import numpy as np
@@ -52,11 +53,9 @@ from figtools import (
 # Paths and configuration
 # ---------------------------------------------------------------------
 
-DATA_XLS = Path(
-    r"Y:\Members\MaxE\Thesis\Organized Figures\Chapter_4\Figure 4.13 Isabel 1\Data_main_all_wells.xlsx"
-)
+DATA_XLS = DATA_ROOT / "isabel" / "Data_main_all_wells.xlsx"
 
-OUT_PDF = DATA_XLS.parent / "Figure 4.13_CT_AT_Timecourses_and_KM.pdf"
+OUT_PDF = output_dir("figures", "figure_4_13") / "Figure 4.13_CT_AT_Timecourses_and_KM.pdf"
 
 # Wells and treatment group (from original setup)
 WELL_GROUPS: Dict[str, str] = {

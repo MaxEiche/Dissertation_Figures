@@ -31,6 +31,7 @@ Requirements
 """
 
 from pathlib import Path
+from data_paths import DATA_ROOT, output_dir
 import re
 import sys
 from typing import Iterable, List, Optional, Tuple, Dict
@@ -47,9 +48,9 @@ except Exception:  # pragma: no cover
 
 
 # ----------------------------- CONFIG ---------------------------------------
-ROOT = Path(r"Y:\Members\MaxE\Thesis\Organized Figures\Figure 4.2")
+ROOT = DATA_ROOT / "microscopy" / "figure_4_1"
 GLOB = "*.czi"
-OUT_CSV = ROOT / "intensity_sum2d_per_channel_per_scene.csv"
+OUT_CSV = output_dir("data", "figure_4_1") / "intensity_sum2d_per_channel_per_scene.csv"
 # ----------------------------------------------------------------------------
 
 

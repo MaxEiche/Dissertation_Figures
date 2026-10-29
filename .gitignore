@@ -1,0 +1,17 @@
+# Original microscopy inputs are distributed as separate release assets.
+/Data/microscopy/
+
+# Generated figures and analysis tables stay separate from input data.
+/output/figures/
+/output/data/
+/output/logrank_audit/*
+!/output/logrank_audit/verify_logrank.py
+
+# Recreated Python caches and the active local interpreter environment.
+__pycache__/
+*.py[cod]
+/venv312/
+
+# Computer-specific IDE settings and automatically generated migration state.
+/.idea/misc.xml
+/.idea/copilot.data.migration.*.xml

@@ -1,5 +1,6 @@
 # === Thawing-time Dependency (Relative Drop vs # of Splits) ===
 from pathlib import Path
+from data_paths import DATA_ROOT, output_dir
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -18,9 +19,7 @@ from figtools import (
 # -------------------
 STYLE_PATH = Path("figstyle.mplstyle")
 
-XLSX = Path(
-    r"Y:\Members\MaxE\Thesis\Organized Figures\Chapter_3\Figure_3.3\Thawing_time_dependency_delay_quantification.xlsx"
-)
+XLSX = DATA_ROOT / "thawing" / "Thawing_time_dependency_delay_quantification.xlsx"
 
 SHEET = "Sheet1"
 USECOLS = "AA:AC"
@@ -83,7 +82,7 @@ with use_style(style_mpl=STYLE_PATH):
 
     ax.grid(True, linestyle="--", linewidth=GRID_LINEWIDTH, alpha=GRID_ALPHA)
 
-    out_pdf = XLSX.parent / "Thawing_time_dependency.pdf"
+    out_pdf = output_dir("figures", "figure_3_3") / "Thawing_time_dependency.pdf"
     savefig(fig, out_pdf, dpi=300, transparent=True)
     savefig(fig, out_pdf.with_suffix(".png"), dpi=600, transparent=False, facecolor="white")
 

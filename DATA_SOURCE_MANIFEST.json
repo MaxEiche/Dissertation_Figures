@@ -1,0 +1,4628 @@
+{
+  "schema_version": 1,
+  "data_folder": "Data",
+  "checksum_algorithm": "SHA-256",
+  "copy_method": "Byte-preserving copy; size and SHA-256 verified against each original source. Source paths are recorded only in the local validation report.",
+  "records": [
+    {
+      "path": "Data/plate_reader/2025_01_Plate_Reader_Results.xlsx",
+      "bytes": 672953,
+      "sha256": "f8c07ac33c03a11ee77c6eddf74e5a7f128b8fbe85aa1c7ff30622b09a0f6acf",
+      "scripts": [
+        "Figure 2.3.py"
+      ],
+      "source_ids": [
+        "source-0001"
+      ],
+      "source_filenames": [
+        "2025_01_Plate_Reader_Results.xlsx"
+      ],
+      "dataset_groups": [
+        "2.3"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/thawing/Thawing_time_dependency_delay_quantification.xlsx",
+      "bytes": 78865,
+      "sha256": "6c026f7005bb1eb16537808961ec031085da76e9a330f0ada134fd7062f2696d",
+      "scripts": [
+        "Figure 3.3.py"
+      ],
+      "source_ids": [
+        "source-0002"
+      ],
+      "source_filenames": [
+        "Thawing_time_dependency_delay_quantification.xlsx"
+      ],
+      "dataset_groups": [
+        "3.3"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/spheroid_sinking/Spheroid Height DropSeeding.xlsx",
+      "bytes": 30567,
+      "sha256": "fbced7272d3c294861ded7a42c802db896ea570fe54b58dfc1638192f70e6a0f",
+      "scripts": [
+        "Figure 4.1.py"
+      ],
+      "source_ids": [
+        "source-0003"
+      ],
+      "source_filenames": [
+        "Spheroid Height DropSeeding.xlsx"
+      ],
+      "dataset_groups": [
+        "4.1 workbook"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/spheroid_sinking/intensity_sum2d_per_channel_per_scene.csv",
+      "bytes": 45775,
+      "sha256": "7e2705b49eca605779db595f2ea0501d9ea1e5e5bfcde6a2bba2839bbc42f346",
+      "scripts": [
+        "Figure 4.1.py"
+      ],
+      "source_ids": [
+        "source-0004"
+      ],
+      "source_filenames": [
+        "intensity_sum2d_per_channel_per_scene.csv"
+      ],
+      "dataset_groups": [
+        "4.1 CSV"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/embedded_spheroids/ME_A2-4 Data.xlsx",
+      "bytes": 184696,
+      "sha256": "785f4061a4f1a7258cbbc03aa45e9d0bf0b2a331dc13bfdc890480e932d23221",
+      "scripts": [
+        "Figure 4.2.py"
+      ],
+      "source_ids": [
+        "source-0005"
+      ],
+      "source_filenames": [
+        "ME_A2-4 Data.xlsx"
+      ],
+      "dataset_groups": [
+        "4.2"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/low_adhesion/ME_A2-3 Data.xlsx",
+      "bytes": 887978,
+      "sha256": "03ab68dc96438c378dd1e7623f9611a0f1b0d0a12072366c036834ee8f3f6e94",
+      "scripts": [
+        "Figure 4.10 Global Population Competition.py",
+        "Figure 4.11 Spheroid Disruption.py",
+        "Figure 4.8 Low Adhesion KM.py",
+        "Figure 4.9.py"
+      ],
+      "source_ids": [
+        "source-0006",
+        "source-0007",
+        "source-0008",
+        "source-0009"
+      ],
+      "source_filenames": [
+        "ME_A2-3 Data.xlsx"
+      ],
+      "dataset_groups": [
+        "4.10",
+        "4.11",
+        "4.8",
+        "4.9"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/isabel/Data_main_all_wells.xlsx",
+      "bytes": 160816,
+      "sha256": "8d53a7f089fa67a69b365c26d8b16ea7726c4e6f598f1082fc1a13b5e972a003",
+      "scripts": [
+        "Figure 4.13 Isabel 1.py"
+      ],
+      "source_ids": [
+        "source-0010"
+      ],
+      "source_filenames": [
+        "Data_main_all_wells.xlsx"
+      ],
+      "dataset_groups": [
+        "4.13"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/s100/S100_Analysis.xlsx",
+      "bytes": 26202,
+      "sha256": "398cd54bffdea2125f033811aabcbbea2270c6a6ac8ed591d67dc86041f8c106",
+      "scripts": [
+        "Figure 5.5 S100.py"
+      ],
+      "source_ids": [
+        "source-0011"
+      ],
+      "source_filenames": [
+        "S100_Analysis.xlsx"
+      ],
+      "dataset_groups": [
+        "5.5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/elias_competition/Plate_1_failure_days_results_5.txt",
+      "bytes": 363,
+      "sha256": "35b2f1da55aa186968e2a16128705d4cde79517e4055cb03b632bedde5fe8ab1",
+      "scripts": [
+        "Figure 3.8 Elias.py"
+      ],
+      "source_ids": [
+        "source-0012"
+      ],
+      "source_filenames": [
+        "Plate_1_failure_days_results_5.txt"
+      ],
+      "dataset_groups": [
+        "3.8"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/elias_competition/Plate_2_failure_days_results_5.txt",
+      "bytes": 396,
+      "sha256": "58ebf61a3a0e34a9281ba6f91554ed41fa9d3458c39904abe198bc667d9aec52",
+      "scripts": [
+        "Figure 3.8 Elias.py"
+      ],
+      "source_ids": [
+        "source-0013"
+      ],
+      "source_filenames": [
+        "Plate_2_failure_days_results_5.txt"
+      ],
+      "dataset_groups": [
+        "3.8"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/elias_competition/Plate_3_failure_days_results_5.txt",
+      "bytes": 281,
+      "sha256": "773b37b8a8324d5f201986af39660e6084b2adb0edf265361a990923a8e3ceed",
+      "scripts": [
+        "Figure 3.8 Elias.py"
+      ],
+      "source_ids": [
+        "source-0014"
+      ],
+      "source_filenames": [
+        "Plate_3_failure_days_results_5.txt"
+      ],
+      "dataset_groups": [
+        "3.8"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/elias_competition/Results_G418_a2a4_B2_ATSerhii-B2.txt",
+      "bytes": 1519,
+      "sha256": "3552e1c1eec7bcd4c8adb6baebccd3fa5aadcaa7064eb29d7d412558db9fa7e9",
+      "scripts": [
+        "Figure 3.8 Elias.py"
+      ],
+      "source_ids": [
+        "source-0015"
+      ],
+      "source_filenames": [
+        "Results_G418_a2a4_B2_ATSerhii-B2.txt"
+      ],
+      "dataset_groups": [
+        "3.8"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/elias_competition/Results_G418_a2a4_B3_ATSerhii-B3.txt",
+      "bytes": 1467,
+      "sha256": "5e90c7a3cb3d869723df702855db651ad902ebc5310121844b5937fc94f830cb",
+      "scripts": [
+        "Figure 3.8 Elias.py"
+      ],
+      "source_ids": [
+        "source-0016"
+      ],
+      "source_filenames": [
+        "Results_G418_a2a4_B3_ATSerhii-B3.txt"
+      ],
+      "dataset_groups": [
+        "3.8"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/elias_competition/Results_G418_a2a4_B4_ATSerhii-B4.txt",
+      "bytes": 1477,
+      "sha256": "ca54a7024e8037b33598e80c587bd42319b41106388e191285278135c465cbdf",
+      "scripts": [
+        "Figure 3.8 Elias.py"
+      ],
+      "source_ids": [
+        "source-0017"
+      ],
+      "source_filenames": [
+        "Results_G418_a2a4_B4_ATSerhii-B4.txt"
+      ],
+      "dataset_groups": [
+        "3.8"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/elias_competition/Results_G418_a2a4_B4_MTDr-B4.txt",
+      "bytes": 425,
+      "sha256": "99f5731c253ce8c5cc501295744326e46c52f2a1c84183373abbe6de424ea769",
+      "scripts": [
+        "Figure 3.8 Elias.py"
+      ],
+      "source_ids": [
+        "source-0018"
+      ],
+      "source_filenames": [
+        "Results_G418_a2a4_B4_MTDr-B4.txt"
+      ],
+      "dataset_groups": [
+        "3.8"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/elias_competition/Results_G418_a2a4_B5_ATSerhii-B5.txt",
+      "bytes": 1515,
+      "sha256": "795626abf9e2ec000b9618df8a9e0dc1b2b3c75f1523596fc9b67d152bd0f0d0",
+      "scripts": [
+        "Figure 3.8 Elias.py"
+      ],
+      "source_ids": [
+        "source-0019"
+      ],
+      "source_filenames": [
+        "Results_G418_a2a4_B5_ATSerhii-B5.txt"
+      ],
+      "dataset_groups": [
+        "3.8"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/elias_competition/Results_G418_a2a4_B5_ncr-B5.txt",
+      "bytes": 411,
+      "sha256": "f651c47c7d85db7b6f796683ee6461a9101b0f23bc1fdb78dce97926c1063783",
+      "scripts": [
+        "Figure 3.8 Elias.py"
+      ],
+      "source_ids": [
+        "source-0020"
+      ],
+      "source_filenames": [
+        "Results_G418_a2a4_B5_ncr-B5.txt"
+      ],
+      "dataset_groups": [
+        "3.8"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/elias_competition/Results_G418_a2a4_B6_ATSerhii-B6.txt",
+      "bytes": 1274,
+      "sha256": "7c9147a5c308da999487a14ba4308fe4bb356051794903e202323f090271bca0",
+      "scripts": [
+        "Figure 3.8 Elias.py"
+      ],
+      "source_ids": [
+        "source-0021"
+      ],
+      "source_filenames": [
+        "Results_G418_a2a4_B6_ATSerhii-B6.txt"
+      ],
+      "dataset_groups": [
+        "3.8"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/elias_competition/Results_G418_a2a4_B6_ncr-B6.txt",
+      "bytes": 412,
+      "sha256": "37027b23d6081ae95bee30eca101a2494d13f0124e05b58257cf58b6283272c0",
+      "scripts": [
+        "Figure 3.8 Elias.py"
+      ],
+      "source_ids": [
+        "source-0022"
+      ],
+      "source_filenames": [
+        "Results_G418_a2a4_B6_ncr-B6.txt"
+      ],
+      "dataset_groups": [
+        "3.8"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/elias_competition/Results_G418_a2a4_B7_ATSerhii-B7.txt",
+      "bytes": 1583,
+      "sha256": "8a0f6ffa98af81427140ad800c0f796be08fcc0a5d3a74cb09ad8c20acd39b3e",
+      "scripts": [
+        "Figure 3.8 Elias.py"
+      ],
+      "source_ids": [
+        "source-0023"
+      ],
+      "source_filenames": [
+        "Results_G418_a2a4_B7_ATSerhii-B7.txt"
+      ],
+      "dataset_groups": [
+        "3.8"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/elias_competition/Results_G418_a2a4_C2_AT50-C2.txt",
+      "bytes": 1791,
+      "sha256": "98d74084f970f214e61db93b49f4e0f0fc2d8c73158835248bfe28cd2466e876",
+      "scripts": [
+        "Figure 3.8 Elias.py"
+      ],
+      "source_ids": [
+        "source-0024"
+      ],
+      "source_filenames": [
+        "Results_G418_a2a4_C2_AT50-C2.txt"
+      ],
+      "dataset_groups": [
+        "3.8"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/elias_competition/Results_G418_a2a4_C2_Inter-C2.txt",
+      "bytes": 1096,
+      "sha256": "3008bfac50859314b4206d102bff1c0f1edc300bd32e74eae8a3b91c18548c3f",
+      "scripts": [
+        "Figure 3.8 Elias.py"
+      ],
+      "source_ids": [
+        "source-0025"
+      ],
+      "source_filenames": [
+        "Results_G418_a2a4_C2_Inter-C2.txt"
+      ],
+      "dataset_groups": [
+        "3.8"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/elias_competition/Results_G418_a2a4_C3_AT50-C3.txt",
+      "bytes": 1815,
+      "sha256": "9d10e9e9f015e56b846587441e6376e9fba4fc473a497f8b508cad7251a34f36",
+      "scripts": [
+        "Figure 3.8 Elias.py"
+      ],
+      "source_ids": [
+        "source-0026"
+      ],
+      "source_filenames": [
+        "Results_G418_a2a4_C3_AT50-C3.txt"
+      ],
+      "dataset_groups": [
+        "3.8"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/elias_competition/Results_G418_a2a4_C3_Inter-C3.txt",
+      "bytes": 1123,
+      "sha256": "9515d0d679a1d5cf809ce8ba988db9dfea0e796030a381f7643b94094d7f88b4",
+      "scripts": [
+        "Figure 3.8 Elias.py"
+      ],
+      "source_ids": [
+        "source-0027"
+      ],
+      "source_filenames": [
+        "Results_G418_a2a4_C3_Inter-C3.txt"
+      ],
+      "dataset_groups": [
+        "3.8"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/elias_competition/Results_G418_a2a4_C4_AT50-C4.txt",
+      "bytes": 1705,
+      "sha256": "686952b6a9d7df95e4d57d1bed2585a966fbfdc7ae1942add71f19d84a27d168",
+      "scripts": [
+        "Figure 3.8 Elias.py"
+      ],
+      "source_ids": [
+        "source-0028"
+      ],
+      "source_filenames": [
+        "Results_G418_a2a4_C4_AT50-C4.txt"
+      ],
+      "dataset_groups": [
+        "3.8"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/elias_competition/Results_G418_a2a4_C4_Inter-C4.txt",
+      "bytes": 1125,
+      "sha256": "d26f97c116a9c90434f9e0d4c8bf5413291d3772c705bb86973bd94dbf3e0ac9",
+      "scripts": [
+        "Figure 3.8 Elias.py"
+      ],
+      "source_ids": [
+        "source-0029"
+      ],
+      "source_filenames": [
+        "Results_G418_a2a4_C4_Inter-C4.txt"
+      ],
+      "dataset_groups": [
+        "3.8"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/elias_competition/Results_G418_a2a4_C5_AT50-C5.txt",
+      "bytes": 1841,
+      "sha256": "9382a7e9893fdbf768e89c3e8c0a8eabb5fbd5ea06c280d05dbdf71087c294d1",
+      "scripts": [
+        "Figure 3.8 Elias.py"
+      ],
+      "source_ids": [
+        "source-0030"
+      ],
+      "source_filenames": [
+        "Results_G418_a2a4_C5_AT50-C5.txt"
+      ],
+      "dataset_groups": [
+        "3.8"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/elias_competition/Results_G418_a2a4_C5_Inter-C5.txt",
+      "bytes": 1093,
+      "sha256": "d963eac41a36f7e400d52b788cad683e8cacbcf314bbb3426772c550952df8a5",
+      "scripts": [
+        "Figure 3.8 Elias.py"
+      ],
+      "source_ids": [
+        "source-0031"
+      ],
+      "source_filenames": [
+        "Results_G418_a2a4_C5_Inter-C5.txt"
+      ],
+      "dataset_groups": [
+        "3.8"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/elias_competition/Results_G418_a2a4_C6_AT50-C6.txt",
+      "bytes": 1066,
+      "sha256": "865e9daa32d7a5f7dda1c24ac7251efd827893a8283b6137c102e7be432ad0f7",
+      "scripts": [
+        "Figure 3.8 Elias.py"
+      ],
+      "source_ids": [
+        "source-0032"
+      ],
+      "source_filenames": [
+        "Results_G418_a2a4_C6_AT50-C6.txt"
+      ],
+      "dataset_groups": [
+        "3.8"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/elias_competition/Results_G418_a2a4_C6_Inter-C6.txt",
+      "bytes": 1475,
+      "sha256": "bf852ca24bb589ec9a57222fcf23650b47823c117c6318fbc316761e596d6487",
+      "scripts": [
+        "Figure 3.8 Elias.py"
+      ],
+      "source_ids": [
+        "source-0033"
+      ],
+      "source_filenames": [
+        "Results_G418_a2a4_C6_Inter-C6.txt"
+      ],
+      "dataset_groups": [
+        "3.8"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/elias_competition/Results_G418_a2a4_C7_AT50-C7.txt",
+      "bytes": 1493,
+      "sha256": "9f95dee0f720fa9fc888007168e0a014025f3143e9456e137b87c8fbec4e20fe",
+      "scripts": [
+        "Figure 3.8 Elias.py"
+      ],
+      "source_ids": [
+        "source-0034"
+      ],
+      "source_filenames": [
+        "Results_G418_a2a4_C7_AT50-C7.txt"
+      ],
+      "dataset_groups": [
+        "3.8"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/elias_competition/Results_G418_a2a4_C7_Inter-C7.txt",
+      "bytes": 1209,
+      "sha256": "c625e93bd58919e2ad6f4356c2907824457d8970e03005d21515ed11ca49789a",
+      "scripts": [
+        "Figure 3.8 Elias.py"
+      ],
+      "source_ids": [
+        "source-0035"
+      ],
+      "source_filenames": [
+        "Results_G418_a2a4_C7_Inter-C7.txt"
+      ],
+      "dataset_groups": [
+        "3.8"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/elias_competition/Results_G418_a2a4_D2_AT80-D2.txt",
+      "bytes": 1431,
+      "sha256": "f25cebc8d3489a0d2b11f2adf80775d3fad0c69e1c48d031bb5668079137ce8b",
+      "scripts": [
+        "Figure 3.8 Elias.py"
+      ],
+      "source_ids": [
+        "source-0036"
+      ],
+      "source_filenames": [
+        "Results_G418_a2a4_D2_AT80-D2.txt"
+      ],
+      "dataset_groups": [
+        "3.8"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/elias_competition/Results_G418_a2a4_D2_MTD-D2.txt",
+      "bytes": 1228,
+      "sha256": "687fab2c9c4c6ae10ab162bf08dc6d3d52a4573e719bc04c435e1fd9248291ff",
+      "scripts": [
+        "Figure 3.8 Elias.py"
+      ],
+      "source_ids": [
+        "source-0037"
+      ],
+      "source_filenames": [
+        "Results_G418_a2a4_D2_MTD-D2.txt"
+      ],
+      "dataset_groups": [
+        "3.8"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/elias_competition/Results_G418_a2a4_D3_AT80-D3.txt",
+      "bytes": 1134,
+      "sha256": "149dc9707b49c67c1125adcee82063d44dabb6631c42b36704c64d001f2dbe6e",
+      "scripts": [
+        "Figure 3.8 Elias.py"
+      ],
+      "source_ids": [
+        "source-0038"
+      ],
+      "source_filenames": [
+        "Results_G418_a2a4_D3_AT80-D3.txt"
+      ],
+      "dataset_groups": [
+        "3.8"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/elias_competition/Results_G418_a2a4_D3_MTD-D3.txt",
+      "bytes": 1035,
+      "sha256": "44529e9f079d483134d9b5aeef32c60e1b2ff4bf468c68bfa54df4a38a42a968",
+      "scripts": [
+        "Figure 3.8 Elias.py"
+      ],
+      "source_ids": [
+        "source-0039"
+      ],
+      "source_filenames": [
+        "Results_G418_a2a4_D3_MTD-D3.txt"
+      ],
+      "dataset_groups": [
+        "3.8"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/elias_competition/Results_G418_a2a4_D4_AT80-D4.txt",
+      "bytes": 1832,
+      "sha256": "5e8e7bf81a246695c2668e142c3a946ef07aba7adae8d60b55b4da5aef6bdab3",
+      "scripts": [
+        "Figure 3.8 Elias.py"
+      ],
+      "source_ids": [
+        "source-0040"
+      ],
+      "source_filenames": [
+        "Results_G418_a2a4_D4_AT80-D4.txt"
+      ],
+      "dataset_groups": [
+        "3.8"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/elias_competition/Results_G418_a2a4_D4_MTD-D4.txt",
+      "bytes": 1203,
+      "sha256": "7cb0a1a8d7eaadfb323fcf22158e350daaa7aba85f9cccb36e73f8a934b346ef",
+      "scripts": [
+        "Figure 3.8 Elias.py"
+      ],
+      "source_ids": [
+        "source-0041"
+      ],
+      "source_filenames": [
+        "Results_G418_a2a4_D4_MTD-D4.txt"
+      ],
+      "dataset_groups": [
+        "3.8"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/elias_competition/Results_G418_a2a4_D5_AT80-D5.txt",
+      "bytes": 1829,
+      "sha256": "d36936d93bcb9215403c6a0f2865917333b6c06b5b54376e2f0d611104a7a1a5",
+      "scripts": [
+        "Figure 3.8 Elias.py"
+      ],
+      "source_ids": [
+        "source-0042"
+      ],
+      "source_filenames": [
+        "Results_G418_a2a4_D5_AT80-D5.txt"
+      ],
+      "dataset_groups": [
+        "3.8"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/elias_competition/Results_G418_a2a4_D5_MTD-D5.txt",
+      "bytes": 1050,
+      "sha256": "33e86e1a5abe9d4c7447073028fa423f26715f1f3ebbbe7380c800b62a598150",
+      "scripts": [
+        "Figure 3.8 Elias.py"
+      ],
+      "source_ids": [
+        "source-0043"
+      ],
+      "source_filenames": [
+        "Results_G418_a2a4_D5_MTD-D5.txt"
+      ],
+      "dataset_groups": [
+        "3.8"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/elias_competition/Results_G418_a2a4_D6_AT80-D6.txt",
+      "bytes": 1111,
+      "sha256": "787d6e3b7e21f7baebc1b8c4d4378545468e8d54c1d81c76aa7501e43cca1b16",
+      "scripts": [
+        "Figure 3.8 Elias.py"
+      ],
+      "source_ids": [
+        "source-0044"
+      ],
+      "source_filenames": [
+        "Results_G418_a2a4_D6_AT80-D6.txt"
+      ],
+      "dataset_groups": [
+        "3.8"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/elias_competition/Results_G418_a2a4_D6_MTD-D6.txt",
+      "bytes": 1667,
+      "sha256": "01e9fee364d757973814a519e86b43746d4d7d2eddb30fec1f71b20f01eb0084",
+      "scripts": [
+        "Figure 3.8 Elias.py"
+      ],
+      "source_ids": [
+        "source-0045"
+      ],
+      "source_filenames": [
+        "Results_G418_a2a4_D6_MTD-D6.txt"
+      ],
+      "dataset_groups": [
+        "3.8"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/elias_competition/Results_G418_a2a4_D7_AT80-D7.txt",
+      "bytes": 1795,
+      "sha256": "51cf804d3e2b322f03552d748e8e5a29331da3cc79fa47ec048b9858067441cf",
+      "scripts": [
+        "Figure 3.8 Elias.py"
+      ],
+      "source_ids": [
+        "source-0046"
+      ],
+      "source_filenames": [
+        "Results_G418_a2a4_D7_AT80-D7.txt"
+      ],
+      "dataset_groups": [
+        "3.8"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/elias_competition/Results_G418_a2a4_D7_MTD-D7.txt",
+      "bytes": 754,
+      "sha256": "952154ef987dc02b87eedfb6e44b332a31b03c371d2b80f33ed60e6899beeb8a",
+      "scripts": [
+        "Figure 3.8 Elias.py"
+      ],
+      "source_ids": [
+        "source-0047"
+      ],
+      "source_filenames": [
+        "Results_G418_a2a4_D7_MTD-D7.txt"
+      ],
+      "dataset_groups": [
+        "3.8"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/elias_competition/Results_G418_a2a4_E2_AT100-E2.txt",
+      "bytes": 1105,
+      "sha256": "5a3999875541f152369db9df1e120393a6cae47a9a064326811eed0e4bcb8d5c",
+      "scripts": [
+        "Figure 3.8 Elias.py"
+      ],
+      "source_ids": [
+        "source-0048"
+      ],
+      "source_filenames": [
+        "Results_G418_a2a4_E2_AT100-E2.txt"
+      ],
+      "dataset_groups": [
+        "3.8"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/elias_competition/Results_G418_a2a4_E3_AT100-E3.txt",
+      "bytes": 1442,
+      "sha256": "9b1f30db9b0f7c0eb9584ab02ccdb76b15b1e16beb6552f55d5145cc26bea6a4",
+      "scripts": [
+        "Figure 3.8 Elias.py"
+      ],
+      "source_ids": [
+        "source-0049"
+      ],
+      "source_filenames": [
+        "Results_G418_a2a4_E3_AT100-E3.txt"
+      ],
+      "dataset_groups": [
+        "3.8"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/elias_competition/Results_G418_a2a4_E3_nc-E3.txt",
+      "bytes": 395,
+      "sha256": "7e075c3e95f248158cc90dee14e6479c9283169b75e466dd331d5f9619ddefdb",
+      "scripts": [
+        "Figure 3.8 Elias.py"
+      ],
+      "source_ids": [
+        "source-0050"
+      ],
+      "source_filenames": [
+        "Results_G418_a2a4_E3_nc-E3.txt"
+      ],
+      "dataset_groups": [
+        "3.8"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/elias_competition/Results_G418_a2a4_E4_AT100-E4.txt",
+      "bytes": 1123,
+      "sha256": "88b9d2a5264744fc11bc8397e12897fddbe41ba43a8f9da78d65343139302ad8",
+      "scripts": [
+        "Figure 3.8 Elias.py"
+      ],
+      "source_ids": [
+        "source-0051"
+      ],
+      "source_filenames": [
+        "Results_G418_a2a4_E4_AT100-E4.txt"
+      ],
+      "dataset_groups": [
+        "3.8"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/elias_competition/Results_G418_a2a4_E5_AT100-E5.txt",
+      "bytes": 1127,
+      "sha256": "d95dd9337286012c21c90c56ba4e21d0d5cd6bfb3959250e6245cd245ef7337e",
+      "scripts": [
+        "Figure 3.8 Elias.py"
+      ],
+      "source_ids": [
+        "source-0052"
+      ],
+      "source_filenames": [
+        "Results_G418_a2a4_E5_AT100-E5.txt"
+      ],
+      "dataset_groups": [
+        "3.8"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/elias_competition/Results_G418_a2a4_E5_nc-E5.txt",
+      "bytes": 389,
+      "sha256": "4ea25e67fa31534d51b120b0d741edcfd72b605e5d8362d924fd6d7082053166",
+      "scripts": [
+        "Figure 3.8 Elias.py"
+      ],
+      "source_ids": [
+        "source-0053"
+      ],
+      "source_filenames": [
+        "Results_G418_a2a4_E5_nc-E5.txt"
+      ],
+      "dataset_groups": [
+        "3.8"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/elias_competition/Results_G418_a2a4_E6_AT100-E6.txt",
+      "bytes": 1658,
+      "sha256": "54a8b79d9b18d7bb81a00bf8a38bf02cf52cfc951fae196a0568eb264e3a7aa6",
+      "scripts": [
+        "Figure 3.8 Elias.py"
+      ],
+      "source_ids": [
+        "source-0054"
+      ],
+      "source_filenames": [
+        "Results_G418_a2a4_E6_AT100-E6.txt"
+      ],
+      "dataset_groups": [
+        "3.8"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/elias_competition/Results_G418_a2a4_E6_nc-E6.txt",
+      "bytes": 388,
+      "sha256": "ca5efe03d82f147545d8db8461ed5e959ad81735ec71945589876adee98e8b99",
+      "scripts": [
+        "Figure 3.8 Elias.py"
+      ],
+      "source_ids": [
+        "source-0055"
+      ],
+      "source_filenames": [
+        "Results_G418_a2a4_E6_nc-E6.txt"
+      ],
+      "dataset_groups": [
+        "3.8"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/elias_competition/Results_G418_a2a4_E7_AT100-E7.txt",
+      "bytes": 1325,
+      "sha256": "d869e56b0ee0ed53e756b904749409221a0b882c9a214ea9f406808c029a4729",
+      "scripts": [
+        "Figure 3.8 Elias.py"
+      ],
+      "source_ids": [
+        "source-0056"
+      ],
+      "source_filenames": [
+        "Results_G418_a2a4_E7_AT100-E7.txt"
+      ],
+      "dataset_groups": [
+        "3.8"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/elias_competition/Results_G418_a2a4_E7_nc-E7.txt",
+      "bytes": 391,
+      "sha256": "b7d9b63fee1674f3e071ea2cd4984071d5913d5a82a38f4de9f6136272381e44",
+      "scripts": [
+        "Figure 3.8 Elias.py"
+      ],
+      "source_ids": [
+        "source-0057"
+      ],
+      "source_filenames": [
+        "Results_G418_a2a4_E7_nc-E7.txt"
+      ],
+      "dataset_groups": [
+        "3.8"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/microscopy/figure_4_1/2024_04_04 d0 Doubledropdrugdilution-01_processed_MIPs.czi",
+      "bytes": 246798848,
+      "sha256": "944f2b7e1f31c86ed45b59efbf8cf973061b5934da489b577155d8b67e5d607d",
+      "scripts": [
+        "Figure 4.1_analysis.py"
+      ],
+      "source_ids": [
+        "source-0058"
+      ],
+      "source_filenames": [
+        "2024_04_04 d0 Doubledropdrugdilution-01_processed_MIPs.czi"
+      ],
+      "dataset_groups": [
+        "4.1 microscopy"
+      ],
+      "distribution": "release_asset"
+    },
+    {
+      "path": "Data/microscopy/figure_4_1/2024_04_05 d1 Doubledropdrugdilution-01_processed_MIPs.czi",
+      "bytes": 246763328,
+      "sha256": "2b4bb5318db30888eb1a21ba93cb16ead4d6d1603abdb5d4d10b80611a6f487b",
+      "scripts": [
+        "Figure 4.1_analysis.py"
+      ],
+      "source_ids": [
+        "source-0059"
+      ],
+      "source_filenames": [
+        "2024_04_05 d1 Doubledropdrugdilution-01_processed_MIPs.czi"
+      ],
+      "dataset_groups": [
+        "4.1 microscopy"
+      ],
+      "distribution": "release_asset"
+    },
+    {
+      "path": "Data/microscopy/figure_4_1/2024_04_06 d2 Doublelayerdropdrugdilution-01_processed_MIPs.czi",
+      "bytes": 60933120,
+      "sha256": "950e014dade8a1f246f621ca38efd123536c0b6ee9ed57f8e231a16d34452592",
+      "scripts": [
+        "Figure 4.1_analysis.py"
+      ],
+      "source_ids": [
+        "source-0060"
+      ],
+      "source_filenames": [
+        "2024_04_06 d2 Doublelayerdropdrugdilution-01_processed_MIPs.czi"
+      ],
+      "dataset_groups": [
+        "4.1 microscopy"
+      ],
+      "distribution": "release_asset"
+    },
+    {
+      "path": "Data/microscopy/figure_4_1/2024_04_08 d4 Doublelayerdropdrugdilution-01_processed_MIPs.czi",
+      "bytes": 60959296,
+      "sha256": "b7718447ebffb52fbaa3ba4b7a91a233721f076831ff0a7a174746adb5397a02",
+      "scripts": [
+        "Figure 4.1_analysis.py"
+      ],
+      "source_ids": [
+        "source-0061"
+      ],
+      "source_filenames": [
+        "2024_04_08 d4 Doublelayerdropdrugdilution-01_processed_MIPs.czi"
+      ],
+      "dataset_groups": [
+        "4.1 microscopy"
+      ],
+      "distribution": "release_asset"
+    },
+    {
+      "path": "Data/microscopy/figure_4_1/2024_04_10 d6 Doubledropdrugdilution-01_processed_MIPs.czi",
+      "bytes": 246772480,
+      "sha256": "08b825671f4bbe301b541195606a6f7290eb400a372a7ee2e58f25785042178d",
+      "scripts": [
+        "Figure 4.1_analysis.py"
+      ],
+      "source_ids": [
+        "source-0062"
+      ],
+      "source_filenames": [
+        "2024_04_10 d6 Doubledropdrugdilution-01_processed_MIPs.czi"
+      ],
+      "dataset_groups": [
+        "4.1 microscopy"
+      ],
+      "distribution": "release_asset"
+    },
+    {
+      "path": "Data/microscopy/figure_4_1/2024_04_15 d11 Doubledropdrugdilution-01_processed_MIPs.czi",
+      "bytes": 614171232,
+      "sha256": "9fb4e7510faeccb19fbf999c358e310429e90a88a7000909b09e24035a7905ca",
+      "scripts": [
+        "Figure 4.1_analysis.py"
+      ],
+      "source_ids": [
+        "source-0063"
+      ],
+      "source_filenames": [
+        "2024_04_15 d11 Doubledropdrugdilution-01_processed_MIPs.czi"
+      ],
+      "dataset_groups": [
+        "4.1 microscopy"
+      ],
+      "distribution": "release_asset"
+    },
+    {
+      "path": "Data/microscopy/figure_4_1/2024_04_22 d18 Doubledropdrugdilution-01_processed_MIPs.czi",
+      "bytes": 614237248,
+      "sha256": "4289665464d41a42515f4e427553cdd7e5723dc930cd8af12fb03c939b5cbaf8",
+      "scripts": [
+        "Figure 4.1_analysis.py"
+      ],
+      "source_ids": [
+        "source-0064"
+      ],
+      "source_filenames": [
+        "2024_04_22 d18 Doubledropdrugdilution-01_processed_MIPs.czi"
+      ],
+      "dataset_groups": [
+        "4.1 microscopy"
+      ],
+      "distribution": "release_asset"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/combined/figure_2/all_escape_margin.csv",
+      "bytes": 6099250,
+      "sha256": "6de444b87f27e9ed8945ffb95216498c5a4f105f78e3fa0ac2f10e0452e91016",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0065"
+      ],
+      "source_filenames": [
+        "all_escape_margin.csv"
+      ],
+      "dataset_groups": [
+        "audit escape margins"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/figure_data/Figure_4/kaplan_meier/time_to_failure_by_well_rel_0.5.csv",
+      "bytes": 9487,
+      "sha256": "54f12dd7b3764953cd938541ff6b0625a386ba304ca3df2f6339b041baf6d2ce",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0066"
+      ],
+      "source_filenames": [
+        "time_to_failure_by_well_rel_0.5.csv"
+      ],
+      "dataset_groups": [
+        "audit KM tables"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/figure_data/Figure_4/kaplan_meier/time_to_failure_by_well_rel_0.5_no_trunc.csv",
+      "bytes": 9487,
+      "sha256": "580963239238f93e7edaab3afc74a9e37a93201be6dce8cd2810e9027b4c40b3",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0067"
+      ],
+      "source_filenames": [
+        "time_to_failure_by_well_rel_0.5_no_trunc.csv"
+      ],
+      "dataset_groups": [
+        "audit KM tables"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/figure_data/Figure_4/kaplan_meier/time_to_failure_by_run_rel_0.5_in_silico.csv",
+      "bytes": 28610,
+      "sha256": "f11c830d5f5732d1aaec64fb82e58c572768eac2d2707b9f07ad587a9b5ce24d",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0068"
+      ],
+      "source_filenames": [
+        "time_to_failure_by_run_rel_0.5_in_silico.csv"
+      ],
+      "dataset_groups": [
+        "audit KM tables"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/reference/PhD_Thesis - 2026-10-26T164617.879.pdf",
+      "bytes": 4638536,
+      "sha256": "7b8cd8217cc29f42a1aca1af6f5c68d236ac662d6ecd97b52190587000b67f4b",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0069"
+      ],
+      "source_filenames": [
+        "PhD_Thesis - 2026-10-26T164617.879.pdf"
+      ],
+      "dataset_groups": [
+        "audit thesis"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_1/hdf5/G418_a2a4_A1_AT50-A1_total_poisson_padded.h5",
+      "bytes": 16892632,
+      "sha256": "5cbf1185cb4de9d3ca227f06ed568b06659ec0e764632f2e2d85f845dc6d0b8e",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0070"
+      ],
+      "source_filenames": [
+        "G418_a2a4_A1_AT50-A1_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_1/hdf5/G418_a2a4_A2_AT50-A2_total_poisson_padded.h5",
+      "bytes": 19955864,
+      "sha256": "4d0a1703dcc3e3fd31006fbeaff4e6e478fb9a5ac1e1ae0130e6d87a60d33d00",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0071"
+      ],
+      "source_filenames": [
+        "G418_a2a4_A2_AT50-A2_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_1/hdf5/G418_a2a4_A3_AT50-A3_total_poisson_padded.h5",
+      "bytes": 18492704,
+      "sha256": "10257afc7bd96c7f24217205f98f3c7e762659cf148ec1ae248dd695f1976a62",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0072"
+      ],
+      "source_filenames": [
+        "G418_a2a4_A3_AT50-A3_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_1/hdf5/G418_a2a4_A4_AT50-A4_total_poisson_padded.h5",
+      "bytes": 16791832,
+      "sha256": "c78b106a5e86b9d7c6b7f264c683608352d24bc5bc1a7d625ab03581babe886d",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0073"
+      ],
+      "source_filenames": [
+        "G418_a2a4_A4_AT50-A4_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_1/hdf5/G418_a2a4_A5_AT50-A5_total_poisson_padded.h5",
+      "bytes": 19557664,
+      "sha256": "c5bc4b7d492406e5cfeb2f3d8f59b2bf2755514b1b1d9e616f2f0b184ae2c9c2",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0074"
+      ],
+      "source_filenames": [
+        "G418_a2a4_A5_AT50-A5_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_1/hdf5/G418_a2a4_A6_AT50-A6_total_poisson_padded.h5",
+      "bytes": 18417824,
+      "sha256": "226c4fe849c7c7410028aa39725942e490d30515cdc36d01c224be2be5785e0a",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0075"
+      ],
+      "source_filenames": [
+        "G418_a2a4_A6_AT50-A6_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_1/hdf5/G418_a2a4_B1_AT100-B1_total_poisson_padded.h5",
+      "bytes": 24258608,
+      "sha256": "58c7f970b03f79c9e0226418dbcae6d9da64c43ec5c62d3bb7d3c59a6c03e0b5",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0076"
+      ],
+      "source_filenames": [
+        "G418_a2a4_B1_AT100-B1_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_1/hdf5/G418_a2a4_B2_AT100-B2_total_poisson_padded.h5",
+      "bytes": 25106568,
+      "sha256": "12c1fa01edb3c8aff8897af1fc368857067eb4fabbdcb3505da363d9bdb2e121",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0077"
+      ],
+      "source_filenames": [
+        "G418_a2a4_B2_AT100-B2_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_1/hdf5/G418_a2a4_B3_AT100-B3_total_poisson_padded.h5",
+      "bytes": 22162888,
+      "sha256": "db9a7ad4deab440be9d67daf101b3819e9492cc41655b473ed99ab1c1fa17654",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0078"
+      ],
+      "source_filenames": [
+        "G418_a2a4_B3_AT100-B3_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_1/hdf5/G418_a2a4_B4_AT100-B4_total_poisson_padded.h5",
+      "bytes": 33302136,
+      "sha256": "feb92c41613be5bb6883e9c41fbad32352323b41f15c25a672d63c8296eb4687",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0079"
+      ],
+      "source_filenames": [
+        "G418_a2a4_B4_AT100-B4_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_1/hdf5/G418_a2a4_B5_AT100-B5_total_poisson_padded.h5",
+      "bytes": 18000160,
+      "sha256": "21ad5a25a8ba3c62d24aa4ea8a6bc689c7e02789ea1ceb47da2d76fe8580c2fc",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0080"
+      ],
+      "source_filenames": [
+        "G418_a2a4_B5_AT100-B5_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_1/hdf5/G418_a2a4_B6_AT100-B6_total_poisson_padded.h5",
+      "bytes": 31311960,
+      "sha256": "8221920cc579028d55c5f71b0a7202850a275ded1f394f650f23d2deb6145e53",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0081"
+      ],
+      "source_filenames": [
+        "G418_a2a4_B6_AT100-B6_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_2/hdf5/G418_a2a4_A1_CT-A1_total_poisson_padded.h5",
+      "bytes": 10649512,
+      "sha256": "39fa8dc72715afe9c5cd09ca20f92cb372765ea6cf20ed8800591fcfba56a033",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0082"
+      ],
+      "source_filenames": [
+        "G418_a2a4_A1_CT-A1_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_2/hdf5/G418_a2a4_A2_CT-A2_total_poisson_padded.h5",
+      "bytes": 2537720,
+      "sha256": "92b6a037c3efbbbfbff0823a3d5e85be38c336e21b3d067e7f025298aface985",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0083"
+      ],
+      "source_filenames": [
+        "G418_a2a4_A2_CT-A2_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_2/hdf5/G418_a2a4_A3_CT-A3_total_poisson_padded.h5",
+      "bytes": 14643536,
+      "sha256": "f6aca6ed3165f28cefdafb5a4bec91ab3957299249cd67db7dcaf6d1a1b30f36",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0084"
+      ],
+      "source_filenames": [
+        "G418_a2a4_A3_CT-A3_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_2/hdf5/G418_a2a4_A4_CT-A4_total_poisson_padded.h5",
+      "bytes": 2363696,
+      "sha256": "07bb2cf95ea0bd402b4fc236de3018e192f4b0c4b84993eca1fc406b54e5ef30",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0085"
+      ],
+      "source_filenames": [
+        "G418_a2a4_A4_CT-A4_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_2/hdf5/G418_a2a4_A5_CT-A5_total_poisson_padded.h5",
+      "bytes": 2567408,
+      "sha256": "9375e4756345f3af4b1d4b73b91ce908dbd26f04baa97ac2f82a228b08097612",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0086"
+      ],
+      "source_filenames": [
+        "G418_a2a4_A5_CT-A5_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_2/hdf5/G418_a2a4_A6_CT-A6_total_poisson_padded.h5",
+      "bytes": 15387056,
+      "sha256": "1b8ae67accbe7a1984575ad696b368612ca6ad34e6e48a7854a3302a3dc5eeda",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0087"
+      ],
+      "source_filenames": [
+        "G418_a2a4_A6_CT-A6_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_2/hdf5/G418_a2a4_B1_AT50-B1_total_poisson_padded.h5",
+      "bytes": 19404000,
+      "sha256": "3298bc8c2aca3104cfb3d6830dda3cb2ce737b3ba3b0f6a9d28996afc9f699e7",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0088"
+      ],
+      "source_filenames": [
+        "G418_a2a4_B1_AT50-B1_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_2/hdf5/G418_a2a4_B2_AT50-B2_total_poisson_padded.h5",
+      "bytes": 22254848,
+      "sha256": "7a5de20e3536d80c34ba82c584a627cc4a508d1608595fe7b5b1083e538ea9d8",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0089"
+      ],
+      "source_filenames": [
+        "G418_a2a4_B2_AT50-B2_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_2/hdf5/G418_a2a4_B3_AT50-B3_total_poisson_padded.h5",
+      "bytes": 16144968,
+      "sha256": "f771e1e0dc5d70a3f63acee4663d1f29a8e5dec0d3c394bb8816e464d25b5dc2",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0090"
+      ],
+      "source_filenames": [
+        "G418_a2a4_B3_AT50-B3_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_2/hdf5/G418_a2a4_B4_AT50-B4_total_poisson_padded.h5",
+      "bytes": 24395408,
+      "sha256": "ae63360e364f55145719832c3e74e18e1d8f053080275d4f87aee1616b64945d",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0091"
+      ],
+      "source_filenames": [
+        "G418_a2a4_B4_AT50-B4_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_2/hdf5/G418_a2a4_B5_AT50-B5_total_poisson_padded.h5",
+      "bytes": 24230496,
+      "sha256": "1fbc362fca6ef3111a32be7fe556efd39fbd944aece8598dcf2116bdc63a2f43",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0092"
+      ],
+      "source_filenames": [
+        "G418_a2a4_B5_AT50-B5_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_2/hdf5/G418_a2a4_B6_AT50-B6_total_poisson_padded.h5",
+      "bytes": 20545896,
+      "sha256": "4d34fd7b6df9b0c9b13fd378fc7ec863b4ffe9f104857caa75be0b31a4ef094e",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0093"
+      ],
+      "source_filenames": [
+        "G418_a2a4_B6_AT50-B6_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_2/hdf5/G418_a2a4_C1_AT100-C1_total_poisson_padded.h5",
+      "bytes": 34700272,
+      "sha256": "0e417a10e48175fbaae048a6e77d3beeb1ad7bf7d1dea46359ce444f75b23ba7",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0094"
+      ],
+      "source_filenames": [
+        "G418_a2a4_C1_AT100-C1_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_2/hdf5/G418_a2a4_C2_AT100-C2_total_poisson_padded.h5",
+      "bytes": 18718992,
+      "sha256": "999d4f70c608457a8e00629e049e965f438e9ebc6a23e2580918e360d7795c56",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0095"
+      ],
+      "source_filenames": [
+        "G418_a2a4_C2_AT100-C2_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_2/hdf5/G418_a2a4_C3_AT100-C3_total_poisson_padded.h5",
+      "bytes": 29825352,
+      "sha256": "ca6ac901417504823ef9f352db01e9f21688cafd66a2c7e08903eaee77f9fcde",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0096"
+      ],
+      "source_filenames": [
+        "G418_a2a4_C3_AT100-C3_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_2/hdf5/G418_a2a4_C4_AT100-C4_total_poisson_padded.h5",
+      "bytes": 25582248,
+      "sha256": "57c14d9239dc6cd3a585171ed739aa98789ed4e9351afc936f5c141d61b67e60",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0097"
+      ],
+      "source_filenames": [
+        "G418_a2a4_C4_AT100-C4_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_2/hdf5/G418_a2a4_C5_AT100-C5_total_poisson_padded.h5",
+      "bytes": 37626096,
+      "sha256": "cb91b06b1e1eddcd2e034b85b3a48c7fb7640666ab75a07661c7f6e6a4658aa2",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0098"
+      ],
+      "source_filenames": [
+        "G418_a2a4_C5_AT100-C5_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_2/hdf5/G418_a2a4_C6_AT100-C6_total_poisson_padded.h5",
+      "bytes": 20947096,
+      "sha256": "753ba0c364e702e46a40a91cbcec7441b122baa9a30a9945c0e0fc2af0600945",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0099"
+      ],
+      "source_filenames": [
+        "G418_a2a4_C6_AT100-C6_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_3/hdf5/G418_a2a4_B1_CT-B1_total_poisson_padded.h5",
+      "bytes": 2497976,
+      "sha256": "a2334a4497f5ae9d33d4599154031a53f6fffb72530b7804df27039f77064147",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0100"
+      ],
+      "source_filenames": [
+        "G418_a2a4_B1_CT-B1_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_3/hdf5/G418_a2a4_B2_CT-B2_total_poisson_padded.h5",
+      "bytes": 20931216,
+      "sha256": "65ab7c6a23540d6c7bd0cf9cdab53493fafd2c5ec611f59fa7d1333d02c16bcd",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0101"
+      ],
+      "source_filenames": [
+        "G418_a2a4_B2_CT-B2_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_3/hdf5/G418_a2a4_B3_CT-B3_total_poisson_padded.h5",
+      "bytes": 26999872,
+      "sha256": "f363cddde70f1dc93ecedc014287fa7f6be55ae15cdacf9a24f58dd738fab2d3",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0102"
+      ],
+      "source_filenames": [
+        "G418_a2a4_B3_CT-B3_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_3/hdf5/G418_a2a4_B4_CT-B4_total_poisson_padded.h5",
+      "bytes": 2925912,
+      "sha256": "0ccee331356151b80f7bd3f34be455d7fb7043c64775aec92500c19f88ba1cf5",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0103"
+      ],
+      "source_filenames": [
+        "G418_a2a4_B4_CT-B4_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_3/hdf5/G418_a2a4_B5_CT-B5_total_poisson_padded.h5",
+      "bytes": 2816856,
+      "sha256": "d22cf709c41566d41bd182114a5325eacaa63fe4bee72d5cc4b29421a87f129a",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0104"
+      ],
+      "source_filenames": [
+        "G418_a2a4_B5_CT-B5_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_3/hdf5/G418_a2a4_B6_CT-B6_total_poisson_padded.h5",
+      "bytes": 2593224,
+      "sha256": "0f4dfac1d05d59f0277f906a43a5129aca9d26e72d96fcd7e1b5aa73e6262fc7",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0105"
+      ],
+      "source_filenames": [
+        "G418_a2a4_B6_CT-B6_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_3/hdf5/G418_a2a4_C1_AT50-C1_total_poisson_padded.h5",
+      "bytes": 18331784,
+      "sha256": "d0e0fd44e4f52b68fa549fa5f79f51520d798254176d9e68e97ab2d115803afb",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0106"
+      ],
+      "source_filenames": [
+        "G418_a2a4_C1_AT50-C1_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_3/hdf5/G418_a2a4_C2_AT50-C2_total_poisson_padded.h5",
+      "bytes": 32479960,
+      "sha256": "dc9b4f6a8e4c496d8c982943d7127be95c24baaf7883030fe6249cd6d51155fc",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0107"
+      ],
+      "source_filenames": [
+        "G418_a2a4_C2_AT50-C2_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_3/hdf5/G418_a2a4_C3_AT50-C3_total_poisson_padded.h5",
+      "bytes": 28950176,
+      "sha256": "12a7cfc2b5bb3188799a10cec50e00920fa33c6a401da6e60d42d653a5bc86f6",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0108"
+      ],
+      "source_filenames": [
+        "G418_a2a4_C3_AT50-C3_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_3/hdf5/G418_a2a4_C4_AT50-C4_total_poisson_padded.h5",
+      "bytes": 28852496,
+      "sha256": "1721bfa033e49242fe281338b5e5506c4febb29a2a3c785cf8b71a1b5d0cea5a",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0109"
+      ],
+      "source_filenames": [
+        "G418_a2a4_C4_AT50-C4_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_3/hdf5/G418_a2a4_C5_AT50-C5_total_poisson_padded.h5",
+      "bytes": 25471952,
+      "sha256": "4cf2ec1e76829ce106423b6a955eef87a95095f143fc86cecf68bc55cad9a15d",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0110"
+      ],
+      "source_filenames": [
+        "G418_a2a4_C5_AT50-C5_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_3/hdf5/G418_a2a4_C6_AT50-C6_total_poisson_padded.h5",
+      "bytes": 22963376,
+      "sha256": "35089d2cbd5d01d3ca81f84dd31dc1d396ca450b7ea64c95324f505f33d2c290",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0111"
+      ],
+      "source_filenames": [
+        "G418_a2a4_C6_AT50-C6_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_3/hdf5/G418_a2a4_D1_AT100-D1_total_poisson_padded.h5",
+      "bytes": 27209792,
+      "sha256": "40d14637d62f99e2ce24d0899824e23d29eb8eee92c2dd648f863b386de95c34",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0112"
+      ],
+      "source_filenames": [
+        "G418_a2a4_D1_AT100-D1_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_3/hdf5/G418_a2a4_D2_AT100-D2_total_poisson_padded.h5",
+      "bytes": 26856512,
+      "sha256": "ecd440e11337471c833cd7888d3f4dc47138233e407cbdda4ec8e67e726dbe4a",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0113"
+      ],
+      "source_filenames": [
+        "G418_a2a4_D2_AT100-D2_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_3/hdf5/G418_a2a4_D3_AT100-D3_total_poisson_padded.h5",
+      "bytes": 27459648,
+      "sha256": "408091eb0082e2ba3b773391564e72e8c4199469d3347adefe9349437d666e27",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0114"
+      ],
+      "source_filenames": [
+        "G418_a2a4_D3_AT100-D3_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_3/hdf5/G418_a2a4_D4_AT100-D4_total_poisson_padded.h5",
+      "bytes": 26555720,
+      "sha256": "d51ed178a038e80860b9760309f705115a29b615e8cb5f4d3adfcf4ae64e7e38",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0115"
+      ],
+      "source_filenames": [
+        "G418_a2a4_D4_AT100-D4_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_3/hdf5/G418_a2a4_D5_AT100-D5_total_poisson_padded.h5",
+      "bytes": 27333608,
+      "sha256": "523b22ce2dc8fce2f384469b0aa17ba826f29df771098a0b49dc2fb5094d2c0d",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0116"
+      ],
+      "source_filenames": [
+        "G418_a2a4_D5_AT100-D5_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_3/hdf5/G418_a2a4_D6_AT100-D6_total_poisson_padded.h5",
+      "bytes": 25411744,
+      "sha256": "2026c5e2fd2c25304bcde39d745e0b5702f60f2d8f3108c2b1e7c56e200714bb",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0117"
+      ],
+      "source_filenames": [
+        "G418_a2a4_D6_AT100-D6_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_4/hdf5/G418_a2a4_C1_CT-C1_total_poisson_padded.h5",
+      "bytes": 21337928,
+      "sha256": "a6873c6bc2be445f48380cf0874e09bfe3863964818e2ab68015d3929c6dd789",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0118"
+      ],
+      "source_filenames": [
+        "G418_a2a4_C1_CT-C1_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_4/hdf5/G418_a2a4_C2_CT-C2_total_poisson_padded.h5",
+      "bytes": 27746872,
+      "sha256": "9bbcb721ae475b6723f40d48598d80c82f34d2953859f547ba61c2507fcc793b",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0119"
+      ],
+      "source_filenames": [
+        "G418_a2a4_C2_CT-C2_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_4/hdf5/G418_a2a4_C3_CT-C3_total_poisson_padded.h5",
+      "bytes": 3163960,
+      "sha256": "c27f4f1815f099e7f22882034c636366c57a80a5e839da746fbdd71beafb4545",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0120"
+      ],
+      "source_filenames": [
+        "G418_a2a4_C3_CT-C3_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_4/hdf5/G418_a2a4_C4_CT-C4_total_poisson_padded.h5",
+      "bytes": 26267440,
+      "sha256": "31dd7814ba6a6c444fe88b44a8fb42e4512a11b7ff0cef8c72aa7161c339578e",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0121"
+      ],
+      "source_filenames": [
+        "G418_a2a4_C4_CT-C4_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_4/hdf5/G418_a2a4_C5_CT-C5_total_poisson_padded.h5",
+      "bytes": 17468592,
+      "sha256": "dc9a4af67237476f8303ce9102d91b9754ccc79ac3e38e228c7ac4230bb41e90",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0122"
+      ],
+      "source_filenames": [
+        "G418_a2a4_C5_CT-C5_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_4/hdf5/G418_a2a4_C6_CT-C6_total_poisson_padded.h5",
+      "bytes": 2678032,
+      "sha256": "543af4cfcfd289e7933f3c01e529264158b06a41fe2f1717f5ab09c325fab2cb",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0123"
+      ],
+      "source_filenames": [
+        "G418_a2a4_C6_CT-C6_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_4/hdf5/G418_a2a4_D1_AT50-D1_total_poisson_padded.h5",
+      "bytes": 20592992,
+      "sha256": "f5309e05c3c4aec7596fbcd7d99a6fc4f12d505b29e56bed7115672f765a503b",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0124"
+      ],
+      "source_filenames": [
+        "G418_a2a4_D1_AT50-D1_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_4/hdf5/G418_a2a4_D2_AT50-D2_total_poisson_padded.h5",
+      "bytes": 24721248,
+      "sha256": "1b51038ff2e2e9f9b2bde6c033f285f7d04a81137b1ffb3f91c5d8232b5dacff",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0125"
+      ],
+      "source_filenames": [
+        "G418_a2a4_D2_AT50-D2_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_4/hdf5/G418_a2a4_D3_AT50-D3_total_poisson_padded.h5",
+      "bytes": 23136928,
+      "sha256": "f2c948120ac72d79d25dce1c4443ca577e16734b5a48f4dd6c72461da4c19e0b",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0126"
+      ],
+      "source_filenames": [
+        "G418_a2a4_D3_AT50-D3_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_4/hdf5/G418_a2a4_D4_AT50-D4_total_poisson_padded.h5",
+      "bytes": 28043416,
+      "sha256": "1da019b3e71c86482ee916756789020397d91a6b36149c1c8a8923694cc8ee5d",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0127"
+      ],
+      "source_filenames": [
+        "G418_a2a4_D4_AT50-D4_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_4/hdf5/G418_a2a4_D5_AT50-D5_total_poisson_padded.h5",
+      "bytes": 24592528,
+      "sha256": "105e12b791cb82695391ea507686979d0ba2fa934e1f4219ae7c3e14a8315513",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0128"
+      ],
+      "source_filenames": [
+        "G418_a2a4_D5_AT50-D5_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_4/hdf5/G418_a2a4_D6_AT50-D6_total_poisson_padded.h5",
+      "bytes": 23937216,
+      "sha256": "5067bf4cbda47b1bcae26605b2dbd12e5e6b1e3cc453e4377fbda1ce971d1178",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0129"
+      ],
+      "source_filenames": [
+        "G418_a2a4_D6_AT50-D6_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_5/hdf5/G418_a2a4_A1_AT100-A1_total_poisson_padded.h5",
+      "bytes": 20546360,
+      "sha256": "9eaee93ada91092313d5e98cbdea81305a74ce1da31094f0efe029c6797c9d04",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0130"
+      ],
+      "source_filenames": [
+        "G418_a2a4_A1_AT100-A1_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_5/hdf5/G418_a2a4_A2_AT100-A2_total_poisson_padded.h5",
+      "bytes": 22165984,
+      "sha256": "df978bc6655281c49fb63dfd1df04530ccb5204aff74b9d38551d0eea7fd0c81",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0131"
+      ],
+      "source_filenames": [
+        "G418_a2a4_A2_AT100-A2_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_5/hdf5/G418_a2a4_A3_AT100-A3_total_poisson_padded.h5",
+      "bytes": 21647208,
+      "sha256": "764b4814e89ac56ee51527dee48e4d52a09caf6913f01c2e0fcb5717d92badc8",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0132"
+      ],
+      "source_filenames": [
+        "G418_a2a4_A3_AT100-A3_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_5/hdf5/G418_a2a4_A4_AT100-A4_total_poisson_padded.h5",
+      "bytes": 29512160,
+      "sha256": "90efe3f15d4463781b8eb2592d2ce11a3cb0e3894ee28d44551afdebc587db7e",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0133"
+      ],
+      "source_filenames": [
+        "G418_a2a4_A4_AT100-A4_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_5/hdf5/G418_a2a4_A5_AT100-A5_total_poisson_padded.h5",
+      "bytes": 22914400,
+      "sha256": "e989355ce3cbb1b0a1301bb9a61948f18b9d197dbc11f8258d5bfc8a3a541edf",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0134"
+      ],
+      "source_filenames": [
+        "G418_a2a4_A5_AT100-A5_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_5/hdf5/G418_a2a4_A6_AT100-A6_total_poisson_padded.h5",
+      "bytes": 18552136,
+      "sha256": "d5949b6548edf982d1af9c196a058bfdd92b661939952ce0952bd4bf5807b0f2",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0135"
+      ],
+      "source_filenames": [
+        "G418_a2a4_A6_AT100-A6_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_5/hdf5/G418_a2a4_D1_CT-D1_total_poisson_padded.h5",
+      "bytes": 2290104,
+      "sha256": "983150a4b40c2b6f4195e4b3cca7b8ec175da0ab906fea1b63dbbb61669fb384",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0136"
+      ],
+      "source_filenames": [
+        "G418_a2a4_D1_CT-D1_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_5/hdf5/G418_a2a4_D2_CT-D2_total_poisson_padded.h5",
+      "bytes": 15091120,
+      "sha256": "ee7156699f2422226f416b8d53e5f96c76edee8128824ee494abb3580ef3eaea",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0137"
+      ],
+      "source_filenames": [
+        "G418_a2a4_D2_CT-D2_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_5/hdf5/G418_a2a4_D3_CT-D3_total_poisson_padded.h5",
+      "bytes": 19932336,
+      "sha256": "d910c5dbd7320d1dd62199fdbe3fc9cb853a433af69efd1bc4917d7fad3cab01",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0138"
+      ],
+      "source_filenames": [
+        "G418_a2a4_D3_CT-D3_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_5/hdf5/G418_a2a4_D4_CT-D4_total_poisson_padded.h5",
+      "bytes": 20458968,
+      "sha256": "c6e4bf78344cc2b30c0943e7b67748b8f27766b854525cbb7a4b1384bb6de31d",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0139"
+      ],
+      "source_filenames": [
+        "G418_a2a4_D4_CT-D4_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_5/hdf5/G418_a2a4_D5_CT-D5_total_poisson_padded.h5",
+      "bytes": 15907904,
+      "sha256": "60d6bf0c98e43e51e001a1036b615b162c5e0ac00cfc519ed76457f1aea3b6b4",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0140"
+      ],
+      "source_filenames": [
+        "G418_a2a4_D5_CT-D5_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/exp_raw_data/Plate_5/hdf5/G418_a2a4_D6_CT-D6_total_poisson_padded.h5",
+      "bytes": 2324280,
+      "sha256": "f08ff80689f4def52e829828816736457ef3e422c6af1e5e9a29196caa9028ef",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0141"
+      ],
+      "source_filenames": [
+        "G418_a2a4_D6_CT-D6_total_poisson_padded.h5"
+      ],
+      "dataset_groups": [
+        "audit experimental HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT100/hdf5/R10_AT100-R10_simulation.h5",
+      "bytes": 12629088,
+      "sha256": "50aac10f6f81a89d73edcccb4355982f5e18c947d0c86b93f66d350cc86c2495",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0142"
+      ],
+      "source_filenames": [
+        "R10_AT100-R10_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT100/hdf5/R11_AT100-R11_simulation.h5",
+      "bytes": 16427166,
+      "sha256": "2f59793f38e8057726da55de63dd79c3edcf72ec5215b3badf157ade4a3f947f",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0143"
+      ],
+      "source_filenames": [
+        "R11_AT100-R11_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT100/hdf5/R12_AT100-R12_simulation.h5",
+      "bytes": 11413906,
+      "sha256": "4fadeacf1aad2017c4f274bcb91ca7f1853feaf2c8c35c978f1df9a4100ad723",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0144"
+      ],
+      "source_filenames": [
+        "R12_AT100-R12_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT100/hdf5/R13_AT100-R13_simulation.h5",
+      "bytes": 17683200,
+      "sha256": "5da0154691a8e10210bb325cea37e1ba893c0feb5ee0eb0cf8cd405be195d1c4",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0145"
+      ],
+      "source_filenames": [
+        "R13_AT100-R13_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT100/hdf5/R14_AT100-R14_simulation.h5",
+      "bytes": 15423134,
+      "sha256": "69417a29eb48e067661692593a829370bbf244888be796a0177f16dcd327952c",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0146"
+      ],
+      "source_filenames": [
+        "R14_AT100-R14_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT100/hdf5/R15_AT100-R15_simulation.h5",
+      "bytes": 20390912,
+      "sha256": "b4dec05b61367c77dc80be66d4f797bccfa952c28f6f64cb1a6012c18d09ac5b",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0147"
+      ],
+      "source_filenames": [
+        "R15_AT100-R15_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT100/hdf5/R16_AT100-R16_simulation.h5",
+      "bytes": 18980933,
+      "sha256": "4045624cb90d0252b21d222ccb64fd1aff7e6b9eaf10b4d15d4410834484168c",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0148"
+      ],
+      "source_filenames": [
+        "R16_AT100-R16_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT100/hdf5/R17_AT100-R17_simulation.h5",
+      "bytes": 16848724,
+      "sha256": "59a166866f42cce1a771b92b0640a0932d7161820a4362a52e43ecf34b1d106b",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0149"
+      ],
+      "source_filenames": [
+        "R17_AT100-R17_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT100/hdf5/R18_AT100-R18_simulation.h5",
+      "bytes": 12420226,
+      "sha256": "559cef7f9517e782845eb9535d27ce6af5cb112a149bc17f9764d15606031d3d",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0150"
+      ],
+      "source_filenames": [
+        "R18_AT100-R18_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT100/hdf5/R19_AT100-R19_simulation.h5",
+      "bytes": 18766463,
+      "sha256": "aad089502bf5c91b37adbf08e3c851329af0b05d28e385c185da25c4e078f77a",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0151"
+      ],
+      "source_filenames": [
+        "R19_AT100-R19_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT100/hdf5/R20_AT100-R20_simulation.h5",
+      "bytes": 10905491,
+      "sha256": "0c85cc47f36abe10ff549be5ec68c7fa459511d5755ab4deb43b61067ee86f10",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0152"
+      ],
+      "source_filenames": [
+        "R20_AT100-R20_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT100/hdf5/R23_AT100-R23_simulation.h5",
+      "bytes": 12777443,
+      "sha256": "0ed8357598d384f0637c54b54a0ae7d58438a07169e2f5dee7fc3636fb0fe8d3",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0153"
+      ],
+      "source_filenames": [
+        "R23_AT100-R23_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT100/hdf5/R24_AT100-R24_simulation.h5",
+      "bytes": 14866993,
+      "sha256": "107d1b1842eb5b4032ddd7e5247e1980fc4dd70ff25dd41822acac458398a9eb",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0154"
+      ],
+      "source_filenames": [
+        "R24_AT100-R24_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT100/hdf5/R25_AT100-R25_simulation.h5",
+      "bytes": 4388294,
+      "sha256": "faae208edc68a8224c79f206bfeed29f2ae3fc1d1cbc227cc1e09098f3ee16d5",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0155"
+      ],
+      "source_filenames": [
+        "R25_AT100-R25_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT100/hdf5/R26_AT100-R26_simulation.h5",
+      "bytes": 15731238,
+      "sha256": "91d5c90d323ad9feccc0756d455f645aa2fb111abe10b0e0ac4195d0d632dbed",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0156"
+      ],
+      "source_filenames": [
+        "R26_AT100-R26_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT100/hdf5/R27_AT100-R27_simulation.h5",
+      "bytes": 14336062,
+      "sha256": "5b137ecfabace5fd5186ce2fad6c4c5300baee34dc40b2fdca425d688346d609",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0157"
+      ],
+      "source_filenames": [
+        "R27_AT100-R27_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT100/hdf5/R28_AT100-R28_simulation.h5",
+      "bytes": 15567803,
+      "sha256": "91972db51810da3ee01d65d07542b37be6aaf9e600e437ffbf0a44599b835e7e",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0158"
+      ],
+      "source_filenames": [
+        "R28_AT100-R28_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT100/hdf5/R29_AT100-R29_simulation.h5",
+      "bytes": 16858490,
+      "sha256": "a47a179b452f4db0407b11f5cc608078afef66a2e9a9184c528c30e5de1cf4e1",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0159"
+      ],
+      "source_filenames": [
+        "R29_AT100-R29_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT100/hdf5/R30_AT100-R30_simulation.h5",
+      "bytes": 15886739,
+      "sha256": "d709255b998ed9f8b6fea54e3d49ea71caec2acede45fb25f01391633fed4baf",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0160"
+      ],
+      "source_filenames": [
+        "R30_AT100-R30_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT100/hdf5/R31_AT100-R31_simulation.h5",
+      "bytes": 15879602,
+      "sha256": "3c1d85c9bcddb70ba6f754bdeb5f53f5115f6859815caf33743c63325b9a1376",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0161"
+      ],
+      "source_filenames": [
+        "R31_AT100-R31_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT100/hdf5/R32_AT100-R32_simulation.h5",
+      "bytes": 10218217,
+      "sha256": "2d8b49ba2fdedb948eb023488c0a432e96f99f52f927c323db7b1f4d831affab",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0162"
+      ],
+      "source_filenames": [
+        "R32_AT100-R32_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT100/hdf5/R33_AT100-R33_simulation.h5",
+      "bytes": 14651238,
+      "sha256": "115d2366a661d959f44aa03c004b0fcd3a3fbe4d0da4d8be114029805bafb34d",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0163"
+      ],
+      "source_filenames": [
+        "R33_AT100-R33_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT100/hdf5/R34_AT100-R34_simulation.h5",
+      "bytes": 23274735,
+      "sha256": "c1ad764edc8b2c5f3ccc2ccecb7160c82df2ba98de492290cefdabaa1eafde35",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0164"
+      ],
+      "source_filenames": [
+        "R34_AT100-R34_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT100/hdf5/R35_AT100-R35_simulation.h5",
+      "bytes": 8586559,
+      "sha256": "46a1bbc22199a7ab829981c43a570b833dceb880ba2229c6207494eccaa5725a",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0165"
+      ],
+      "source_filenames": [
+        "R35_AT100-R35_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT100/hdf5/R36_AT100-R36_simulation.h5",
+      "bytes": 10417401,
+      "sha256": "03ac8b42b8a007c43f110ea44c14f574e22f03957a31b7662268671b7e67adc4",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0166"
+      ],
+      "source_filenames": [
+        "R36_AT100-R36_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT100/hdf5/R37_AT100-R37_simulation.h5",
+      "bytes": 13521134,
+      "sha256": "4356acddfa2b9536df5cad356b18498303f21dff26cd8da1371b4dac73d3e1dc",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0167"
+      ],
+      "source_filenames": [
+        "R37_AT100-R37_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT100/hdf5/R39_AT100-R39_simulation.h5",
+      "bytes": 8902134,
+      "sha256": "3f573cc7091d4bfc9b905ac27176052260718712cd91857b1f49aadb3040921a",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0168"
+      ],
+      "source_filenames": [
+        "R39_AT100-R39_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT100/hdf5/R41_AT100-R41_simulation.h5",
+      "bytes": 9387582,
+      "sha256": "c81cb67a4b89b50fae74c8df37c6624cb33c569d86a47dc8716f92d5eb7c63bc",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0169"
+      ],
+      "source_filenames": [
+        "R41_AT100-R41_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT100/hdf5/R42_AT100-R42_simulation.h5",
+      "bytes": 14096848,
+      "sha256": "0137c0e75b2f4a386f093bd9609882900a56fe6fda5cad85efa5f54d01b79c72",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0170"
+      ],
+      "source_filenames": [
+        "R42_AT100-R42_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT100/hdf5/R43_AT100-R43_simulation.h5",
+      "bytes": 22698402,
+      "sha256": "a411eff6cdcc6ecee5e8b1b8a2c1e1f74c41d346359ee2b4a721414a9d751cb7",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0171"
+      ],
+      "source_filenames": [
+        "R43_AT100-R43_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT100/hdf5/R44_AT100-R44_simulation.h5",
+      "bytes": 13008842,
+      "sha256": "592c3fce339b9e98838d2a31ce0d7f875a3e2fcae2391307f4b9920ba0c331dc",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0172"
+      ],
+      "source_filenames": [
+        "R44_AT100-R44_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT100/hdf5/R45_AT100-R45_simulation.h5",
+      "bytes": 11281818,
+      "sha256": "73293e31db2d6335656158b64d0347930e655d94f6cf08b870f8ece2e5035eaf",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0173"
+      ],
+      "source_filenames": [
+        "R45_AT100-R45_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT100/hdf5/R46_AT100-R46_simulation.h5",
+      "bytes": 15497387,
+      "sha256": "edc1d0d5318cfe09e6d3f5ab4f437c454969a1414194755234e2f6bc31d1f779",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0174"
+      ],
+      "source_filenames": [
+        "R46_AT100-R46_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT100/hdf5/R47_AT100-R47_simulation.h5",
+      "bytes": 21973940,
+      "sha256": "8db48c364682c2dc55b789bc4cd9a2a8f480add2699c522c725154f8aa126020",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0175"
+      ],
+      "source_filenames": [
+        "R47_AT100-R47_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT100/hdf5/R48_AT100-R48_simulation.h5",
+      "bytes": 13244335,
+      "sha256": "ed0b13fae5d2bb6cd5ef6c62dd31b85a171c158664ce78b4d93d02ff4bb63dab",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0176"
+      ],
+      "source_filenames": [
+        "R48_AT100-R48_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT100/hdf5/R49_AT100-R49_simulation.h5",
+      "bytes": 23242588,
+      "sha256": "c17e3d1644e755b4770505ac5cef2eaf90dc4c3018b4991a544c7c3b879eab47",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0177"
+      ],
+      "source_filenames": [
+        "R49_AT100-R49_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT50/hdf5/R10_AT50-R10_simulation.h5",
+      "bytes": 6422026,
+      "sha256": "3ce5b38e4f888534804b289b874da11e064bad4af1e99ec60a8ae060361afe22",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0178"
+      ],
+      "source_filenames": [
+        "R10_AT50-R10_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT50/hdf5/R11_AT50-R11_simulation.h5",
+      "bytes": 7162154,
+      "sha256": "e065f68e84d5614a44abccca1a4d0aaaf6458c2197684784534acfff6b4edaa0",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0179"
+      ],
+      "source_filenames": [
+        "R11_AT50-R11_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT50/hdf5/R12_AT50-R12_simulation.h5",
+      "bytes": 5276657,
+      "sha256": "e2cf1dd1c88e12c39d9f91003aba8887310d8d3fb7cbbc5a6b32c550055a069d",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0180"
+      ],
+      "source_filenames": [
+        "R12_AT50-R12_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT50/hdf5/R13_AT50-R13_simulation.h5",
+      "bytes": 7347028,
+      "sha256": "97f567144bd3964a8cf5f02c8bfad15d5703a0a6cd35d7a3d6f98fc6f6a22de0",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0181"
+      ],
+      "source_filenames": [
+        "R13_AT50-R13_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT50/hdf5/R14_AT50-R14_simulation.h5",
+      "bytes": 7061545,
+      "sha256": "4309198a0adc958dca6a7ebfaed98ab12091a846bb3d6dccbc21b27c3e5ae50c",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0182"
+      ],
+      "source_filenames": [
+        "R14_AT50-R14_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT50/hdf5/R15_AT50-R15_simulation.h5",
+      "bytes": 7965214,
+      "sha256": "bfb0884aaafa6811792aef9ab5c9f9bc9ce8e64e1afffb9659c82d129a0992af",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0183"
+      ],
+      "source_filenames": [
+        "R15_AT50-R15_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT50/hdf5/R16_AT50-R16_simulation.h5",
+      "bytes": 6913740,
+      "sha256": "6c26f5974935975b2ac88c8c4685f70fbd18a2c2f798e89409ce1d93685b83c5",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0184"
+      ],
+      "source_filenames": [
+        "R16_AT50-R16_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT50/hdf5/R17_AT50-R17_simulation.h5",
+      "bytes": 6353924,
+      "sha256": "e2dba98ba7b4eccb50f5ff53dd799c47de1fde5f1efab450975606171ba6331f",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0185"
+      ],
+      "source_filenames": [
+        "R17_AT50-R17_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT50/hdf5/R18_AT50-R18_simulation.h5",
+      "bytes": 7675294,
+      "sha256": "ac10f19795170833bfa0cc80979176c19590114ca373ca279a2fbf87a50900ed",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0186"
+      ],
+      "source_filenames": [
+        "R18_AT50-R18_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT50/hdf5/R19_AT50-R19_simulation.h5",
+      "bytes": 7831339,
+      "sha256": "9cbefecbbc1874b2990cf48914f98649202929371ed311f8a9cb0c56da47c4fa",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0187"
+      ],
+      "source_filenames": [
+        "R19_AT50-R19_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT50/hdf5/R20_AT50-R20_simulation.h5",
+      "bytes": 5571476,
+      "sha256": "d287bf760be104ce81cef29778d470879b8115ed42552186b58632f98fa08c5d",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0188"
+      ],
+      "source_filenames": [
+        "R20_AT50-R20_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT50/hdf5/R23_AT50-R23_simulation.h5",
+      "bytes": 5549973,
+      "sha256": "d226df87d24824597ef66f77019f41744e458bf121f3e75145e6a0008421817a",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0189"
+      ],
+      "source_filenames": [
+        "R23_AT50-R23_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT50/hdf5/R24_AT50-R24_simulation.h5",
+      "bytes": 8690157,
+      "sha256": "e367d0c8c4477d38156deb4c0e6c3dfd9f711e514c99f55d2dc82dd7589e59d8",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0190"
+      ],
+      "source_filenames": [
+        "R24_AT50-R24_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT50/hdf5/R25_AT50-R25_simulation.h5",
+      "bytes": 4037458,
+      "sha256": "164ac1e65fc27cbf24516d65e61b95006150db097fbaf3c59b33ff7ef24eaf06",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0191"
+      ],
+      "source_filenames": [
+        "R25_AT50-R25_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT50/hdf5/R26_AT50-R26_simulation.h5",
+      "bytes": 6200024,
+      "sha256": "431211ca790173daaa5d313b36b9703a42c0190060674d5b8ad0f72e8fe98e1c",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0192"
+      ],
+      "source_filenames": [
+        "R26_AT50-R26_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT50/hdf5/R27_AT50-R27_simulation.h5",
+      "bytes": 6836334,
+      "sha256": "1ac59d04de61e9cf4df194733a075ccc2c92af5b54aab57a6119e99529b91e62",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0193"
+      ],
+      "source_filenames": [
+        "R27_AT50-R27_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT50/hdf5/R28_AT50-R28_simulation.h5",
+      "bytes": 8511861,
+      "sha256": "dcfa9a54536f8f879d095ee1f6c98004cc79a0297c5c14e301a94d3bb720b86b",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0194"
+      ],
+      "source_filenames": [
+        "R28_AT50-R28_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT50/hdf5/R29_AT50-R29_simulation.h5",
+      "bytes": 8219150,
+      "sha256": "7c0ffd505b444e34897aa8b6a068895e51b83d807d95a5c22c138f605d16436c",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0195"
+      ],
+      "source_filenames": [
+        "R29_AT50-R29_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT50/hdf5/R30_AT50-R30_simulation.h5",
+      "bytes": 6603816,
+      "sha256": "66ff282d28e3adfff89a99282e50e667d74f951853653ea1a2b8526050b4b70f",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0196"
+      ],
+      "source_filenames": [
+        "R30_AT50-R30_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT50/hdf5/R31_AT50-R31_simulation.h5",
+      "bytes": 7426837,
+      "sha256": "5bc77052c141bfb295bb54f69af06294a56bea8005c978f5a8ef8c9ae86ecf4a",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0197"
+      ],
+      "source_filenames": [
+        "R31_AT50-R31_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT50/hdf5/R32_AT50-R32_simulation.h5",
+      "bytes": 7370801,
+      "sha256": "51b4db892d4ea2987c5fa2a0b58fba1e5298b847b2fd280da54ba10f8640ce91",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0198"
+      ],
+      "source_filenames": [
+        "R32_AT50-R32_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT50/hdf5/R33_AT50-R33_simulation.h5",
+      "bytes": 5556985,
+      "sha256": "9c6bb0bc5a6ee4a746539b787356792812fda3aed55be9e7ac15b2155798309c",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0199"
+      ],
+      "source_filenames": [
+        "R33_AT50-R33_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT50/hdf5/R34_AT50-R34_simulation.h5",
+      "bytes": 6361641,
+      "sha256": "e0e1a171fd47dc22239a495ead17d5e102e61fc6a35f163bb2ac33b1e8cabc21",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0200"
+      ],
+      "source_filenames": [
+        "R34_AT50-R34_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT50/hdf5/R36_AT50-R36_simulation.h5",
+      "bytes": 7314281,
+      "sha256": "70253bd8577d15edec6a5c7e9bd191afe82b65bac0c22830d02b3d0d407aa5ef",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0201"
+      ],
+      "source_filenames": [
+        "R36_AT50-R36_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT50/hdf5/R37_AT50-R37_simulation.h5",
+      "bytes": 5881712,
+      "sha256": "642d643443f17a2fc4296a50e070b63a5cbf5da3475ff733ca5352db4c6c1f84",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0202"
+      ],
+      "source_filenames": [
+        "R37_AT50-R37_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT50/hdf5/R39_AT50-R39_simulation.h5",
+      "bytes": 4786796,
+      "sha256": "e8deba05ebcc9c8b4f59607c81378ca25024acbd59b6c796ab96930bc1b4ae36",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0203"
+      ],
+      "source_filenames": [
+        "R39_AT50-R39_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT50/hdf5/R41_AT50-R41_simulation.h5",
+      "bytes": 6249764,
+      "sha256": "05d5b21628cd20a696a38486b282795d82a6ad352ba0bc7cc02ba59de1dcf5d2",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0204"
+      ],
+      "source_filenames": [
+        "R41_AT50-R41_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT50/hdf5/R42_AT50-R42_simulation.h5",
+      "bytes": 4387945,
+      "sha256": "5e1ca0c710bee0a1b785ea2d18957c1f021be3563109b442ebe5ebee75bef385",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0205"
+      ],
+      "source_filenames": [
+        "R42_AT50-R42_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT50/hdf5/R43_AT50-R43_simulation.h5",
+      "bytes": 7351880,
+      "sha256": "cdf3bc7f6c39e8ef9a41a91aac228c50d2a6d961574a627a67cb20220e8b90bb",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0206"
+      ],
+      "source_filenames": [
+        "R43_AT50-R43_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT50/hdf5/R44_AT50-R44_simulation.h5",
+      "bytes": 5510462,
+      "sha256": "0f6f85e7f10d024ab73b452c2f2c9b617e8af2b3641b5bfe55ec038c5b664bc7",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0207"
+      ],
+      "source_filenames": [
+        "R44_AT50-R44_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT50/hdf5/R45_AT50-R45_simulation.h5",
+      "bytes": 4145944,
+      "sha256": "68eb5efc353329c8c4e083f4e6fabc366307cbcb9c4dfbea4a162f0c397f7e54",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0208"
+      ],
+      "source_filenames": [
+        "R45_AT50-R45_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT50/hdf5/R46_AT50-R46_simulation.h5",
+      "bytes": 5806584,
+      "sha256": "9088a8df10882a81822df25945dc0b3dc2151fa63f2dd602e85d775f980bacde",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0209"
+      ],
+      "source_filenames": [
+        "R46_AT50-R46_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT50/hdf5/R47_AT50-R47_simulation.h5",
+      "bytes": 7237961,
+      "sha256": "977cd2e5f54c181027dac94fc2d2fa05e39f22245f588d46c6984aed8d73ba8c",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0210"
+      ],
+      "source_filenames": [
+        "R47_AT50-R47_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT50/hdf5/R48_AT50-R48_simulation.h5",
+      "bytes": 6284372,
+      "sha256": "e1b74d66ea420cb875b8ce30f33a27b0a15c7e9963e85258a553a744fd42be6e",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0211"
+      ],
+      "source_filenames": [
+        "R48_AT50-R48_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_AT50/hdf5/R49_AT50-R49_simulation.h5",
+      "bytes": 4260783,
+      "sha256": "4d5736755a164c9b70ad7b1aeddc56e2d39324417281f562268f85564f5f6732",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0212"
+      ],
+      "source_filenames": [
+        "R49_AT50-R49_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_CT/hdf5/R10_CT-R10_simulation.h5",
+      "bytes": 2777546,
+      "sha256": "c8dc11b9cf1cec8847c08473505718841c7134ec48f6998511a2ad2ca1ba423f",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0213"
+      ],
+      "source_filenames": [
+        "R10_CT-R10_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_CT/hdf5/R11_CT-R11_simulation.h5",
+      "bytes": 3333843,
+      "sha256": "22061f26ae607604cef62406bb5a7c825f2687afaf907e76395e83eaf2fbc3ad",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0214"
+      ],
+      "source_filenames": [
+        "R11_CT-R11_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_CT/hdf5/R12_CT-R12_simulation.h5",
+      "bytes": 4126711,
+      "sha256": "a508e93e137a16e345d08d654190dc750d264909f543dcc079f32826817b65bb",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0215"
+      ],
+      "source_filenames": [
+        "R12_CT-R12_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_CT/hdf5/R13_CT-R13_simulation.h5",
+      "bytes": 4066898,
+      "sha256": "2c328f5cd26f1d6ccf40a5fe2749b76598cf43347b3f24ff03a37fc088da5c83",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0216"
+      ],
+      "source_filenames": [
+        "R13_CT-R13_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_CT/hdf5/R14_CT-R14_simulation.h5",
+      "bytes": 4968734,
+      "sha256": "47dd451ec331a24b6b07bf914663af47341c715099be4e8de70b567963fc0ba8",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0217"
+      ],
+      "source_filenames": [
+        "R14_CT-R14_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_CT/hdf5/R15_CT-R15_simulation.h5",
+      "bytes": 2874184,
+      "sha256": "41c9438dd5a77210d57c0407e561ae228ad39e338f5344177dc4f3e04a8c96e0",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0218"
+      ],
+      "source_filenames": [
+        "R15_CT-R15_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_CT/hdf5/R16_CT-R16_simulation.h5",
+      "bytes": 2139792,
+      "sha256": "d5be2f3cae0821fc3570c77d7dfa75a8311db1a16bed211cc5aaeb1321a2ae1b",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0219"
+      ],
+      "source_filenames": [
+        "R16_CT-R16_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_CT/hdf5/R17_CT-R17_simulation.h5",
+      "bytes": 1907600,
+      "sha256": "4bb0e80a55925b5cda4ccc0f7387ef3a6e68e7d2471342cf1f98d0e83bf08b6e",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0220"
+      ],
+      "source_filenames": [
+        "R17_CT-R17_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_CT/hdf5/R18_CT-R18_simulation.h5",
+      "bytes": 3696937,
+      "sha256": "6bcecdc9479539dd6d520f78070341eeb7be25ebe75376cddf07ad7d3f3ac273",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0221"
+      ],
+      "source_filenames": [
+        "R18_CT-R18_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_CT/hdf5/R19_CT-R19_simulation.h5",
+      "bytes": 3991220,
+      "sha256": "d32790aad6ed37b8ec83edcd464464f319707aca0258bdf268fb2af78caf9990",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0222"
+      ],
+      "source_filenames": [
+        "R19_CT-R19_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_CT/hdf5/R20_CT-R20_simulation.h5",
+      "bytes": 2899792,
+      "sha256": "f997dc619406636937e486d0141e2c71db77c4913b7add230546741839a9f1fd",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0223"
+      ],
+      "source_filenames": [
+        "R20_CT-R20_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_CT/hdf5/R23_CT-R23_simulation.h5",
+      "bytes": 4862668,
+      "sha256": "a1af3489bd81ffcaa0863ea584cd8adfadb0de6eb277e185871ab522873b94d7",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0224"
+      ],
+      "source_filenames": [
+        "R23_CT-R23_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_CT/hdf5/R24_CT-R24_simulation.h5",
+      "bytes": 2816639,
+      "sha256": "5ec61c38cc1e841495524ed171feb493e09419ee1a00b3796bae5696aa542366",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0225"
+      ],
+      "source_filenames": [
+        "R24_CT-R24_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_CT/hdf5/R25_CT-R25_simulation.h5",
+      "bytes": 3143139,
+      "sha256": "f19855c216d47c88d4508ebedb7fe1f6a5826301500c5dd6c45c665dc7df01ca",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0226"
+      ],
+      "source_filenames": [
+        "R25_CT-R25_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_CT/hdf5/R26_CT-R26_simulation.h5",
+      "bytes": 3226080,
+      "sha256": "ffb32b2645f7176e3a58ae5a4f6dd97aaf804e7cd9516c04f512acd213567833",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0227"
+      ],
+      "source_filenames": [
+        "R26_CT-R26_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_CT/hdf5/R27_CT-R27_simulation.h5",
+      "bytes": 4566178,
+      "sha256": "8c038572278552321b8600893844f521bdaf28d3537743ab82aad613c971c623",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0228"
+      ],
+      "source_filenames": [
+        "R27_CT-R27_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_CT/hdf5/R28_CT-R28_simulation.h5",
+      "bytes": 3362969,
+      "sha256": "a28f802a97913f6a8e341b64217e87df425b2865d31675465af2939be4183d4e",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0229"
+      ],
+      "source_filenames": [
+        "R28_CT-R28_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_CT/hdf5/R29_CT-R29_simulation.h5",
+      "bytes": 3237654,
+      "sha256": "3687535735a37c5bd26c8ff9cea0775bb048526ea8f11b6845ad677b45758472",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0230"
+      ],
+      "source_filenames": [
+        "R29_CT-R29_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_CT/hdf5/R30_CT-R30_simulation.h5",
+      "bytes": 3674759,
+      "sha256": "9392be888c18120154a52c9a5ce5298f656c367d6b835c435f3f86872d8701c1",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0231"
+      ],
+      "source_filenames": [
+        "R30_CT-R30_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_CT/hdf5/R31_CT-R31_simulation.h5",
+      "bytes": 3038114,
+      "sha256": "e3448ca2704c3181a9f8b12d3f766eae03a9ee363db617af33a25a1d8e7ace03",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0232"
+      ],
+      "source_filenames": [
+        "R31_CT-R31_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_CT/hdf5/R32_CT-R32_simulation.h5",
+      "bytes": 2284247,
+      "sha256": "56c7f3744aa462f0bc3919c42cda36358211dac0cc433f7901e71439062a211b",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0233"
+      ],
+      "source_filenames": [
+        "R32_CT-R32_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_CT/hdf5/R33_CT-R33_simulation.h5",
+      "bytes": 4218431,
+      "sha256": "1de307fce7780302badb580e864986ba19a6852bff45aeaeaf94470671226c07",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0234"
+      ],
+      "source_filenames": [
+        "R33_CT-R33_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_CT/hdf5/R34_CT-R34_simulation.h5",
+      "bytes": 6371947,
+      "sha256": "8da539ca7e0dbbea49160d18e643abd4c24252b2e567e6374ea591a09a590607",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0235"
+      ],
+      "source_filenames": [
+        "R34_CT-R34_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_CT/hdf5/R35_CT-R35_simulation.h5",
+      "bytes": 2858784,
+      "sha256": "874d49eb4197b2aba91720793ccd331797a9c15409a0bb3aafba6fa885725c59",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0236"
+      ],
+      "source_filenames": [
+        "R35_CT-R35_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_CT/hdf5/R36_CT-R36_simulation.h5",
+      "bytes": 3346007,
+      "sha256": "9c93f14f1b10f003f762b78af69e2218913304526fb5e7011e440b6e71f7fca0",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0237"
+      ],
+      "source_filenames": [
+        "R36_CT-R36_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_CT/hdf5/R37_CT-R37_simulation.h5",
+      "bytes": 3855157,
+      "sha256": "8d6449e6bd716cfbb36a735b93690b159015e4f31969b627eb58f35bd82ef91c",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0238"
+      ],
+      "source_filenames": [
+        "R37_CT-R37_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_CT/hdf5/R39_CT-R39_simulation.h5",
+      "bytes": 2001989,
+      "sha256": "46d9d0bad1e0fedd23a0bebd914acf441369feee87f32e2129ccef505f5619e3",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0239"
+      ],
+      "source_filenames": [
+        "R39_CT-R39_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_CT/hdf5/R41_CT-R41_simulation.h5",
+      "bytes": 6019208,
+      "sha256": "e1d09afb38812d64bf9de2a7b12b1ba6762b9c979b0437d66a461fa7ca59b655",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0240"
+      ],
+      "source_filenames": [
+        "R41_CT-R41_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_CT/hdf5/R42_CT-R42_simulation.h5",
+      "bytes": 2689477,
+      "sha256": "03d032585f38e3c8b83699387cc42acd787c713ee329889d8a66fe39768ece8c",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0241"
+      ],
+      "source_filenames": [
+        "R42_CT-R42_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_CT/hdf5/R43_CT-R43_simulation.h5",
+      "bytes": 2845851,
+      "sha256": "c520d990f5cb0f20181e212f726b342cf3a6f71bc2442b126d1799759e6043a6",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0242"
+      ],
+      "source_filenames": [
+        "R43_CT-R43_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_CT/hdf5/R44_CT-R44_simulation.h5",
+      "bytes": 4059074,
+      "sha256": "40447a28ca9b8ba56f91a77cfd068568690329ca311ed8b97095e6f80c391813",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0243"
+      ],
+      "source_filenames": [
+        "R44_CT-R44_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_CT/hdf5/R45_CT-R45_simulation.h5",
+      "bytes": 3825279,
+      "sha256": "4d6a9750fce15842cb5bb2ce01cdeccb574fc66866f3461e837066cb5d13d8f7",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0244"
+      ],
+      "source_filenames": [
+        "R45_CT-R45_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_CT/hdf5/R46_CT-R46_simulation.h5",
+      "bytes": 3179242,
+      "sha256": "c2b99a03158c0f6fe0b219bea83367f5f602b792384d0333c23e780a7c87173b",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0245"
+      ],
+      "source_filenames": [
+        "R46_CT-R46_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_CT/hdf5/R47_CT-R47_simulation.h5",
+      "bytes": 2974160,
+      "sha256": "4577e283028d1b1fdf1272d1ac28333db282fe4b5b475f63fae7eadb08726ddd",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0246"
+      ],
+      "source_filenames": [
+        "R47_CT-R47_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_CT/hdf5/R48_CT-R48_simulation.h5",
+      "bytes": 2709298,
+      "sha256": "8b9d1313c0f62528feb25977a958e1c2c0b25150a9c694bfbf4f28b0210e0e61",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0247"
+      ],
+      "source_filenames": [
+        "R48_CT-R48_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit/intermediate_analysis_data/simulation/basic/prepared_pointclouds/Plate_CT/hdf5/R49_CT-R49_simulation.h5",
+      "bytes": 5272879,
+      "sha256": "06bf89463c02c2f79b35d7b5c6054868cdc0da02faec5985cc9a579283361be1",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0248"
+      ],
+      "source_filenames": [
+        "R49_CT-R49_simulation.h5"
+      ],
+      "dataset_groups": [
+        "audit simulation HDF5"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit_support/analysis/__init__.py",
+      "bytes": 64,
+      "sha256": "79ae456151e728edb11c54b8e8d5d558daf84234df062268412105dc5759d447",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0249"
+      ],
+      "source_filenames": [
+        "__init__.py"
+      ],
+      "dataset_groups": [
+        "audit immutable code inputs"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit_support/analysis/figure_2/__init__.py",
+      "bytes": 65,
+      "sha256": "60a2286cb57c11a7cebb8e0df43bc9cdf16504a7393be77996621140e8bbec89",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0250"
+      ],
+      "source_filenames": [
+        "__init__.py"
+      ],
+      "dataset_groups": [
+        "audit immutable code inputs"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit_support/analysis/figure_2/Event_Time_Analysis.py",
+      "bytes": 12225,
+      "sha256": "f1af8fada7c14165375c3083591e26d16eee12e4884f1982301d46344b3dda45",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0251"
+      ],
+      "source_filenames": [
+        "Event_Time_Analysis.py"
+      ],
+      "dataset_groups": [
+        "audit immutable code inputs"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit_support/strategy_colors.py",
+      "bytes": 3551,
+      "sha256": "a263f0c6e4c89f1586663fc37c7b22ec6733716ede524145205588caceda11f3",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0252"
+      ],
+      "source_filenames": [
+        "strategy_colors.py"
+      ],
+      "dataset_groups": [
+        "audit immutable code inputs"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit_support/experiment_filters.py",
+      "bytes": 8698,
+      "sha256": "0e93497d20a99c33df01fe1d5277aedf62793afba8d85a590f6b31ada60a9b19",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0253"
+      ],
+      "source_filenames": [
+        "experiment_filters.py"
+      ],
+      "dataset_groups": [
+        "audit immutable code inputs"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit_support/figures/Figure_2/b_TTE CT & AT100.py",
+      "bytes": 23005,
+      "sha256": "198d2a859d90b340349da00eca1f0396e2074c653937c724df40f659222c4514",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0254"
+      ],
+      "source_filenames": [
+        "b_TTE CT & AT100.py"
+      ],
+      "dataset_groups": [
+        "audit immutable code inputs"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit_support/figures/Figure_2/c_TTF CT & AT100.py",
+      "bytes": 21863,
+      "sha256": "24e0abc84858cb6f6ca25caf7e88076400731f773888006904d1de38d0ef0226",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0255"
+      ],
+      "source_filenames": [
+        "c_TTF CT & AT100.py"
+      ],
+      "dataset_groups": [
+        "audit immutable code inputs"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/audit_support/figures/Figure_4/e_Figure_4_Kaplan_Meier_in_vitro_and_in_silico.py",
+      "bytes": 33176,
+      "sha256": "25b45ff9c9df4216081c44e894839dbd50943c79df3a81dde5ab6814a7afbd38",
+      "scripts": [
+        "output/logrank_audit/verify_logrank.py"
+      ],
+      "source_ids": [
+        "source-0256"
+      ],
+      "source_filenames": [
+        "e_Figure_4_Kaplan_Meier_in_vitro_and_in_silico.py"
+      ],
+      "dataset_groups": [
+        "audit immutable code inputs"
+      ],
+      "distribution": "normal_git"
+    },
+    {
+      "path": "Data/config/figstyle.mplstyle",
+      "bytes": 1797,
+      "sha256": "13da89cb73e6cc0a8aeae77304da448f06a303eb45226d8c248be9ed8fe75dcb",
+      "scripts": [
+        "Figure 2.3.py",
+        "Figure 3.3.py",
+        "Figure 3.8 Elias.py",
+        "Figure 4.1.py",
+        "Figure 4.2.py",
+        "Figure 4.8 Low Adhesion KM.py",
+        "Figure 4.9.py",
+        "Figure 4.10 Global Population Competition.py",
+        "Figure 4.11 Spheroid Disruption.py",
+        "Figure 4.13 Isabel 1.py",
+        "Figure 4.16 Isabel 2.py",
+        "Figure 5.5 S100.py",
+        "figtools.py"
+      ],
+      "source_ids": [
+        "source-0257"
+      ],
+      "source_filenames": [
+        "figstyle.mplstyle"
+      ],
+      "dataset_groups": [
+        "plot style configuration"
+      ],
+      "distribution": "normal_git"
+    }
+  ],
+  "missing_inputs": [
+    {
+      "configuration": "experiment_info_isabel.py",
+      "experiment": "August_experiment_1x",
+      "expected_root": "Data/isabel/August_experiment_1x",
+      "status": "Unavailable original experiment directory; no replacement inferred.",
+      "expected_directories": [
+        "Tifs",
+        "timestacks",
+        "videos",
+        "timestacks/Excel/Additional_info"
+      ],
+      "expected_files": [
+        "timestacks/metadata.xlsx",
+        "resistance_group/metadata.xlsx",
+        "timestacks/all_data_nested.pkl",
+        "timestacks/all_fluorescence_data.pkl",
+        "timestacks/all_data_total_norm.pkl",
+        "timestacks/Fluorescence_intensity_data.xlsx",
+        "timestacks/Normalized_replicates.xlsx",
+        "timestacks/TFluorescence_intensity_data_total_average.xlsx",
+        "timestacks/total_fluorescence_intensity.xlsx",
+        "timestacks/total_fluorescence_intensities_and_derivatives_BGsub.xlsx"
+      ]
+    }
+  ],
+  "deduplication": "The four byte-identical ME_A2-3 workbook sources share one destination. Distinct filenames/replicates retained even if content happens to match."
+}

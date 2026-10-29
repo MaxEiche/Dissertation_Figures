@@ -22,6 +22,7 @@ Panel (b): Per-replicate fraction of imaging days spent on treatment,
 from __future__ import annotations
 
 from pathlib import Path
+from data_paths import DATA_ROOT, output_dir
 from typing import Dict, List, Tuple
 
 import numpy as np
@@ -47,12 +48,10 @@ from scipy.stats import kruskal, mannwhitneyu  # NEW
 # ---------------------------------------------------------------------
 
 # Excel file with Plate 1/2 and treatment sheets
-DATA_XLS = Path(
-    r"Y:\Members\MaxE\Thesis\Organized Figures\Chapter_4\Figure 4.8 Low-Adhesion KM + Fractions\ME_A2-3 Data.xlsx"
-)
+DATA_XLS = DATA_ROOT / "low_adhesion" / "ME_A2-3 Data.xlsx"
 
 # Output PDF for the combined figure
-OUT_PDF = DATA_XLS.parent / "Figure 4.8_KM_plus_fraction.pdf"
+OUT_PDF = output_dir("figures", "figure_4_8") / "Figure 4.8_KM_plus_fraction.pdf"
 
 
 # ---------------------------------------------------------------------

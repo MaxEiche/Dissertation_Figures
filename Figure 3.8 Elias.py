@@ -25,6 +25,7 @@ from __future__ import annotations
 
 import warnings
 from pathlib import Path
+from data_paths import DATA_ROOT, output_dir
 from typing import Dict, List, Tuple
 
 import numpy as np
@@ -47,11 +48,9 @@ from figtools import (
 # Paths
 # ---------------------------------------------------------------------
 
-DATA_DIR = Path(
-    r"Y:\Members\MaxE\Thesis\Organized Figures\Chapter_3\Figure 3.8 Elias Scatterplot"
-)
+DATA_DIR = DATA_ROOT / "elias_competition"
 
-OUT_PDF = DATA_DIR / "Figure 3.8_Elias_AbsoluteGrowth.pdf"
+OUT_PDF = output_dir("figures", "figure_3_8") / "Figure 3.8_Elias_AbsoluteGrowth.pdf"
 
 
 # ---------------------------------------------------------------------

@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from data_paths import DATA_ROOT, output_dir
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -31,11 +32,9 @@ from figtools import (
 )
 
 
-DATA_XLS = Path(
-    r"Y:\Members\MaxE\Thesis\Organized Figures\Chapter_4\Figure 4.9 Treatment effect on res growth\ME_A2-3 Data.xlsx"
-)
-OUT_PDF = DATA_XLS.parent / "Figure 4.9 TreatmentEffect_on_ResistantGrowth.pdf"
-OUT_STATS = DATA_XLS.parent / "Figure 4.9 TreatmentEffect_on_ResistantGrowth_stats.json"
+DATA_XLS = DATA_ROOT / "low_adhesion" / "ME_A2-3 Data.xlsx"
+OUT_PDF = output_dir("figures", "figure_4_9") / "Figure 4.9 TreatmentEffect_on_ResistantGrowth.pdf"
+OUT_STATS = output_dir("figures", "figure_4_9") / "Figure 4.9 TreatmentEffect_on_ResistantGrowth_stats.json"
 
 SAMPLE_GROUPS = {
     "No treatment": ["A1", "A2", "A3", "A4", "A5", "A6"],

@@ -1,0 +1,54 @@
+{
+  "release_url": "TODO: insert the GitHub Release URL after manual publication",
+  "assets": [
+    {
+      "asset_name": "2024_04_04 d0 Doubledropdrugdilution-01_processed_MIPs.czi",
+      "expected_destination": "Data/microscopy/figure_4_1/2024_04_04 d0 Doubledropdrugdilution-01_processed_MIPs.czi",
+      "bytes": 246798848,
+      "sha256": "944f2b7e1f31c86ed45b59efbf8cf973061b5934da489b577155d8b67e5d607d",
+      "below_2_gib": true
+    },
+    {
+      "asset_name": "2024_04_05 d1 Doubledropdrugdilution-01_processed_MIPs.czi",
+      "expected_destination": "Data/microscopy/figure_4_1/2024_04_05 d1 Doubledropdrugdilution-01_processed_MIPs.czi",
+      "bytes": 246763328,
+      "sha256": "2b4bb5318db30888eb1a21ba93cb16ead4d6d1603abdb5d4d10b80611a6f487b",
+      "below_2_gib": true
+    },
+    {
+      "asset_name": "2024_04_06 d2 Doublelayerdropdrugdilution-01_processed_MIPs.czi",
+      "expected_destination": "Data/microscopy/figure_4_1/2024_04_06 d2 Doublelayerdropdrugdilution-01_processed_MIPs.czi",
+      "bytes": 60933120,
+      "sha256": "950e014dade8a1f246f621ca38efd123536c0b6ee9ed57f8e231a16d34452592",
+      "below_2_gib": true
+    },
+    {
+      "asset_name": "2024_04_08 d4 Doublelayerdropdrugdilution-01_processed_MIPs.czi",
+      "expected_destination": "Data/microscopy/figure_4_1/2024_04_08 d4 Doublelayerdropdrugdilution-01_processed_MIPs.czi",
+      "bytes": 60959296,
+      "sha256": "b7718447ebffb52fbaa3ba4b7a91a233721f076831ff0a7a174746adb5397a02",
+      "below_2_gib": true
+    },
+    {
+      "asset_name": "2024_04_10 d6 Doubledropdrugdilution-01_processed_MIPs.czi",
+      "expected_destination": "Data/microscopy/figure_4_1/2024_04_10 d6 Doubledropdrugdilution-01_processed_MIPs.czi",
+      "bytes": 246772480,
+      "sha256": "08b825671f4bbe301b541195606a6f7290eb400a372a7ee2e58f25785042178d",
+      "below_2_gib": true
+    },
+    {
+      "asset_name": "2024_04_15 d11 Doubledropdrugdilution-01_processed_MIPs.czi",
+      "expected_destination": "Data/microscopy/figure_4_1/2024_04_15 d11 Doubledropdrugdilution-01_processed_MIPs.czi",
+      "bytes": 614171232,
+      "sha256": "9fb4e7510faeccb19fbf999c358e310429e90a88a7000909b09e24035a7905ca",
+      "below_2_gib": true
+    },
+    {
+      "asset_name": "2024_04_22 d18 Doubledropdrugdilution-01_processed_MIPs.czi",
+      "expected_destination": "Data/microscopy/figure_4_1/2024_04_22 d18 Doubledropdrugdilution-01_processed_MIPs.czi",
+      "bytes": 614237248,
+      "sha256": "4289665464d41a42515f4e427553cdd7e5723dc930cd8af12fb03c939b5cbaf8",
+      "below_2_gib": true
+    }
+  ]
+}

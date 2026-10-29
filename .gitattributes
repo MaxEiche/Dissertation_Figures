@@ -1,0 +1,2 @@
+# Preserve the exact input bytes recorded in DATA_SOURCE_MANIFEST.json.
+Data/** -text

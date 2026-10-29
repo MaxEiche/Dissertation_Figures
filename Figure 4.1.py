@@ -1,5 +1,6 @@
 # Figure_4_5_combined.py - Spheroid sinking behaviour + resistant growth (side-by-side)
 from pathlib import Path
+from data_paths import DATA_ROOT, output_dir
 
 import numpy as np
 import pandas as pd
@@ -21,13 +22,11 @@ from experiment_filters import EXCLUDE_SAMPLES  # required by global pipeline
 # -----------------------
 # Paths
 # -----------------------
-EXCEL_PATH = Path(
-    r"Y:\Members\MaxE\Thesis\Organized Figures\Chapter_4\Figure 4.1\Spheroid Height DropSeeding.xlsx"
-)
-ROOT_INT = Path(r"Y:\Members\MaxE\Thesis\Organized Figures\Chapter_4\Figure 4.1")
+EXCEL_PATH = DATA_ROOT / "spheroid_sinking" / "Spheroid Height DropSeeding.xlsx"
+ROOT_INT = DATA_ROOT / "spheroid_sinking"
 CSV_PATH = ROOT_INT / "intensity_sum2d_per_channel_per_scene.csv"
 
-OUTDIR = Path(r"Y:\Members\MaxE\Thesis\Organized Figures\Chapter_4\Figure 4.1")
+OUTDIR = output_dir("figures", "figure_4_1")
 OUTDIR.mkdir(parents=True, exist_ok=True)
 
 # -----------------------
